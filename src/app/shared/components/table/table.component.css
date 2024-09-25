@@ -1,0 +1,100 @@
+/* Estilos para mejorar la tabla */
+table {
+  width: 100%;
+  margin: 20px auto;
+  border-collapse: collapse;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1); /* Sombra suave alrededor de la tabla */
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+/* Estilos para la cabecera */
+.cabecera {
+  font-size: 20px;
+  background-color: var(--color-primary);
+  color: white;
+  text-align: center;
+  padding: 10px;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+/* Estilos para las filas */
+.highline {
+  text-align: center;
+  padding: 10px;
+  background-color: var(--color-filas); /* Color alterno para las filas */
+  color: var(--color-texto);
+  border-bottom: 1px solid #e0e0e0; /* Línea divisoria sutil */
+  transition: background-color 0.3s ease; /* Transición suave para hover */
+}
+
+.highline:hover {
+  background-color: #f5f5f5; /* Color de fondo en hover */
+}
+
+/* Alineación centrada para el texto de las celdas */
+td {
+  padding: 12px;
+  text-align: center;
+  font-size: 16px;
+}
+
+/* Encabezados de las columnas centrados */
+.centro {
+  font-weight: bold;
+  font-size: 18px;
+  text-align: center;
+}
+
+/* Alternancia de colores para filas */
+tr:nth-child(even) .highline {
+  background-color: #fafafa;
+}
+
+tr:nth-child(odd) .highline {
+  background-color: #ffffff;
+}
+
+/* Añadir estilos a los inputs cuando están en modo de edición */
+input {
+  width: 100%;
+  padding: 5px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+/* Mejoras en el aspecto visual de los botones */
+button {
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 8px 16px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #388e3c;
+}
+
+/* Estilo para iconos dentro de los botones */
+button mat-icon {
+  margin-right: 5px;
+  font-size: 18px;
+}
+
+/* Mejoras de visibilidad en pantallas pequeñas */
+@media (max-width: 768px) {
+  td, th {
+      font-size: 14px;
+      padding: 8px;
+  }
+
+  .cabecera {
+      font-size: 18px;
+  }
+}

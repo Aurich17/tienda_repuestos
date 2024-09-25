@@ -1,0 +1,235 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px 20px;
+  background: linear-gradient(to right, #007bff, #00c6ff);
+  margin-bottom: 5px;
+}
+
+.title {
+  font-family: 'Roboto', sans-serif;
+  font-size: 40px; /* Un poco más pequeño */
+  font-weight: bold;
+  color: #ffffff;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.nav-links {
+  display: flex;
+  gap: 20px;
+}
+
+.nav-links a {
+  font-family: 'Roboto', sans-serif;
+  font-size: 18px;
+  color: #ffffff;
+  text-decoration: none;
+  padding: 10px;
+  border-radius: 5px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.nav-links a:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+  color: #ffffff; /* Color del texto al pasar el mouse */
+}
+
+.login-btn {
+  font-family: 'Roboto', sans-serif;
+  font-size: 18px;
+  font-weight: bold;
+  color: #ffffff;
+  background-color: #ff6b6b; /* Color de fondo */
+  border: none;
+  border-radius: 25px; /* Borde redondeado */
+  padding: 10px 20px; /* Espaciado dentro del botón */
+  cursor: pointer;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra ligera */
+  transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease; /* Transiciones */
+}
+
+.login-btn:hover {
+  background-color: #ff4c4c; /* Cambia el color de fondo al pasar el ratón */
+  transform: translateY(-3px); /* Efecto de elevación */
+  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2); /* Sombra más intensa en hover */
+}
+
+.login-btn:active {
+  background-color: #ff3838; /* Color más oscuro al hacer clic */
+  transform: translateY(1px); /* Simulación de presionado */
+}
+
+.category {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  background-color: #f8f9fa;
+  padding: 10px 0;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.category h3 {
+  font-family: 'Roboto', sans-serif;
+  font-size: 20px;
+  color: #007bff;
+  cursor: pointer;
+  padding: 10px 20px;
+  border-radius: 10px;
+  transition: background-color 0.3s ease;
+}
+
+.category h3:hover {
+  background-color: #007bff;
+  color: white;
+}
+
+.container_cards{
+  /* background-color: red; */
+  width: 98%;
+  height: 100%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  width: 200px;
+  padding: 20px;
+  background-color: #fcf4f4;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin: 10px;
+}
+
+.button_card {
+  flex: 1;
+  margin: 0 5px;
+  padding: 8px;
+  font-size: 14px;
+  border: none;
+  border-radius: 5px;
+  background-color: #007bff;
+  color: white;
+  cursor: pointer;
+}
+
+.container_buttons_card {
+  margin-top: 15px;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.card img {
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+
+.card img:hover {
+  transform: scale(1.1); /* Efecto de zoom al pasar el mouse */
+}
+
+.favorite_icon {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.favorite_icon i {
+  width: 24px;
+  height: 24px;
+  display: inline-block;
+}
+
+.favorite_icon i.fa-regular.fa-heart {
+  color: black;
+}
+
+.favorite_icon i.fa-solid.fa-heart {
+  color: red;
+}
+
+.card_info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.card_name {
+  font-size: 18px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.card_price {
+  font-size: 16px;
+  color: #666;
+  margin-top: 5px;
+}
+
+.button_card:hover {
+  background-color: #0056b3;
+}
+
+.search-bar {
+  display: flex;
+  align-items: center; /* Alinea los elementos dentro del buscador */
+}
+
+.search-bar input {
+  padding: 8px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  outline: none;
+  margin-right: 10px;
+}
+
+.search-bar button {
+  padding: 8px 12px;
+  font-size: 16px;
+  border: none;
+  background-color: #007BFF;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.search-bar button:hover {
+  background-color: #0056b3;
+}
+
+
+.custom-snackbar {
+  background-color: #4caf50; /* Cambia el fondo del snackbar */
+  color: white; /* Cambia el color del texto */
+  font-size: 16px; /* Ajusta el tamaño de la fuente */
+  padding: 20px; /* Ajusta el padding */
+  border-radius: 10px; /* Esquinas redondeadas */
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2); /* Añade sombra */
+  text-align: center; /* Centra el texto */
+}
+
+.custom-snackbar .mat-simple-snackbar-action {
+  color: yellow; /* Cambia el color del botón de acción (si existe) */
+}
+
+.custom-snackbar .mat-simple-snackbar-content {
+  font-weight: bold; /* Cambia el peso del texto */
+}

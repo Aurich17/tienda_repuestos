@@ -1,0 +1,28 @@
+
+<div fxLayout="column">
+
+<table matTableExporter mat-table [dataSource] = "dataSource"  #exporter="matTableExporter"> <!--Recibe los datos-->
+ <ng-container></ng-container>
+    <ng-container *ngFor="let metadata of metadataTable" [matColumnDef]="metadata.field">
+        <th mat-sort-header="name" mat-header-cell *matHeaderCellDef class="centro">
+          {{ metadata.title }}
+        </th>
+        <td mat-cell *matCellDef="let row" >
+          <ng-container *ngIf="row.IsEditing && metadata.editable; else showName">
+            <input   [(ngModel)]="row[metadata.field]"  [type] = "metadata.type" />
+          </ng-container>
+          <ng-template #showName>
+            {{ row[metadata.field] }}
+          </ng-template>
+
+        </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="columnsToView" class="cabecera"></tr>
+    <tr mat-row *matRowDef="let row; columns: columnsToView" class="highline"></tr>
+ </table>
+</div>
+<!-- <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"   [length]="dataTable?.length"></mat-paginator> -->
+<!-- <div>
+  <button mat-raised-button style="width: 10%;" color="warn" (click)="exporter.exportTable('xlsx', {fileName:'Informe', sheet: 'Datos', Props: {Author: 'Filtros lys'}})">Excel</button>
+</div> -->

@@ -1,0 +1,42 @@
+<div class="header">
+  <h1 class="title">CellPhone</h1>
+  <div class="nav-links">
+    <a href="#about">About Us</a>
+    <a href="#contact">Contact</a>
+    <a href="#admin" *ngIf="isAdmin">Admin</a>
+    <button class="login-btn" (click)="openLogin()">Login</button>
+  </div>
+</div>
+<div class="category">
+  <h3>All</h3>
+  <h3>Samsung</h3>
+  <h3>Huawei</h3>
+  <h3>Motorola</h3>
+  <h3>Xiaomi</h3>
+  <h3>Bitel</h3>
+  <h3>Realme</h3>
+  <div class="search-bar">
+    <input type="text" placeholder="Search..." id="search-input">
+    <button id="search-button">Search</button>
+  </div>
+</div>
+
+  <div class="container_cards">
+    <div class="card" *ngFor="let item of list">
+      <div class="favorite_icon" (click)="toggleFavorite(item)">
+        <i class="fa-solid fa-heart" *ngIf="item.favorite"></i>
+        <i class="fa-regular fa-heart" *ngIf="!item.favorite"></i>
+      </div>
+      <img [src]="item['imagen']" alt="{{item['nombre']}}">
+      <div class="card_info">
+        <label class="card_name">{{item['nombre']}}</label>
+        <label class="card_price">{{item['precio']}}</label>
+      </div>
+      <div class="container_buttons_card">
+        <button class="button_card" (click)="mensaje()">Add</button>
+        <button class="button_card" (click)="openDetails(item)">Details</button>
+      </div>
+    </div>
+  </div>
+
+

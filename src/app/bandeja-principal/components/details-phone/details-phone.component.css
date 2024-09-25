@@ -1,0 +1,94 @@
+.container_general {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.container_image {
+  width: 45%;
+  height: 90%;
+  /* background-color: green; */
+  display: flex;
+  justify-content: space-around;
+  flex-direction: column;
+  /* position: relative; Esto es necesario para el posicionamiento absoluto del nombre */
+}
+
+.container_details {
+  /* background-color: blue; */
+  width: 45%;
+  height: 90%;
+  border-radius: 10px; /* Bordes redondeados */
+}
+
+.image_name_container h2{
+ text-align: center;
+ font-size: 35px;
+}
+
+.image_container{
+  display: flex;
+  justify-content: center;
+}
+
+img {
+  width: 400px;
+  height: 400px;
+  object-fit: cover;
+  border-radius: 10px; /* Bordes redondeados */
+  transition: transform 0.3s; /* Transición suave */
+  margin: 0 auto;
+  align-items: center;
+}
+
+img:hover {
+  transform: scale(1.05);
+}
+
+
+/* TABLE */
+.available-yes {
+  background-color: #4caf50; /* Verde */
+  color: white;
+  padding: 5px;
+  border-radius: 4px;
+}
+
+.available-no {
+  background-color: #f44336; /* Rojo */
+  color: white;
+  padding: 5px;
+  border-radius: 4px;
+}
+
+
+/* BUTTON CAR */
+.cart-button {
+  background-color: #007bff;
+  color: white;
+  border-radius: 5px;
+  padding: 10px 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s ease;
+  border: none;
+}
+
+.cart-button mat-icon {
+  margin-right: 8px; /* Espacio entre el icono y el texto */
+  font-size: 24px; /* Tamaño del icono */
+}
+
+.cart-button:hover {
+  background-color: #0056b3; /* Color de fondo más oscuro al hacer hover */
+  box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.2); /* Sombra más fuerte al hacer hover */
+}
+
+.cart-button:active {
+  background-color: #0056b3; /* Color más oscuro cuando está activo (click) */
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2); /* Sombra más pequeña al hacer click */
+}
