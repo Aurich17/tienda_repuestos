@@ -4,6 +4,8 @@ import { ApiService } from 'src/app/services/services_api';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { CustomMessageComponent } from 'src/app/message_custom/custom-message/custom-message.component';
+import { Observable } from 'rxjs';
+import { HttpHeaders } from '@angular/common/http';
 
 @Component({
   selector: 'app-login',
@@ -13,6 +15,7 @@ import { CustomMessageComponent } from 'src/app/message_custom/custom-message/cu
 export class LoginComponent implements OnInit {
 
     group!:FormGroup
+    group_login!:FormGroup
     constructor(public dialog: MatDialog,private apiService: ApiService,private snackBar: MatSnackBar) {}
     @ViewChild(CustomMessageComponent) customMessageComponent!: CustomMessageComponent;
 
@@ -28,6 +31,11 @@ export class LoginComponent implements OnInit {
         user_email : new FormControl(null,null),
         user_password: new FormControl(null,null)
       });
+
+      this.group_login = new FormGroup({
+        login_user: new FormControl(null,null),
+        login_password: new FormControl(null,null)
+      })
      }
 
     ngOnInit():void{
@@ -72,6 +80,38 @@ export class LoginComponent implements OnInit {
             verticalPosition: "top", // Posición del snackbar
             horizontalPosition: "end"
           });
+        }
+      );
+    }
+
+    login(): void {
+      const values = this.group_login.value;
+      this.apiService.loginUsuario({
+        username: values.login_user,
+        password: values.login_password
+      }).subscribe(
+        (response) => {
+          localStorage.setItem('access_token', response.access_token);
+          alert('LOGIN EXITOSO');
+          this.apiService.getProfile().subscribe(
+            (profile) => {
+              // Ahora tienes los detalles del perfil
+              if (profile.is_admin) {
+                alert('Eres un administrador');
+                // Redirigir a una página de administrador o realizar una acción específica
+              } else {
+                alert('Eres un usuario normal');
+                // Redirigir a otra página o realizar una acción para usuarios normales
+              }
+            },
+            (error) => {
+              console.error('Error al obtener el perfil:', error);
+            }
+          );
+        },
+        (error) => {
+          alert('ACCESO DENEGADO');
+          console.error('Error en el login:', error);
         }
       );
     }
