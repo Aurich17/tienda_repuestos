@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { LoginRequest } from '../login/domain/request/login_request';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +15,7 @@ export class ApiService {
     return this.http.post(`${this.apiUrl}/insert_user`, item);
   }
 
-  loginUsuario(item: any): Observable<any> {
+  loginUsuario(item: LoginRequest): Observable<any> {
     const headers = new HttpHeaders({
       'Content-Type': 'application/x-www-form-urlencoded'
     });
@@ -23,7 +24,7 @@ export class ApiService {
     body.set('username', item.username);
     body.set('password', item.password);
 
-    return this.http.post(`${this.apiUrl}/token`, body.toString(), { headers });
+    return this.http.post(`${this.apiUrl}/login`, body.toString(), { headers });
   }
 
   getProfile(): Observable<any> {

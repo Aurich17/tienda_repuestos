@@ -19,6 +19,13 @@ import { HttpClientModule } from '@angular/common/http';
 import { LoginComponent } from './login/login/login.component';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { CustomMessageComponent } from './message_custom/custom-message/custom-message.component';
+import { PanelAdminComponent } from './administrador_panel/presentacion/panel-admin/panel-admin.component';
+import {MatSidenavModule} from '@angular/material/sidenav';
+import {MatListModule} from '@angular/material/list';
+import { MantProductoComponent } from './administrador_panel/presentacion/mant-producto/mant-producto.component';
+import {MatToolbarModule} from '@angular/material/toolbar';
+import { GestorMenusComponent } from './gestor-menus/gestor-menus.component';
+import {MatInputModule} from '@angular/material/input';
 
 @NgModule({
   declarations: [
@@ -27,7 +34,10 @@ import { CustomMessageComponent } from './message_custom/custom-message/custom-m
     DetailsPhoneComponent,
     TableComponent,
     LoginComponent,
-    CustomMessageComponent
+    CustomMessageComponent,
+    PanelAdminComponent,
+    MantProductoComponent,
+    GestorMenusComponent
   ],
   imports: [
     BrowserModule,
@@ -43,7 +53,11 @@ import { CustomMessageComponent } from './message_custom/custom-message/custom-m
     MatIconModule,
     HttpClientModule,
     ReactiveFormsModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatSidenavModule,
+    MatListModule,
+    MatToolbarModule,
+    MatInputModule
   ],
   providers: [],
   bootstrap: [AppComponent]

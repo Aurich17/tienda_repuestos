@@ -5,6 +5,7 @@ import { ApiService } from '../services/services_api';
 import { LoginComponent } from '../login/login/login.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { CustomMessageComponent } from '../message_custom/custom-message/custom-message.component'; // Importa el componente personalizado
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-bandeja-principal',
@@ -15,7 +16,7 @@ import { CustomMessageComponent } from '../message_custom/custom-message/custom-
 })
 export class BandejaPrincipalComponent {
   isAdmin: boolean = true;
-  constructor(public dialog: MatDialog,private apiService: ApiService,private snackBar: MatSnackBar) {}
+  constructor(public dialog: MatDialog,private apiService: ApiService,private snackBar: MatSnackBar, private router: Router) {}
 
   // OPEN MODAL
   openDetails(item:any) {

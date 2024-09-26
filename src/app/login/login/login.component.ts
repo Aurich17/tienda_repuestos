@@ -1,11 +1,13 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { ApiService } from 'src/app/services/services_api';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { CustomMessageComponent } from 'src/app/message_custom/custom-message/custom-message.component';
 import { Observable } from 'rxjs';
 import { HttpHeaders } from '@angular/common/http';
+import { LoginRequest } from '../domain/request/login_request';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -16,7 +18,7 @@ export class LoginComponent implements OnInit {
 
     group!:FormGroup
     group_login!:FormGroup
-    constructor(public dialog: MatDialog,private apiService: ApiService,private snackBar: MatSnackBar) {}
+    constructor(public dialog: MatDialog,private apiService: ApiService,private snackBar: MatSnackBar, private router: Router,public dialogRef: MatDialogRef<LoginComponent>) {}
     @ViewChild(CustomMessageComponent) customMessageComponent!: CustomMessageComponent;
 
     showCustomMessage() {
@@ -84,23 +86,30 @@ export class LoginComponent implements OnInit {
       );
     }
 
+
+    closeDialog(): void {
+      this.dialogRef.close();  // Aquí puedes pasar un valor si es necesario
+    }
+
     login(): void {
       const values = this.group_login.value;
-      this.apiService.loginUsuario({
-        username: values.login_user,
-        password: values.login_password
-      }).subscribe(
+      // Crear el objeto LoginRequest
+      const loginRequest:LoginRequest = <LoginRequest>{}//(){};
+      //-----------------------------------------------------------------------------------
+      loginRequest.password = values.login_password
+      loginRequest.username = values.login_user
+      //-----------------------------------------------------------------------------------
+      this.apiService.loginUsuario(loginRequest).subscribe(
         (response) => {
           localStorage.setItem('access_token', response.access_token);
-          alert('LOGIN EXITOSO');
+
           this.apiService.getProfile().subscribe(
             (profile) => {
-              // Ahora tienes los detalles del perfil
               if (profile.is_admin) {
-                alert('Eres un administrador');
-                // Redirigir a una página de administrador o realizar una acción específica
+                this.router.navigate(['/admin']);
+                this.closeDialog()
               } else {
-                alert('Eres un usuario normal');
+                // alert('Eres un usuario normal');
                 // Redirigir a otra página o realizar una acción para usuarios normales
               }
             },
@@ -110,7 +119,7 @@ export class LoginComponent implements OnInit {
           );
         },
         (error) => {
-          alert('ACCESO DENEGADO');
+          // alert('ACCESO DENEGADO');
           console.error('Error en el login:', error);
         }
       );

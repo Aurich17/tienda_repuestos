@@ -1,0 +1,41 @@
+<!-- <mat-drawer-container class="example-container">
+  <mat-drawer mode="side" opened>
+    <h3 style="text-align: center;">CellStore Admin</h3>
+    <mat-nav-list>
+      <a mat-list-item [routerLink]="['/admin/dashboard']">Dashboard</a>
+      <a mat-list-item [routerLink]="['/admin/add-product']">Product Maintenance</a>
+    </mat-nav-list>
+  </mat-drawer>
+  <mat-drawer-content>
+    <router-outlet></router-outlet>
+  </mat-drawer-content>
+</mat-drawer-container> -->
+
+
+<mat-toolbar>
+  <button mat-icon-button *ngIf="sidenav.mode === 'over'" (click)="sidenav.toggle()">
+    <mat-icon *ngIf="!sidenav.opened">menu</mat-icon>
+    <mat-icon *ngIf="sidenav.opened">close</mat-icon>
+  </button>
+  Panel Admin
+</mat-toolbar>
+<mat-sidenav-container>
+  <mat-sidenav>
+    <mat-nav-list>
+      <mat-list-item (click)="sidenav.mode === 'over' && sidenav.toggle()" routerLink="/admin">
+        <mat-icon matListItemIcon>dashboard</mat-icon>
+        Dashboard
+      </mat-list-item>
+      <mat-list-item (click)="sidenav.mode === 'over' && sidenav.toggle()" [routerLink]="['/admin/add-product']">
+        <mat-icon matListItemIcon>stay_primary_portrait</mat-icon>
+        Mant Phone
+      </mat-list-item>
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <div class="content">
+      <!-- <router-outlet></router-outlet> -->
+      <router-outlet></router-outlet>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>
