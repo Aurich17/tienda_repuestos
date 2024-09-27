@@ -26,6 +26,8 @@ import { MantProductoComponent } from './administrador_panel/presentacion/mant-p
 import {MatToolbarModule} from '@angular/material/toolbar';
 import { GestorMenusComponent } from './gestor-menus/gestor-menus.component';
 import {MatInputModule} from '@angular/material/input';
+import { NewPhoneComponent } from './administrador_panel/presentacion/new-phone/new-phone.component';
+import {MatSelectModule} from '@angular/material/select';
 
 @NgModule({
   declarations: [
@@ -37,7 +39,8 @@ import {MatInputModule} from '@angular/material/input';
     CustomMessageComponent,
     PanelAdminComponent,
     MantProductoComponent,
-    GestorMenusComponent
+    GestorMenusComponent,
+    NewPhoneComponent
   ],
   imports: [
     BrowserModule,
@@ -57,7 +60,8 @@ import {MatInputModule} from '@angular/material/input';
     MatSidenavModule,
     MatListModule,
     MatToolbarModule,
-    MatInputModule
+    MatInputModule,
+    MatSelectModule
   ],
   providers: [],
   bootstrap: [AppComponent]

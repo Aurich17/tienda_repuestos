@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { LoginRequest } from '../login/domain/request/login_request';
+import { Marca } from '../administrador_panel/domain/response/administrador_response';
 
 @Injectable({
   providedIn: 'root'
@@ -36,4 +37,12 @@ export class ApiService {
     return this.http.get(`${this.apiUrl}/users/profile`, { headers });
   }
 
+  getMarcas(): Observable<Marca[]> {  // Cambia el tipo a Observable<Marca[]>
+    const token = localStorage.getItem('access_token');
+    const headers = {
+      'Authorization': `Bearer ${token}`
+    };
+
+    return this.http.get<Marca[]>(`${this.apiUrl}/marcas/`, { headers });  // Usa el endpoint correcto
+  }
 }

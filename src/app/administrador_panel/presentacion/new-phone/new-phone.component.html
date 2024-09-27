@@ -1,0 +1,86 @@
+<mat-drawer-container class="example-container">
+  <!-- Panel lateral para la carga de imagen -->
+  <mat-drawer mode="side" opened class="drawer-image">
+    <div class="image-upload-container">
+      <h3>Image Phone</h3>
+      <!-- Botón para seleccionar una imagen desde el sistema -->
+      <input type="file" (change)="onImageSelected($event)" accept="image/*">
+      <!-- Vista previa de la imagen cargada -->
+      <div class="image-preview" *ngIf="selectedImage">
+        <img [src]="selectedImage" alt="Imagen del celular" class="preview-img">
+      </div>
+    </div>
+    <h4 style="text-align: center;">{{name_phone}}</h4>
+  </mat-drawer>
+
+  <!-- Contenido principal con los campos del celular -->
+  <mat-drawer-content>
+    <form [formGroup]="formNewPhone" (ngSubmit)="onSubmit()">
+      <div class="form-container">
+
+        <div class="container_form">
+          <!-- Nombre del celular -->
+          <mat-form-field appearance="outline" class="input2">
+            <mat-label>Model Phone</mat-label>
+            <input matInput type="text" formControlName="phoneName">
+          </mat-form-field>
+          <!-- Precio del celular -->
+          <mat-form-field appearance="outline" class="input1">
+            <mat-label>Price</mat-label>
+            <input matInput type="number" formControlName="phonePrice">
+          </mat-form-field>
+          <!-- Marca -->
+          <mat-form-field appearance="outline" class="input1">
+            <mat-label>Marca</mat-label>
+            <mat-select>
+              <mat-option *ngFor="let marca of marcas" [value]="marca.id">
+                {{marca.nombre_marca}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <!-- Componentes del celular -->
+        <h3>Componentes del celular</h3>
+
+        <!-- Tabla para componentes -->
+        <div formArrayName="components" *ngFor="let component of components.controls; let i = index">
+          <div [formGroupName]="i" class="component-row">
+            <!-- Nombre del componente -->
+            <div class="container_form">
+              <mat-form-field appearance="outline" class="input2">
+                <mat-label>Nombre del componente</mat-label>
+                <input matInput formControlName="componentName" placeholder="Ej: Pantalla">
+              </mat-form-field>
+
+              <mat-form-field appearance="outline" class="input1">
+                <mat-label>Cantidad</mat-label>
+                <input matInput type="number" formControlName="componentQuantity" placeholder="Ej: 2">
+              </mat-form-field>
+
+              <mat-form-field appearance="outline" class="input1">
+                <mat-label>Precio</mat-label>
+                <input matInput type="number" formControlName="componentPrice" placeholder="Ej: 99.99">
+              </mat-form-field>
+
+              <!-- Botón para eliminar componente -->
+              <button mat-icon-button color="warn" (click)="removeComponent(i)" class="button_delete">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Botón para agregar más componentes -->
+        <div class="container_button">
+          <button mat-raised-button color="primary" (click)="addComponent()">
+            Agregar componente
+          </button>
+          <!-- Botón para guardar -->
+          <button mat-raised-button color="accent" type="submit">Guardar Celular</button>
+        </div>
+
+      </div>
+    </form>
+  </mat-drawer-content>
+</mat-drawer-container>

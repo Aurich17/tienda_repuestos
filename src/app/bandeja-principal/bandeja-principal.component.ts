@@ -16,7 +16,7 @@ import { Router } from '@angular/router';
 })
 export class BandejaPrincipalComponent {
   isAdmin: boolean = true;
-  constructor(public dialog: MatDialog,private apiService: ApiService,private snackBar: MatSnackBar, private router: Router) {}
+  constructor(public dialog: MatDialog,private snackBar: MatSnackBar) {}
 
   // OPEN MODAL
   openDetails(item:any) {
