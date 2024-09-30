@@ -20,22 +20,32 @@
   </div>
 </div>
 
-  <div class="container_cards">
-    <div class="card" *ngFor="let item of list">
-      <div class="favorite_icon" (click)="toggleFavorite(item)">
-        <i class="fa-solid fa-heart" *ngIf="item.favorite"></i>
-        <i class="fa-regular fa-heart" *ngIf="!item.favorite"></i>
-      </div>
-      <img [src]="item['imagen']" alt="{{item['nombre']}}">
-      <div class="card_info">
-        <label class="card_name">{{item['nombre']}}</label>
-        <label class="card_price">{{item['precio']}}</label>
-      </div>
-      <div class="container_buttons_card">
-        <button class="button_card" (click)="mensaje()">Add</button>
-        <button class="button_card" (click)="openDetails(item)">Details</button>
-      </div>
+<div class="container_cards">
+  <div class="card" *ngFor="let item of celulares">
+    <div class="favorite_icon" (click)="toggleFavorite(item)">
+      <!-- <i class="fa-solid fa-heart" *ngIf="item.favorite"></i>
+      <i class="fa-regular fa-heart" *ngIf="!item.favorite"></i> -->
+    </div>
+    <img [src]="'data:image/jpeg;base64,' + item.imagen" alt="{{item.marca}} {{item.modelo}}">
+    <div class="card_info">
+      <label class="card_name">{{item.modelo}}</label>
+      <label class="card_price">{{item.precio_completo | currency}}</label>
+    </div>
+    <div class="container_buttons_card">
+      <button class="button_card" (click)="mensaje()">Add</button>
+      <button class="button_card" (click)="openDetails(item)">Details</button>
     </div>
   </div>
+</div>
 
-
+<!-- Footer -->
+<footer class="footer">
+  <div class="footer-content">
+    <p>&copy; 2024 CellPhone. All rights reserved.</p>
+    <div class="social-links">
+      <a href="#facebook">Facebook</a>
+      <a href="#twitter">Twitter</a>
+      <a href="#instagram">Instagram</a>
+    </div>
+  </div>
+</footer>

@@ -6,6 +6,7 @@ import { LoginComponent } from '../login/login/login.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { CustomMessageComponent } from '../message_custom/custom-message/custom-message.component'; // Importa el componente personalizado
 import { Router } from '@angular/router';
+import { CelularResponse } from '../administrador_panel/domain/response/administrador_response';
 
 @Component({
   selector: 'app-bandeja-principal',
@@ -16,8 +17,11 @@ import { Router } from '@angular/router';
 })
 export class BandejaPrincipalComponent {
   isAdmin: boolean = true;
-  constructor(public dialog: MatDialog,private snackBar: MatSnackBar) {}
+  constructor(public dialog: MatDialog,private snackBar: MatSnackBar,private apiService: ApiService) {}
 
+  ngOnInit(){
+    this.muestraPhone()
+  }
   // OPEN MODAL
   openDetails(item:any) {
     this.dialog.open(DetailsPhoneComponent, {
@@ -120,5 +124,19 @@ export class BandejaPrincipalComponent {
       verticalPosition: "top", // Posición del snackbar
       horizontalPosition: "end"
     });
+  }
+
+  celulares!:CelularResponse[]
+
+  muestraPhone(){
+    this.apiService.getCelulares().subscribe(
+      (data: CelularResponse[]) => {
+        this.celulares = data;
+        console.log(this.celulares)
+      },
+      error => {
+        console.error('Error al obtener marcas', error);
+      }
+    );
   }
 }

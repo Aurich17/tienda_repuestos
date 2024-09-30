@@ -20,24 +20,32 @@
 
         <div class="container_form">
           <!-- Nombre del celular -->
-          <mat-form-field appearance="outline" class="input2">
-            <mat-label>Model Phone</mat-label>
-            <input matInput type="text" formControlName="phoneName">
-          </mat-form-field>
-          <!-- Precio del celular -->
-          <mat-form-field appearance="outline" class="input1">
-            <mat-label>Price</mat-label>
-            <input matInput type="number" formControlName="phonePrice">
-          </mat-form-field>
-          <!-- Marca -->
-          <mat-form-field appearance="outline" class="input1">
-            <mat-label>Marca</mat-label>
-            <mat-select>
-              <mat-option *ngFor="let marca of marcas" [value]="marca.id">
-                {{marca.nombre_marca}}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
+           <div class="container_form_sub">
+             <mat-form-field appearance="outline" class="input2">
+               <mat-label>Model Phone</mat-label>
+               <input matInput type="text" formControlName="phoneName">
+             </mat-form-field>
+             <!-- Precio del celular -->
+             <mat-form-field appearance="outline" class="input1">
+               <mat-label>Price</mat-label>
+               <input matInput type="number" formControlName="phonePrice">
+             </mat-form-field>
+             <!-- Marca -->
+             <mat-form-field appearance="outline" class="input1">
+               <mat-label>Marca</mat-label>
+               <mat-select formControlName="phoneMarca">
+                 <mat-option *ngFor="let marca of marcas" [value]="marca.id" >
+                   {{marca.nombre_marca}}
+                 </mat-option>
+               </mat-select>
+             </mat-form-field>
+           </div>
+           <div class="container_form_sub">
+            <mat-form-field appearance="outline" class="input3">
+              <mat-label>Description</mat-label>
+              <input matInput type="text" formControlName="phoneDescription">
+            </mat-form-field>
+           </div>
         </div>
 
         <!-- Componentes del celular -->
@@ -47,7 +55,7 @@
         <div formArrayName="components" *ngFor="let component of components.controls; let i = index">
           <div [formGroupName]="i" class="component-row">
             <!-- Nombre del componente -->
-            <div class="container_form">
+            <div class="container_form_compponent">
               <mat-form-field appearance="outline" class="input2">
                 <mat-label>Nombre del componente</mat-label>
                 <input matInput formControlName="componentName" placeholder="Ej: Pantalla">
@@ -77,7 +85,7 @@
             Agregar componente
           </button>
           <!-- Botón para guardar -->
-          <button mat-raised-button color="accent" type="submit">Guardar Celular</button>
+          <button mat-raised-button color="accent" type="submit" (click)="registrarCelular()">Guardar Celular</button>
         </div>
 
       </div>

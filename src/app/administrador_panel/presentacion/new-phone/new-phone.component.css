@@ -116,16 +116,30 @@ button[mat-icon-button] {
   width: 250px;
 }
 .input3{
-  width: 450px;
+  width: 650px;
 }
 
 .container_form{
   /* background-color: #007BFF; */
   display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  width: 45vw;
+}
+
+.container_form_compponent{
+  display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
   width: 45vw;
+}
+.container_form_sub{
+width: 100%;
+display: flex;
+justify-content: space-between;
+/* background-color: green; */
 }
 
 .container_form_delete {

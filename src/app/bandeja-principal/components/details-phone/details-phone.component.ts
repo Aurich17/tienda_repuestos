@@ -2,6 +2,7 @@ import { Component,Inject} from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MetadataTable } from 'src/app/interfaces/metada-table.interface';
 import { detail_phone_response } from './response/detail-phone.response';
+import { ParteResponse } from 'src/app/administrador_panel/domain/response/administrador_response';
 
 @Component({
   selector: 'app-details-phone',
@@ -11,25 +12,18 @@ import { detail_phone_response } from './response/detail-phone.response';
 export class DetailsPhoneComponent {
   constructor(@Inject(MAT_DIALOG_DATA) public data: any) {
     this.item = data
+    this.dataTable = data.partes || [];
   }
   //ESTO TRAE LOS DATOS DEL CELULAR
   item:any
   columnsToView: string[] = ['attribute', 'value', 'available', 'actions'];
-  dataTable: detail_phone_response[] = [
-    { attribute: "Cámara", value: "200", available: "Yes"},
-    { attribute: "Pantalla", value: "100", available: "No"},
-    { attribute: "Procesador", value: "250", available: "No"},
-    { attribute: "Batería", value: "100", available: "No"},
-    { attribute: "Memoria RAM", value: "120", available: "Yes"},
-    { attribute: "Almacenamiento Interno", value: "250", available: "Yes"},
-    { attribute: "Cargador Rápido", value: "30", available: "Yes"}
-  ];
+  dataTable!: ParteResponse[]
   metadataTable: MetadataTable[] = [
-    { field: "attribute", title: "Attribute" },
-    { field: "value", title: "Value" },
-    { field: "available", title: "Available" } // Solo debe estar una vez
+    { field: "nombre_parte", title: "Attribute" },
+    { field: "precio", title: "Value" },
+    { field: "cantidad", title: "Available" } // Solo debe estar una vez
   ];
   getRowClass(row: any): string {
-    return row.available === 'Yes' ? 'available-yes' : 'available-no';
+    return row.cantidad >  0 ? 'available-yes' : 'available-no';
   }
 }

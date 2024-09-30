@@ -102,6 +102,7 @@
   align-items: center;
   justify-content: space-between;
   width: 200px;
+  height: 250px;
   padding: 20px;
   background-color: #fcf4f4;
   border: 1px solid #ccc;
@@ -232,4 +233,31 @@
 
 .custom-snackbar .mat-simple-snackbar-content {
   font-weight: bold; /* Cambia el peso del texto */
+}
+
+
+/* FOOTER */
+.footer {
+  background-color: #333;  /* Color de fondo del footer */
+  color: white;  /* Color del texto */
+  text-align: center;  /* Centrar el texto */
+  padding: 20px 0;  /* Espaciado superior e inferior */
+  position: relative;  /* Permitir posicionamiento */
+  bottom: 0;  /* Posicionar al fondo */
+  width: 100%;  /* Ancho completo */
+}
+
+.footer-content {
+  max-width: 1200px;  /* Limitar el ancho del contenido */
+  margin: 0 auto;  /* Centrar el contenido */
+}
+
+.social-links a {
+  margin: 0 10px;  /* Espaciado entre los enlaces */
+  color: white;  /* Color de los enlaces */
+  text-decoration: none;  /* Sin subrayado */
+}
+
+.social-links a:hover {
+  text-decoration: underline;  /* Subrayado en hover */
 }
