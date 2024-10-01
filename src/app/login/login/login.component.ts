@@ -93,24 +93,21 @@ export class LoginComponent implements OnInit {
 
     login(): void {
       const values = this.group_login.value;
-      // Crear el objeto LoginRequest
-      const loginRequest:LoginRequest = <LoginRequest>{}//(){};
-      //-----------------------------------------------------------------------------------
-      loginRequest.password = values.login_password
-      loginRequest.username = values.login_user
-      //-----------------------------------------------------------------------------------
+      const loginRequest: LoginRequest = {
+        username: values.login_user,
+        password: values.login_password
+      };
+
       this.apiService.loginUsuario(loginRequest).subscribe(
         (response) => {
           localStorage.setItem('access_token', response.access_token);
-
           this.apiService.getProfile().subscribe(
             (profile) => {
               if (profile.is_admin) {
                 this.router.navigate(['/admin']);
-                this.closeDialog()
+                this.closeDialog();
               } else {
-                // alert('Eres un usuario normal');
-                // Redirigir a otra página o realizar una acción para usuarios normales
+                // Aquí puedes manejar la lógica para usuarios normales
               }
             },
             (error) => {
@@ -119,7 +116,6 @@ export class LoginComponent implements OnInit {
           );
         },
         (error) => {
-          // alert('ACCESO DENEGADO');
           console.error('Error en el login:', error);
         }
       );

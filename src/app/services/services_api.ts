@@ -14,17 +14,14 @@ export class ApiService {
   constructor(private http: HttpClient) {}
 
   insertaUsuario(item: any): Observable<any>{
-    return this.http.post(`${this.apiUrl}/insert_user`, item);
+    return this.http.post(`${this.apiUrl}/register`, item);
   }
 
-  loginUsuario(item: LoginRequest): Observable<any> {
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/x-www-form-urlencoded'
-    });
-
+  loginUsuario(loginRequest: LoginRequest): Observable<any> {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/x-www-form-urlencoded' });
     const body = new URLSearchParams();
-    body.set('username', item.username);
-    body.set('password', item.password);
+    body.set('username', loginRequest.username);
+    body.set('password', loginRequest.password);
 
     return this.http.post(`${this.apiUrl}/login`, body.toString(), { headers });
   }

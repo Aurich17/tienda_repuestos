@@ -1,18 +1,17 @@
 import { Component } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
-import { detail_phone_response } from 'src/app/bandeja-principal/components/details-phone/response/detail-phone.response';
-import { MetadataTable } from 'src/app/interfaces/metada-table.interface';
+import { CelularResponse } from '../../domain/response/administrador_response';
 import { NewPhoneComponent } from '../new-phone/new-phone.component';
+import { MetadataTable } from 'src/app/interfaces/metada-table.interface';
+import { FormControl, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ApiService } from 'src/app/services/services_api';
-import { CelularResponse } from '../../domain/response/administrador_response';
 
 @Component({
-  selector: 'app-mant-producto',
-  templateUrl: './mant-producto.component.html',
-  styleUrls: ['./mant-producto.component.css']
+  selector: 'app-mant-users',
+  templateUrl: './mant-users.component.html',
+  styleUrls: ['./mant-users.component.css']
 })
-export class MantProductoComponent {
+export class MantUsersComponent {
   constructor(public dialog: MatDialog,private apiService: ApiService){}
 
   group!:FormGroup

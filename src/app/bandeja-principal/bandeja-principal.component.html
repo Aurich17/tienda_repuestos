@@ -3,7 +3,9 @@
   <div class="nav-links">
     <a href="#about">About Us</a>
     <a href="#contact">Contact</a>
-    <button class="login-btn" (click)="openLogin()">Login</button>
+    <button class="login-btn" *ngIf="!isLoggedIn" (click)="openLogin()">Login</button>
+    <button class="login-btn" *ngIf="isLoggedIn" (click)="openShoppingCart()">Cart</button>
+    <button class="login-btn" *ngIf="isLoggedIn" (click)="logout()">Logout</button>
   </div>
 </div>
 <div class="category">
@@ -32,7 +34,7 @@
       <label class="card_price">{{item.precio_completo | currency}}</label>
     </div>
     <div class="container_buttons_card">
-      <button class="button_card" (click)="mensaje()">Add</button>
+      <button class="button_card" >Add</button>
       <button class="button_card" (click)="openDetails(item)">Details</button>
     </div>
   </div>

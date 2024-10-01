@@ -28,6 +28,8 @@ import { GestorMenusComponent } from './gestor-menus/gestor-menus.component';
 import {MatInputModule} from '@angular/material/input';
 import { NewPhoneComponent } from './administrador_panel/presentacion/new-phone/new-phone.component';
 import {MatSelectModule} from '@angular/material/select';
+import { MantUsersComponent } from './administrador_panel/presentacion/mant-users/mant-users.component';
+import { ShoppingCartComponent } from './bandeja-principal/components/shopping-cart/shopping-cart.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +42,9 @@ import {MatSelectModule} from '@angular/material/select';
     PanelAdminComponent,
     MantProductoComponent,
     GestorMenusComponent,
-    NewPhoneComponent
+    NewPhoneComponent,
+    MantUsersComponent,
+    ShoppingCartComponent
   ],
   imports: [
     BrowserModule,

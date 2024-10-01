@@ -12,8 +12,8 @@ export interface ParteResponse {
 export interface CelularResponse {
     celular_id: number;
     marca: string;
-    modelo: string;
-    precio_completo: number;
+    modelo: string; //modelo
+    precio_completo: number;//precio
     descripcion?: string;  // Este campo es opcional
     fecha_agregado: string;
     imagen?: string;  // Esto es opcional, dependerá de si envías la imagen o no

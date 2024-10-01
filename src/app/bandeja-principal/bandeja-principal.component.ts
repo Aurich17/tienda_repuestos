@@ -7,6 +7,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { CustomMessageComponent } from '../message_custom/custom-message/custom-message.component'; // Importa el componente personalizado
 import { Router } from '@angular/router';
 import { CelularResponse } from '../administrador_panel/domain/response/administrador_response';
+import { ShoppingCartComponent } from './components/shopping-cart/shopping-cart.component';
 
 @Component({
   selector: 'app-bandeja-principal',
@@ -16,11 +17,14 @@ import { CelularResponse } from '../administrador_panel/domain/response/administ
   // encapsulation: ViewEncapsulation.None
 })
 export class BandejaPrincipalComponent {
+  isLoggedIn: boolean = false;
   isAdmin: boolean = true;
+
   constructor(public dialog: MatDialog,private snackBar: MatSnackBar,private apiService: ApiService) {}
 
   ngOnInit(){
     this.muestraPhone()
+    this.isLoggedIn = !!localStorage.getItem('access_token');
   }
   // OPEN MODAL
   openDetails(item:any) {
@@ -30,6 +34,20 @@ export class BandejaPrincipalComponent {
       //border-radius: '20px',
       data: item
     });
+  }
+
+  openShoppingCart() {
+    if (this.isLoggedIn) {
+      this.dialog.open(ShoppingCartComponent, {
+        width: '60vw',  // ancho
+        height: '90vh',  // altura
+        //border-radius: '20px',
+        // data: item,
+        disableClose: true
+      });// Lógica para abrir el carrito de compras
+    } else {
+      alert('Por favor, inicie sesión para acceder al carrito');
+    }
   }
 
   openLogin() {
@@ -138,5 +156,11 @@ export class BandejaPrincipalComponent {
         console.error('Error al obtener marcas', error);
       }
     );
+  }
+
+  logout(): void {
+    // Eliminar el token de localStorage y actualizar el estado
+    localStorage.removeItem('access_token');
+    this.isLoggedIn = false;
   }
 }
