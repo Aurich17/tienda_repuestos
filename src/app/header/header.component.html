@@ -1,0 +1,24 @@
+<div class="header">
+  <h1 class="title">CellPhone</h1>
+  <div class="nav-links">
+    <input type="text" class="search">
+    <a href="#about">About Us</a>
+    <a href="#contact">Contact</a>
+    <button mat-button class="login-btn login-button" *ngIf="!isLoggedIn" (click)="openLogin()">
+      <mat-icon>login</mat-icon>
+      Login
+    </button>
+
+    <!-- Botón de Carrito -->
+    <button mat-button class="login-btn cart-button" *ngIf="isLoggedIn" (click)="openShoppingCart()">
+      <mat-icon>shopping_cart</mat-icon>
+      Cart
+    </button>
+
+    <!-- Botón de Logout -->
+    <button mat-button class="login-btn logout-button" *ngIf="isLoggedIn" (click)="logout()">
+      <mat-icon>logout</mat-icon>
+      Logout
+    </button>
+  </div>
+</div>

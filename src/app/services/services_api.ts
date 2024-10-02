@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 import { LoginRequest } from '../login/domain/request/login_request';
 import {CelularResponse, Marca } from '../administrador_panel/domain/response/administrador_response';
 import { CelularConPartes } from '../administrador_panel/domain/request/administrador_request';
+import { PayPalResponse } from '../bandeja-principal/components/shopping-cart/response/response_shopping';
 
 @Injectable({
   providedIn: 'root'
@@ -23,7 +24,14 @@ export class ApiService {
     body.set('username', loginRequest.username);
     body.set('password', loginRequest.password);
 
-    return this.http.post(`${this.apiUrl}/login`, body.toString(), { headers });
+    return this.http.post(`${this.apiUrl}/login`, body.toString(), { headers }).pipe(
+      tap((response: any) => {
+        // Suponiendo que el token viene en la respuesta como "access_token"
+        if (response.access_token) {
+          localStorage.setItem('access_token', response.access_token);
+        }
+      })
+    );
   }
 
   getProfile(): Observable<any> {
@@ -66,5 +74,18 @@ export class ApiService {
     };
 
     return this.http.get<CelularResponse[]>(`${this.apiUrl}/celulares/`, { headers });  // Usa el endpoint correcto
+  }
+
+  createPayment(total: number, currency: string): Observable<PayPalResponse> {
+    // Suponiendo que haces una solicitud POST a tu API
+    return this.http.post<PayPalResponse>(`${this.apiUrl}/create-payment`, { total, currency });
+  }
+
+  executePayment(paymentId: string, payerId: string): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/payment/success?paymentId=${paymentId}&PayerID=${payerId}`);
+  }
+
+  getPayPalClientId(): Observable<any> {
+    return this.http.get(`${this.apiUrl}/paypal-client-id`);
   }
 }

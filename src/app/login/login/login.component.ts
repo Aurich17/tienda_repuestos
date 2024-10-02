@@ -8,6 +8,8 @@ import { Observable } from 'rxjs';
 import { HttpHeaders } from '@angular/common/http';
 import { LoginRequest } from '../domain/request/login_request';
 import { Router } from '@angular/router';
+// import {BandejaPrincipalComponent} from
+import { BandejaPrincipalComponent } from 'src/app/bandeja-principal/bandeja-principal.component';
 
 @Component({
   selector: 'app-login',
@@ -107,7 +109,11 @@ export class LoginComponent implements OnInit {
                 this.router.navigate(['/admin']);
                 this.closeDialog();
               } else {
-                // Aquí puedes manejar la lógica para usuarios normales
+                this.dialogRef.close();
+                this.router.navigate(['/store']).then(() => {
+                  // Recargar la página después de la redirección
+                  window.location.reload();
+                });
               }
             },
             (error) => {

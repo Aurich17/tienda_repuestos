@@ -1,14 +1,24 @@
-<div class="header">
+<!-- <div class="header">
   <h1 class="title">CellPhone</h1>
   <div class="nav-links">
     <a href="#about">About Us</a>
     <a href="#contact">Contact</a>
-    <button class="login-btn" *ngIf="!isLoggedIn" (click)="openLogin()">Login</button>
-    <button class="login-btn" *ngIf="isLoggedIn" (click)="openShoppingCart()">Cart</button>
-    <button class="login-btn" *ngIf="isLoggedIn" (click)="logout()">Logout</button>
+    <button mat-button class="login-btn login-button" *ngIf="!isLoggedIn" (click)="openLogin()">
+      <mat-icon>login</mat-icon>
+      Login
+    </button>
+    <button mat-button class="login-btn cart-button" *ngIf="isLoggedIn" (click)="openShoppingCart()">
+      <mat-icon>shopping_cart</mat-icon>
+      Cart
+    </button>
+
+    <button mat-button class="login-btn logout-button" *ngIf="isLoggedIn" (click)="logout()">
+      <mat-icon>logout</mat-icon>
+      Logout
+    </button>
   </div>
-</div>
-<div class="category">
+</div> -->
+<!-- <div class="category">
   <h3>All</h3>
   <h3>Samsung</h3>
   <h3>Huawei</h3>
@@ -20,7 +30,7 @@
     <input type="text" placeholder="Search..." id="search-input">
     <button id="search-button">Search</button>
   </div>
-</div>
+</div> -->
 
 <div class="container_cards">
   <div class="card" *ngFor="let item of celulares">

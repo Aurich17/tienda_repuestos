@@ -1,63 +1,41 @@
-.header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 5px 20px;
-  background: linear-gradient(to right, #007bff, #00c6ff);
-  margin-bottom: 5px;
+.cart-button {
+ background-color:  #28a745;
+ color: #ffffff;
 }
 
-.title {
-  font-family: 'Roboto', sans-serif;
-  font-size: 40px; /* Un poco más pequeño */
-  font-weight: bold;
+.cart-button mat-icon {
+  color: white; /* Ícono verde para el carrito */
+}
+
+.cart-button:hover {
+  background-color: #28a745; /* Fondo verde al hacer hover */
+}
+
+.cart-button:hover mat-icon {
+  color: #ffffff; /* Ícono blanco al hacer hover */
+}
+
+.logout-button {
+  background-color: #dc3545; /* Rojo para el botón de Logout */
   color: #ffffff;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
-.nav-links {
-  display: flex;
-  gap: 20px;
+.logout-button mat-icon {
+  color:  #ffffff; /* Ícono rojo para el Logout */
 }
 
-.nav-links a {
-  font-family: 'Roboto', sans-serif;
-  font-size: 18px;
-  color: #ffffff;
-  text-decoration: none;
-  padding: 10px;
-  border-radius: 5px;
-  transition: background-color 0.3s ease, color 0.3s ease;
+.logout-button:hover {
+  background-color: #dc3545; /* Fondo rojo al hacer hover */
 }
 
-.nav-links a:hover {
-  background-color: rgba(255, 255, 255, 0.2);
-  color: #ffffff; /* Color del texto al pasar el mouse */
+.logout-button:hover mat-icon {
+  color: #ffffff; /* Ícono blanco al hacer hover */
 }
 
-.login-btn {
-  font-family: 'Roboto', sans-serif;
-  font-size: 18px;
-  font-weight: bold;
-  color: #ffffff;
-  background-color: #ff6b6b; /* Color de fondo */
-  border: none;
-  border-radius: 25px; /* Borde redondeado */
-  padding: 10px 20px; /* Espaciado dentro del botón */
-  cursor: pointer;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra ligera */
-  transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease; /* Transiciones */
-}
-
-.login-btn:hover {
-  background-color: #ff4c4c; /* Cambia el color de fondo al pasar el ratón */
-  transform: translateY(-3px); /* Efecto de elevación */
-  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2); /* Sombra más intensa en hover */
-}
-
+/* Estilo cuando se hace clic */
 .login-btn:active {
-  background-color: #ff3838; /* Color más oscuro al hacer clic */
   transform: translateY(1px); /* Simulación de presionado */
+  box-shadow: none; /* Remover sombra al hacer clic */
 }
 
 .category {
@@ -101,13 +79,14 @@
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  width: 200px;
+  width: 190px;
   height: 250px;
   padding: 20px;
-  background-color: #fcf4f4;
-  border: 1px solid #ccc;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background-color: #FFFFFF ;
+  border: 1px solid #F5F5F5;
+  /* color: #ffffff; */
+  border-radius: 20px;
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
   margin: 10px;
 }
 
@@ -118,8 +97,8 @@
   font-size: 14px;
   border: none;
   border-radius: 5px;
-  background-color: #007bff;
-  color: white;
+  background-color: #6CF8A6;
+  color: #1F1F1F;
   cursor: pointer;
 }
 
@@ -180,12 +159,12 @@
 
 .card_price {
   font-size: 16px;
-  color: #666;
+  /* color: #ffffff; */
   margin-top: 5px;
 }
 
 .button_card:hover {
-  background-color: #0056b3;
+  background-color: #39C37D ;
 }
 
 .search-bar {

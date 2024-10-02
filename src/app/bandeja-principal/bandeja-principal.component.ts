@@ -5,9 +5,10 @@ import { ApiService } from '../services/services_api';
 import { LoginComponent } from '../login/login/login.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { CustomMessageComponent } from '../message_custom/custom-message/custom-message.component'; // Importa el componente personalizado
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CelularResponse } from '../administrador_panel/domain/response/administrador_response';
 import { ShoppingCartComponent } from './components/shopping-cart/shopping-cart.component';
+// import { faSignInAlt, faShoppingCart, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-bandeja-principal',
@@ -17,19 +18,39 @@ import { ShoppingCartComponent } from './components/shopping-cart/shopping-cart.
   // encapsulation: ViewEncapsulation.None
 })
 export class BandejaPrincipalComponent {
+  // faSignInAlt = faSignInAlt;
+  // faShoppingCart = faShoppingCart;
+  // faSignOutAlt = faSignOutAlt;
   isLoggedIn: boolean = false;
   isAdmin: boolean = true;
 
-  constructor(public dialog: MatDialog,private snackBar: MatSnackBar,private apiService: ApiService) {}
+  constructor(public dialog: MatDialog,private snackBar: MatSnackBar,private apiService: ApiService,private router: Router, private route: ActivatedRoute) {}
 
   ngOnInit(){
     this.muestraPhone()
     this.isLoggedIn = !!localStorage.getItem('access_token');
+
+    this.route.queryParams.subscribe(params => {
+      const paymentId = params['paymentId'];
+      const payerId = params['PayerID'];
+
+      if (paymentId && payerId) {
+        this.apiService.executePayment(paymentId, payerId).subscribe(
+          (response) => {
+            // Manejar la respuesta de la ejecución del pago
+            console.log('Payment executed successfully', response);
+          },
+          (error) => {
+            console.error('Error executing payment', error);
+          }
+        );
+      }
+    });
   }
   // OPEN MODAL
   openDetails(item:any) {
     this.dialog.open(DetailsPhoneComponent, {
-      width: '100vw',  // ancho
+      width: '70vw',  // ancho
       height: '90vh',  // altura
       //border-radius: '20px',
       data: item

@@ -67,7 +67,7 @@ img:hover {
 
 /* BUTTON CAR */
 .cart-button {
-  background-color: #007bff;
+  background-color: #6CF8A6 ;
   color: white;
   border-radius: 5px;
   padding: 10px 15px;
@@ -81,15 +81,16 @@ img:hover {
 .cart-button mat-icon {
   margin-right: 8px; /* Espacio entre el icono y el texto */
   font-size: 24px; /* Tamaño del icono */
+  color: white;
 }
 
 .cart-button:hover {
-  background-color: #0056b3; /* Color de fondo más oscuro al hacer hover */
+  background-color: #39C37D ; /* Color de fondo más oscuro al hacer hover */
   box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.2); /* Sombra más fuerte al hacer hover */
 }
 
 .cart-button:active {
-  background-color: #0056b3; /* Color más oscuro cuando está activo (click) */
+  background-color: #39C37D ; /* Color más oscuro cuando está activo (click) */
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2); /* Sombra más pequeña al hacer click */
 }
 

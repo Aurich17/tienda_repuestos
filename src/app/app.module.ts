@@ -30,6 +30,7 @@ import { NewPhoneComponent } from './administrador_panel/presentacion/new-phone/
 import {MatSelectModule} from '@angular/material/select';
 import { MantUsersComponent } from './administrador_panel/presentacion/mant-users/mant-users.component';
 import { ShoppingCartComponent } from './bandeja-principal/components/shopping-cart/shopping-cart.component';
+import { HeaderComponent } from './header/header.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,8 @@ import { ShoppingCartComponent } from './bandeja-principal/components/shopping-c
     GestorMenusComponent,
     NewPhoneComponent,
     MantUsersComponent,
-    ShoppingCartComponent
+    ShoppingCartComponent,
+    HeaderComponent,
   ],
   imports: [
     BrowserModule,

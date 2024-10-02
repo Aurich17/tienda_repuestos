@@ -11,7 +11,6 @@ const routes: Routes = [
   // Rutas principales que ocupan toda la pantalla
   { path: '', redirectTo: '/store', pathMatch: 'full' },
   { path: 'store', component: BandejaPrincipalComponent },
-  // { path: 'shopping_cart', component: ShoppingCartComponent},
 
   // Rutas dentro del admin que ocupan toda la pantalla
   { path: 'admin', component: PanelAdminComponent, canActivate: [AdminGuard],

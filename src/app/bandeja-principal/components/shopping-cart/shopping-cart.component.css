@@ -1,7 +1,6 @@
 .shopping-cart-container {
   max-width: 800px;
   margin: 0 auto;
-  /* background-color: */
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
@@ -133,27 +132,25 @@
   cursor: pointer;
 }
 
-
-/* BOTON DE AGREGAR Y DISMINUIR */
 .cart-item-quantity {
   display: flex;
   align-items: center;
-  gap: 10px; /* Espacio entre los botones y el input */
+  gap: 10px;
 }
 
 .cart-item-quantity button {
-  background-color: #007BFF; /* Color azul primario */
+  background-color: #007BFF;
   color: white;
   border: none;
-  border-radius: 5px; /* Bordes redondeados */
-  padding: 8px 12px; /* Tamaño cómodo del botón */
+  border-radius: 5px;
+  padding: 8px 12px;
   font-size: 16px;
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
 
 .cart-item-quantity button:hover {
-  background-color: #0056b3; /* Color más oscuro en hover */
+  background-color: #0056b3;
 }
 
 .cart-item-quantity input {
@@ -172,7 +169,7 @@
 }
 
 .cart-item-remove button {
-  background-color: #DC3545; /* Color rojo */
+  background-color: #DC3545;
   color: white;
   border: none;
   border-radius: 5px;
@@ -183,10 +180,9 @@
 }
 
 .cart-item-remove button:hover {
-  background-color: #c82333; /* Color rojo oscuro en hover */
+  background-color: #c82333;
 }
 
-/* Estilos generales del contenedor del carrito */
 .cart-item {
   display: flex;
   align-items: center;
@@ -197,8 +193,8 @@
 }
 
 .cart-item img {
-  width: 80px; /* Tamaño de la imagen */
-  border-radius: 5px; /* Borde redondeado en la imagen */
+  width: 80px;
+  border-radius: 5px;
 }
 
 .cart-item-details {
@@ -223,3 +219,28 @@
   transition: background-color 0.3s ease;
 }
 
+.paypal-button {
+  background-color: #FFC439; /* Color característico de PayPal */
+  border: none;
+  border-radius: 5px; /* Bordes redondeados */
+  color: #003087; /* Color de texto azul oscuro de PayPal */
+  font-size: 16px;
+  font-weight: bold;
+  padding: 12px 24px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px; /* Espacio entre logo y texto */
+  transition: background-color 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra suave */
+}
+
+.paypal-button:hover {
+  background-color: #FFB300; /* Color más oscuro al hacer hover */
+}
+
+.paypal-logo {
+  width: 24px;
+  height: auto;
+}

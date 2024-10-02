@@ -1,0 +1,83 @@
+*{
+  color: black;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px 20px;
+  background: #6cf8a6;
+  margin-bottom: 5px;
+}
+
+.title {
+  font-size: 40px; /* Un poco más pequeño */
+  font-weight: bold;
+  color: #1F1F1F;
+}
+
+.nav-links {
+  display: flex;
+  gap: 20px;
+}
+
+.nav-links a {
+  font-size: 18px;
+  color: 1F1F1F;
+  text-decoration: none;
+  padding: 10px;
+  border-radius: 5px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.nav-links a:hover {
+  color: #39C37D; /* Color del texto al pasar el mouse */
+}
+
+/* Estilos generales para los botones */
+.login-btn {
+  font-size: 16px; /* Tamaño de fuente más pequeño y minimalista */
+  font-weight: 500; /* Fuente semi-negrita para mayor legibilidad */
+  border-radius: 30px; /* Borde redondeado */
+  padding: 8px 20px; /* Ajuste del padding para un look más limpio */
+  cursor: pointer;
+  display: flex; /* Usar flexbox para alineación */
+  align-items: center; /* Centrar verticalmente íconos y texto */
+  justify-content: center; /* Centrar horizontalmente */
+  gap: 8px; /* Espaciado entre el ícono y el texto */
+  transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease; /* Suavizar la transición */
+  box-shadow: 0 2px 4px rgba(0, 123, 255, 0.3); /* Sombra sutil */
+  border: none;
+}
+
+.login-btn mat-icon {
+  font-size: 20px; /* Tamaño del ícono */
+  color: white; /* Mismo color principal */
+}
+
+/* Hover común para todos los botones */
+.login-btn:hover {
+  background-color: #E65A00; /* Fondo color principal al hacer hover */
+  color: #ffffff; /* Texto en blanco al hacer hover */
+  box-shadow: 0 4px 6px rgba(0, 123, 255, 0.5); /* Sombra más marcada en hover */
+  transform: translateY(-3px); /* Pequeño efecto de elevación */
+}
+
+.login-btn:hover mat-icon {
+  color: #ffffff; /* Cambia el color del ícono a blanco en hover */
+}
+
+/* Estilos específicos para cada botón */
+.login-button {
+  background-color: #FF6D00;
+  color: white;
+  /* border-color: #007bff; Color del borde para el botón de Login */
+}
+
+.search{
+  width: 700px;
+  /* margin: 0 auto; */
+  border-radius: 20px;
+  border: none;
+}
