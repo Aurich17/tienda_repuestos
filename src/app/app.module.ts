@@ -32,6 +32,7 @@ import { MantUsersComponent } from './administrador_panel/presentacion/mant-user
 import { ShoppingCartComponent } from './bandeja-principal/components/shopping-cart/shopping-cart.component';
 import { HeaderComponent } from './header/header.component';
 import { DashboardComponent } from './administrador_panel/presentacion/dashboard/dashboard.component';
+import { NgChartsModule } from 'ng2-charts';
 
 @NgModule({
   declarations: [
@@ -69,7 +70,8 @@ import { DashboardComponent } from './administrador_panel/presentacion/dashboard
     MatListModule,
     MatToolbarModule,
     MatInputModule,
-    MatSelectModule
+    MatSelectModule,
+    NgChartsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
