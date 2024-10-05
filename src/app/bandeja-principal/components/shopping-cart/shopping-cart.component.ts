@@ -18,7 +18,7 @@ export class ShoppingCartComponent {
   //   this.cartItems = this.cartService.getCartItems();
   // }
 
-  constructor(public dialogRef: MatDialogRef<ShoppingCartComponent>,private cartService: CartService, private apiService: ApiService,private router: Router) {
+  constructor(private cartService: CartService, private apiService: ApiService,private router: Router) {
     // this.cartItems = this.cartService.getCartItems();
   }
 
@@ -64,10 +64,6 @@ export class ShoppingCartComponent {
   checkout() {
     // Aquí puedes implementar la lógica de pago con PayPal o tu pasarela de pagos
     console.log('Proceeding to checkout');
-  }
-
-  closeDialog() {
-    this.dialogRef.close();
   }
 
   async onPay() {

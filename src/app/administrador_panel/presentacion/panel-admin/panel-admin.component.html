@@ -8,7 +8,7 @@
 <mat-sidenav-container>
   <mat-sidenav>
     <mat-nav-list>
-      <mat-list-item (click)="sidenav.mode === 'over' && sidenav.toggle()" routerLink="/admin">
+      <mat-list-item (click)="sidenav.mode === 'over' && sidenav.toggle()" [routerLink]="['/admin/dashboard']">
         <mat-icon matListItemIcon>dashboard</mat-icon>
         Dashboard
       </mat-list-item>

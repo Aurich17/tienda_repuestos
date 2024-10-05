@@ -31,6 +31,7 @@ import {MatSelectModule} from '@angular/material/select';
 import { MantUsersComponent } from './administrador_panel/presentacion/mant-users/mant-users.component';
 import { ShoppingCartComponent } from './bandeja-principal/components/shopping-cart/shopping-cart.component';
 import { HeaderComponent } from './header/header.component';
+import { DashboardComponent } from './administrador_panel/presentacion/dashboard/dashboard.component';
 
 @NgModule({
   declarations: [
@@ -47,6 +48,7 @@ import { HeaderComponent } from './header/header.component';
     MantUsersComponent,
     ShoppingCartComponent,
     HeaderComponent,
+    DashboardComponent,
   ],
   imports: [
     BrowserModule,

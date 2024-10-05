@@ -1,5 +1,5 @@
 mat-toolbar {
-  background-color: #2b62c8;
+  background: #6cf8a6;
   color: #ffffff;
 }
 
@@ -16,6 +16,7 @@ mat-sidenav {
   max-width: 1520px;
   margin: 0 auto;
   font-size: 16px;
+  background-color: #F5F5F5 ;
 }
 
 mat-sidenav-container {

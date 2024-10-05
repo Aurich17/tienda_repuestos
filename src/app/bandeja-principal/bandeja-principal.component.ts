@@ -171,7 +171,6 @@ export class BandejaPrincipalComponent {
     this.apiService.getCelulares().subscribe(
       (data: CelularResponse[]) => {
         this.celulares = data;
-        console.log(this.celulares)
       },
       error => {
         console.error('Error al obtener marcas', error);

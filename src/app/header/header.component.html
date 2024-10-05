@@ -1,22 +1,26 @@
+<!-- header.component.html -->
 <div class="header">
   <h1 class="title">CellPhone</h1>
+  <input type="text" class="search">
   <div class="nav-links">
-    <input type="text" class="search">
-    <a href="#about">About Us</a>
-    <a href="#contact">Contact</a>
+    <a href="#about" *ngIf="!isLoggedIn">About Us</a>
+    <a href="#contact" *ngIf="!isLoggedIn">Contact</a>
+
+    <!-- Botón de Login, visible solo si no está logueado -->
     <button mat-button class="login-btn login-button" *ngIf="!isLoggedIn" (click)="openLogin()">
       <mat-icon>login</mat-icon>
       Login
     </button>
 
-    <!-- Botón de Carrito -->
-    <button mat-button class="login-btn cart-button" *ngIf="isLoggedIn" (click)="openShoppingCart()">
+    <button mat-icon-button *ngIf="isLoggedIn" class="cart-user">
+      <mat-icon>person</mat-icon>
+    </button>
+    <!-- Botón de Carrito, visible solo si está logueado -->
+    <button mat-icon-button *ngIf="isLoggedIn" class="cart-button" [routerLink]="['/cart']">
       <mat-icon>shopping_cart</mat-icon>
-      Cart
     </button>
 
-    <!-- Botón de Logout -->
-    <button mat-button class="login-btn logout-button" *ngIf="isLoggedIn" (click)="logout()">
+    <button mat-button class="logout-button" *ngIf="isLoggedIn" (click)="logout()">
       <mat-icon>logout</mat-icon>
       Logout
     </button>

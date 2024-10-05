@@ -1,18 +1,18 @@
-.shopping-cart-container {
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  font-family: 'Arial', sans-serif;
-  height: 80vh;
+.container_general{
+  /* background-color: #888; */
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+
 }
 
-.cart-title {
-  text-align: center;
-  color: #007bff;
-  font-size: 2em;
-  margin-bottom: 20px;
+.container_cart{
+  margin-top: 30px;
+  width: 60%;
+  background-color: #ffffff;
+  /* height: 400px; */
+  height: 450px;
 }
 
 .empty-cart-message {
@@ -61,7 +61,7 @@
 }
 
 .quantity-btn {
-  background-color: #007bff;
+  background-color: #6CF8A6;
   color: white;
   border: none;
   padding: 8px;
@@ -91,12 +91,13 @@
 }
 
 .cart-summary {
-  margin-top: 20px;
-  padding: 15px;
-  background-color: #fff;
+  margin-top: 30px;
+  background-color: #ffffff;
   border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  /* box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05); */
   text-align: right;
+  width: 30%;
+  height: 450px;
 }
 
 .summary-row {
@@ -107,7 +108,7 @@
 }
 
 .checkout-btn {
-  background-color: #007bff;
+  background-color: #6CF8A6;
   color: white;
   padding: 10px 20px;
   border: none;
@@ -125,7 +126,7 @@
 
 .continue-shopping-btn, .checkout-btn {
   padding: 10px 20px;
-  background-color: #007bff;
+  background-color: #6CF8A6;
   color: white;
   border: none;
   border-radius: 5px;
@@ -139,7 +140,7 @@
 }
 
 .cart-item-quantity button {
-  background-color: #007BFF;
+  background-color: #6CF8A6;
   color: white;
   border: none;
   border-radius: 5px;
@@ -150,7 +151,7 @@
 }
 
 .cart-item-quantity button:hover {
-  background-color: #0056b3;
+  background-color: #39C37D ;
 }
 
 .cart-item-quantity input {
@@ -201,46 +202,24 @@
   flex: 1;
 }
 
-.cart-summary {
-  margin-top: 20px;
-  padding-top: 10px;
-  border-top: 1px solid #ddd;
-  text-align: right;
-}
-
 .cart-buttons button {
   color: white;
   border: none;
   border-radius: 5px;
-  padding: 10px 20px;
+  /* padding: 10px 20px; */
   font-size: 16px;
   cursor: pointer;
-  margin-right: 10px;
+  /* margin-right: 10px; */
   transition: background-color 0.3s ease;
 }
 
-.paypal-button {
-  background-color: #FFC439; /* Color característico de PayPal */
-  border: none;
-  border-radius: 5px; /* Bordes redondeados */
-  color: #003087; /* Color de texto azul oscuro de PayPal */
-  font-size: 16px;
-  font-weight: bold;
-  padding: 12px 24px;
-  cursor: pointer;
+.cart-buttons{
+  margin-top: 50px;
+  /* background-color: green; */
   display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px; /* Espacio entre logo y texto */
-  transition: background-color 0.3s ease;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra suave */
+  flex-direction: column;
+  height: 150px;
+  justify-content: space-around;
 }
 
-.paypal-button:hover {
-  background-color: #FFB300; /* Color más oscuro al hacer hover */
-}
 
-.paypal-logo {
-  width: 24px;
-  height: auto;
-}

@@ -10,6 +10,7 @@ import { LoginRequest } from '../domain/request/login_request';
 import { Router } from '@angular/router';
 // import {BandejaPrincipalComponent} from
 import { BandejaPrincipalComponent } from 'src/app/bandeja-principal/bandeja-principal.component';
+import { AuthService } from 'src/app/services/auth_service';
 
 @Component({
   selector: 'app-login',
@@ -20,7 +21,7 @@ export class LoginComponent implements OnInit {
 
     group!:FormGroup
     group_login!:FormGroup
-    constructor(public dialog: MatDialog,private apiService: ApiService,private snackBar: MatSnackBar, private router: Router,public dialogRef: MatDialogRef<LoginComponent>) {}
+    constructor(public dialog: MatDialog,private apiService: ApiService,private snackBar: MatSnackBar, private router: Router,public dialogRef: MatDialogRef<LoginComponent>,private authService: AuthService) {}
     @ViewChild(CustomMessageComponent) customMessageComponent!: CustomMessageComponent;
 
     showCustomMessage() {
@@ -105,15 +106,15 @@ export class LoginComponent implements OnInit {
           localStorage.setItem('access_token', response.access_token);
           this.apiService.getProfile().subscribe(
             (profile) => {
+              let rol = profile.is_admin == true ? 'admin' : 'user'
               if (profile.is_admin) {
                 this.router.navigate(['/admin']);
+                this.authService.setUserRole(rol);
                 this.closeDialog();
               } else {
                 this.dialogRef.close();
-                this.router.navigate(['/store']).then(() => {
-                  // Recargar la página después de la redirección
-                  window.location.reload();
-                });
+                this.authService.login();
+                this.authService.setUserRole(rol);
               }
             },
             (error) => {

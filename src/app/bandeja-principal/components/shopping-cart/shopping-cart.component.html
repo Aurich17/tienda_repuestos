@@ -1,46 +1,5 @@
-<!-- <div class="shopping-cart-container">
-  <h2 class="cart-title">Shopping Cart</h2>
-
-  <div *ngIf="cartItems.length === 0" class="empty-cart-message">
-    <p>Your cart is empty</p>
-  </div>
-
-  <div class="cart-items" *ngFor="let item of cartItems">
-    <div class="cart-item">
-      <div class="cart-item-image">
-        <img [src]="'data:image/jpeg;base64,' + item.imagen" alt="{{item.modelo}}">
-      </div>
-      <div class="cart-item-details">
-        <h4>{{item.modelo}} - {{item.nombre_parte}}</h4>
-        <p>{{item.marca}}</p>
-        <p>Price: {{item.precio | currency}}</p>
-      </div>
-      <div class="cart-item-quantity">
-        <button (click)="decreaseQuantity(item)" [disabled]="item.quantity <= 1">-</button>
-        <input type="number" [(ngModel)]="item.quantity" min="1" (input)="updateQuantity(item, item.quantity)">
-        <button (click)="increaseQuantity(item)">+</button>
-      </div>
-      <div class="cart-item-remove">
-        <button (click)="removeFromCart(item)">Remove</button>
-      </div>
-    </div>
-  </div>
-
-  <div *ngIf="cartItems.length >=0" class="cart-summary">
-    <div class="summary-row">
-      <h3>Total:</h3>
-      <p>{{getCartTotal() | currency}}</p>
-    </div>
-    <div class="cart-buttons">
-      <button (click)="closeDialog()" class="continue-shopping-btn">Continue Shopping</button>
-      <button routerLink="/buying_cart" class="checkout-btn">Proceed to Checkout</button>
-    </div>
-  </div>
-</div> -->
-
 <div class="container_general">
   <div class="container_cart">
-    <h1>Cart</h1>
     <div class="cart-items" *ngFor="let item of cartItems">
       <div class="cart-item">
         <div class="cart-item-image">
@@ -69,7 +28,7 @@
       <p>{{getCartTotal() | currency}}</p>
     </div>
     <div class="cart-buttons">
-      <button (click)="closeDialog()" class="continue-shopping-btn">Continue Shopping</button>
+      <button class="continue-shopping-btn" [routerLink]="['/store']">Continue Shopping</button>
       <div id="paypal-button-container"></div>
     </div>
   </div>

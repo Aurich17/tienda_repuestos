@@ -77,7 +77,75 @@
 
 .search{
   width: 700px;
+  height: 40px;
   /* margin: 0 auto; */
   border-radius: 20px;
   border: none;
+}
+
+.cart-button {
+  color: #121212; /* Color del ícono en negro oscuro */
+  background-color: transparent;
+  border: none;
+  transition: transform 0.3s ease-in-out;
+}
+
+.cart-user{
+  color: #121212; /* Color del ícono en negro oscuro */
+  background-color: transparent;
+  border: none;
+  transition: transform 0.3s ease-in-out;
+}
+
+.cart-user mat-icon {
+  font-size: 28px; /* Tamaño del ícono */
+}
+
+.cart-button mat-icon {
+  font-size: 28px; /* Tamaño del ícono */
+}
+
+.cart-user:hover {
+  transform: scale(1.1); /* Efecto de hover para hacer el ícono más grande */
+  color: #383838; /* Cambia el color del ícono en hover */
+}
+
+.cart-button:hover {
+  transform: scale(1.1); /* Efecto de hover para hacer el ícono más grande */
+  color: #383838; /* Cambia el color del ícono en hover */
+}
+
+/* Estilo del contenedor de bienvenida */
+.welcome-container {
+  display: flex;
+  align-items: center;
+}
+
+/* Estilo del mensaje de bienvenida */
+.welcome-message {
+  font-size: 18px;
+  color: #121212; /* Texto oscuro */
+  margin-right: 15px; /* Espacio entre el mensaje y el botón */
+}
+
+/* Estilo del botón de logout */
+.logout-button {
+  background-color: #6cf8a6;
+  color: #121212;
+  border-radius: 4px;
+  padding: 5px 15px;
+  display: flex;
+  align-items: center;
+  transition: background-color 0.3s ease;
+  border: none;
+}
+
+.logout-button mat-icon {
+  margin-right: 8px; /* Espacio entre el ícono y el texto */
+  font-size: 24px; /* Tamaño del ícono */
+  color: #121212; /* Color del ícono */
+}
+
+.logout-button:hover {
+  background-color: #53d88e; /* Color verde más oscuro en hover */
 }
