@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable, tap } from 'rxjs';
+import { catchError, Observable, tap, throwError } from 'rxjs';
 import { LoginRequest } from '../login/domain/request/login_request';
 import {CelularResponse, Marca } from '../administrador_panel/domain/response/administrador_response';
 import { CelularConPartes } from '../administrador_panel/domain/request/administrador_request';
@@ -24,23 +24,32 @@ export class ApiService {
     body.set('username', loginRequest.username);
     body.set('password', loginRequest.password);
 
-    return this.http.post(`${this.apiUrl}/login`, body.toString(), { headers }).pipe(
+    return this.http.post(`${this.apiUrl}/api/login`, body.toString(), { headers }).pipe(
       tap((response: any) => {
-        // Suponiendo que el token viene en la respuesta como "access_token"
         if (response.access_token) {
           localStorage.setItem('access_token', response.access_token);
         }
+      }),
+      catchError((error) => {
+        console.error('Error en la solicitud de login:', error);
+        return throwError(error);
       })
     );
   }
 
   getProfile(): Observable<any> {
     const token = localStorage.getItem('access_token');
-    const headers = {
-      'Authorization': `Bearer ${token}`
-    };
+    if (!token) {
+      console.error('No token found in localStorage');
+      return throwError('Token is missing');
+    }
 
-    return this.http.get(`${this.apiUrl}/users/profile`, { headers });
+    let headers = new HttpHeaders();
+    headers = headers.set('Authorization', `Bearer ${token}`);
+
+    console.log(headers);
+
+    return this.http.get(`${this.apiUrl}/api/users/profile`, { headers });
   }
 
   getMarcas(): Observable<Marca[]> {  // Cambia el tipo a Observable<Marca[]>

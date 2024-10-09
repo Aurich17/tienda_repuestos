@@ -31,7 +31,13 @@
     <button id="search-button">Search</button>
   </div>
 </div> -->
+<ng-image-slider
+  [autoSlide]="1"
+  [infinite]="true"
+  #nav
 
+  [images]="imageObject"
+></ng-image-slider>
 <div class="container_cards">
   <div class="card" *ngFor="let item of celulares">
     <div class="favorite_icon" (click)="toggleFavorite(item)">

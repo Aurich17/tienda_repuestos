@@ -24,6 +24,8 @@ export class BandejaPrincipalComponent {
   isLoggedIn: boolean = false;
   isAdmin: boolean = true;
 
+  imageObject: { thumbImage: string; title?: string }[] = [];
+
   constructor(public dialog: MatDialog,private snackBar: MatSnackBar,private apiService: ApiService,private router: Router, private route: ActivatedRoute) {}
 
   ngOnInit(){
@@ -171,6 +173,14 @@ export class BandejaPrincipalComponent {
     this.apiService.getCelulares().subscribe(
       (data: CelularResponse[]) => {
         this.celulares = data;
+        for(let i = 0; i<this.celulares.length; i++){
+          const item = {
+            // image: 'data:image/jpeg;base64,'+this.celulares[i].imagen,
+            thumbImage: 'data:image/jpeg;base64,'+this.celulares[i].imagen,
+            title: this.celulares[i].modelo
+          }
+          this.imageObject.push(item)
+        }
       },
       error => {
         console.error('Error al obtener marcas', error);

@@ -22,5 +22,22 @@
   </div>
 </div>
 
+<!-- Mat Card para la descripción del celular -->
+<div class="container_card">
+  <mat-card class="description-card">
+    <mat-card-header>
+      <mat-card-title>DESCRIPTION</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <p>{{ item.descripcion }}</p>
+    </mat-card-content>
+  </mat-card>
+</div>
 
-
+<ng-image-slider
+  [autoSlide]="1"
+  [infinite]="true"
+  #nav
+  [imageSize]="{width: '220px', height: '170px'}"
+  [images]="imageObject"
+></ng-image-slider>

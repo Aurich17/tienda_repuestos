@@ -104,3 +104,31 @@ img:hover {
   display: flex;
   flex-direction: column;
 }
+
+/* Estilos para la tarjeta */
+.container_card {
+  width: 100%;
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.description-card {
+  width: 80%; /* O ajusta el ancho que necesites */
+  background-color: #f9f9f9; /* Fondo claro */
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra para darle profundidad */
+}
+
+.description-card mat-card-header {
+  background-color: #6CF8A6;
+  border-radius: 10px 10px 0 0;
+}
+
+.description-card p {
+  font-size: 16px;
+  color: #333;
+  line-height: 1.6;
+}

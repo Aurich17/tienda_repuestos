@@ -106,6 +106,7 @@ export class LoginComponent implements OnInit {
           localStorage.setItem('access_token', response.access_token);
           this.apiService.getProfile().subscribe(
             (profile) => {
+              console.log(profile)
               let rol = profile.is_admin == true ? 'admin' : 'user'
               if (profile.is_admin) {
                 this.router.navigate(['/admin']);

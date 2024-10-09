@@ -28,6 +28,7 @@
   width: 98%;
   height: 100%;
   margin: 0 auto;
+  margin-top: 30px;
   display: flex;
   justify-content: space-around;
   flex-wrap: wrap;
@@ -129,7 +130,7 @@
 
 .search-bar {
   display: flex;
-  align-items: center; /* Alinea los elementos dentro del buscador */
+  align-items: center;
 }
 
 .search-bar input {
@@ -200,3 +201,6 @@
 .social-links a:hover {
   text-decoration: underline;  /* Subrayado en hover */
 }
+
+
+/* SLIDER */

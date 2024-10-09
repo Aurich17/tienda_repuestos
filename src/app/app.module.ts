@@ -33,6 +33,7 @@ import { ShoppingCartComponent } from './bandeja-principal/components/shopping-c
 import { HeaderComponent } from './header/header.component';
 import { DashboardComponent } from './administrador_panel/presentacion/dashboard/dashboard.component';
 import { NgChartsModule } from 'ng2-charts';
+import { NgImageSliderModule } from 'ng-image-slider';
 
 @NgModule({
   declarations: [
@@ -71,7 +72,8 @@ import { NgChartsModule } from 'ng2-charts';
     MatToolbarModule,
     MatInputModule,
     MatSelectModule,
-    NgChartsModule
+    NgChartsModule,
+    NgImageSliderModule
   ],
   providers: [],
   bootstrap: [AppComponent]
