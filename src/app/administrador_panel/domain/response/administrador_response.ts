@@ -1,7 +1,9 @@
-export interface Marca {
-    id: number;
-    nombre_marca: string;
-  }
+export interface Tipos {
+  id_tipo:number,
+  tab_tabla:string,
+  des_tipo:string,
+  cod_tipo:string
+}
 
 export interface ParteResponse {
     nombre_parte: string;

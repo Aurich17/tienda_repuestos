@@ -20,27 +20,32 @@
 
         <div class="container_form">
           <!-- Nombre del celular -->
-           <div class="container_form_sub">
-             <mat-form-field appearance="outline" class="input2">
-               <mat-label>Model Phone</mat-label>
-               <input matInput type="text" formControlName="phoneName">
-             </mat-form-field>
+           <div class="container_form_sub_price">
+            <mat-form-field appearance="outline" class="input1">
+              <mat-label>Count</mat-label>
+              <input matInput type="number" formControlName="phoneCount">
+            </mat-form-field>
              <!-- Precio del celular -->
              <mat-form-field appearance="outline" class="input1">
                <mat-label>Price</mat-label>
                <input matInput type="number" formControlName="phonePrice">
              </mat-form-field>
              <!-- Marca -->
-             <mat-form-field appearance="outline" class="input1">
+             <mat-form-field appearance="outline" class="input2">
                <mat-label>Marca</mat-label>
                <mat-select formControlName="phoneMarca">
-                 <mat-option *ngFor="let marca of marcas" [value]="marca.id" >
-                   {{marca.nombre_marca}}
+                 <mat-option *ngFor="let marca of marcas" [value]="marca.cod_tipo" >
+                   {{marca.des_tipo}}
                  </mat-option>
                </mat-select>
              </mat-form-field>
            </div>
            <div class="container_form_sub">
+            <mat-form-field appearance="outline" class="input3">
+              <mat-label>Model Phone</mat-label>
+              <input matInput type="text" formControlName="phoneName">
+            </mat-form-field>
+
             <mat-form-field appearance="outline" class="input3">
               <mat-label>Description</mat-label>
               <input matInput type="text" formControlName="phoneDescription">
@@ -56,10 +61,14 @@
           <div [formGroupName]="i" class="component-row">
             <!-- Nombre del componente -->
             <div class="container_form_compponent">
-              <mat-form-field appearance="outline" class="input2">
-                <mat-label>Nombre del componente</mat-label>
-                <input matInput formControlName="componentName" placeholder="Ej: Pantalla">
-              </mat-form-field>
+             <mat-form-field appearance="outline" class="input2">
+              <mat-label>Componentes</mat-label>
+              <mat-select formControlName="componentName">
+                <mat-option *ngFor="let componente of componentes" [value]="componente.cod_tipo" >
+                  {{componente.des_tipo}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
 
               <mat-form-field appearance="outline" class="input1">
                 <mat-label>Cantidad</mat-label>

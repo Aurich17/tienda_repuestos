@@ -2,15 +2,15 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { catchError, Observable, tap, throwError } from 'rxjs';
 import { LoginRequest } from '../login/domain/request/login_request';
-import {CelularResponse, Marca } from '../administrador_panel/domain/response/administrador_response';
-import { CelularConPartes } from '../administrador_panel/domain/request/administrador_request';
+import {CelularResponse,Tipos } from '../administrador_panel/domain/response/administrador_response';
+import { InsertaCelularRequest } from '../administrador_panel/domain/request/administrador_request';
 import { PayPalResponse } from '../bandeja-principal/components/shopping-cart/response/response_shopping';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ApiService {
-  private apiUrl = 'http://localhost:8000';  // Cambia esto según tu configuración
+  private apiUrl = 'http://127.0.0.1:8000';  // Cambia esto según tu configuración
 
   constructor(private http: HttpClient) {}
 
@@ -52,37 +52,13 @@ export class ApiService {
     return this.http.get(`${this.apiUrl}/api/users/profile`, { headers });
   }
 
-  getMarcas(): Observable<Marca[]> {  // Cambia el tipo a Observable<Marca[]>
-    const token = localStorage.getItem('access_token');
-    const headers = {
-      'Authorization': `Bearer ${token}`
-    };
-
-    return this.http.get<Marca[]>(`${this.apiUrl}/marcas/`, { headers });  // Usa el endpoint correcto
-  }
-
-  registrarCelular(celular: CelularConPartes, imagen: File): Observable<any> {
-    const token = localStorage.getItem('access_token');
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-
-    const formData = new FormData();
-    formData.append('marca_id', celular.marca_id.toString());
-    formData.append('modelo', celular.modelo);
-    formData.append('precio_completo', celular.precio_completo.toString());
-    formData.append('descripcion', celular.descripcion);
-    formData.append('imagen', imagen);  // Imagen como archivo
-    formData.append('partes', JSON.stringify(celular.partes));  // Convertir las partes a string JSON
-
-    return this.http.post(`${this.apiUrl}/registrar_celular`, formData, { headers });
-  }
-
   getCelulares(): Observable<CelularResponse[]> {  // Cambia el tipo a Observable<Marca[]>
     const token = localStorage.getItem('access_token');
     const headers = {
       'Authorization': `Bearer ${token}`
     };
 
-    return this.http.get<CelularResponse[]>(`${this.apiUrl}/celulares/`, { headers });  // Usa el endpoint correcto
+    return this.http.get<CelularResponse[]>(`${this.apiUrl}/api/celulares/`, { headers });  // Usa el endpoint correcto
   }
 
   createPayment(total: number, currency: string): Observable<PayPalResponse> {
@@ -96,5 +72,13 @@ export class ApiService {
 
   getPayPalClientId(): Observable<any> {
     return this.http.get(`${this.apiUrl}/paypal-client-id`);
+  }
+
+  getTipos(tabla_tab: string): Observable<Tipos[]> {
+    return this.http.post<Tipos[]>(`${this.apiUrl}/api/tipos`, {tabla_tab});  // Cambiar tab_table por tabla_tab
+  }
+
+  insertPhone(formData: FormData): Observable<any> {
+    return this.http.post(`${this.apiUrl}/api/insert_celular`, formData);
   }
 }

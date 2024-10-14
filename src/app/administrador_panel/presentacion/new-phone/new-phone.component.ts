@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ApiService } from 'src/app/services/services_api';
-import { Marca } from '../../domain/response/administrador_response';
-import { CelularConPartes, Parte } from '../../domain/request/administrador_request';
+import { Tipos } from '../../domain/response/administrador_response';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { InsertaCelularRequest, Parte } from '../../domain/request/administrador_request';
 
 @Component({
   selector: 'app-new-phone',
@@ -15,7 +15,8 @@ export class NewPhoneComponent implements OnInit {
   selectedImage: string | ArrayBuffer | null = null; // Variable para la imagen seleccionada
 
   parte: Parte[] = []
-  marcas: Marca[] = [];
+  marcas: Tipos[] = [];
+  componentes: Tipos[] = [];
   imagenSeleccionada!: File;
 
   constructor(private fb: FormBuilder, private apiService: ApiService,private snackBar: MatSnackBar) { }
@@ -26,7 +27,8 @@ export class NewPhoneComponent implements OnInit {
       phoneName: ['', Validators.required],
       phonePrice: [null, Validators.required],
       phoneDescription: [null,Validators.required],
-      components: this.fb.array([])  // FormArray para componentes
+      components: this.fb.array([]),  // FormArray para componentes
+      phoneCount: [null,null]
     });
    }
 
@@ -39,6 +41,7 @@ export class NewPhoneComponent implements OnInit {
       this.name_phone = value;
     });
     this.loadMarcas()
+    this.loadComponentes()
   }
 
   // name_phone = this.formNewPhone.get('phoneName')
@@ -65,7 +68,7 @@ export class NewPhoneComponent implements OnInit {
   saveComponentsToParteList(): void {
     this.parte = this.components.controls.map(control => {
       return {
-        nombre_parte: control.get('componentName')?.value,
+        componente_cod: control.get('componentName')?.value,
         precio: control.get('componentPrice')?.value,
         cantidad: control.get('componentQuantity')?.value
       };
@@ -102,8 +105,8 @@ export class NewPhoneComponent implements OnInit {
   }
 
   loadMarcas(): void {
-    this.apiService.getMarcas().subscribe(
-      (data: Marca[]) => {
+    this.apiService.getTipos('MAR').subscribe(
+      (data: Tipos[]) => {
         this.marcas = data;
       },
       error => {
@@ -112,32 +115,53 @@ export class NewPhoneComponent implements OnInit {
     );
   }
 
-  registrarCelular() {
-    const values = this.formNewPhone.value
-    this.saveComponentsToParteList()
-    const nuevoCelular: CelularConPartes = {
-      marca_id: values.phoneMarca,
-      modelo: values.phoneName,
-      precio_completo: values.phonePrice,
-      descripcion: values.phoneDescription,
-      partes: this.parte
-    };
+  loadComponentes(): void {
+    this.apiService.getTipos('COM').subscribe(
+      (data: Tipos[]) => {
+        this.componentes = data;
+      },
+      error => {
+        console.error('Error al obtener componentes', error);
+      }
+    );
+  }
 
-    // Llama a la API y envía el celular con la imagen
-    this.apiService.registrarCelular(nuevoCelular, this.imagenSeleccionada).subscribe(response => {
+
+  registrarCelular() {
+    const values = this.formNewPhone.value;
+    this.saveComponentsToParteList();
+
+    // Crear un objeto FormData
+    const formData = new FormData();
+
+    // Agregar los campos al FormData
+    formData.append('p_marca_cod', values.phoneMarca);
+    formData.append('p_modelo', values.phoneName);
+    formData.append('p_cantidad', values.phoneCount.toString());
+    formData.append('p_precio_completo', values.phonePrice.toString());
+    formData.append('p_descripcion', values.phoneDescription);
+
+    // Convertir las partes a JSON string y agregarlas
+    formData.append('partes', JSON.stringify(this.parte));
+
+    // Agregar la imagen al FormData
+    formData.append('imagen', this.imagenSeleccionada);
+
+    // Llama a la API y envía el FormData
+    this.apiService.insertPhone(formData).subscribe(response => {
       this.snackBar.open('Registration successful!', 'Close', {
-        duration: 3000, // El mensaje dura 3 segundos
-        verticalPosition: "top", // Posición del snackbar
+        duration: 3000,
+        verticalPosition: "top",
         horizontalPosition: "end"
       });
       this.limpiarFormulario();
     }, error => {
       this.snackBar.open('Error', 'Close', {
-        duration: 3000, // El mensaje dura 3 segundos
-        verticalPosition: "top", // Posición del snackbar
+        duration: 3000,
+        verticalPosition: "top",
         horizontalPosition: "end"
       });
-      console.log(error)
+      console.log(error);
     });
   }
 

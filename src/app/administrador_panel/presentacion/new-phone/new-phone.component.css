@@ -116,7 +116,7 @@ button[mat-icon-button] {
   width: 250px;
 }
 .input3{
-  width: 650px;
+  width: 615px;
 }
 
 .container_form{
@@ -136,10 +136,19 @@ button[mat-icon-button] {
   width: 45vw;
 }
 .container_form_sub{
-width: 100%;
-display: flex;
-justify-content: space-between;
-/* background-color: green; */
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  /* background-color: green; */
+}
+
+.container_form_sub_price{
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+  /* background-color: green; */
 }
 
 .container_form_delete {
