@@ -1,50 +1,17 @@
-<!-- <div class="header">
-  <h1 class="title">CellPhone</h1>
-  <div class="nav-links">
-    <a href="#about">About Us</a>
-    <a href="#contact">Contact</a>
-    <button mat-button class="login-btn login-button" *ngIf="!isLoggedIn" (click)="openLogin()">
-      <mat-icon>login</mat-icon>
-      Login
-    </button>
-    <button mat-button class="login-btn cart-button" *ngIf="isLoggedIn" (click)="openShoppingCart()">
-      <mat-icon>shopping_cart</mat-icon>
-      Cart
-    </button>
-
-    <button mat-button class="login-btn logout-button" *ngIf="isLoggedIn" (click)="logout()">
-      <mat-icon>logout</mat-icon>
-      Logout
-    </button>
-  </div>
-</div> -->
-<!-- <div class="category">
-  <h3>All</h3>
-  <h3>Samsung</h3>
-  <h3>Huawei</h3>
-  <h3>Motorola</h3>
-  <h3>Xiaomi</h3>
-  <h3>Bitel</h3>
-  <h3>Realme</h3>
-  <div class="search-bar">
-    <input type="text" placeholder="Search..." id="search-input">
-    <button id="search-button">Search</button>
-  </div>
-</div> -->
 <ng-image-slider
   [autoSlide]="1"
   [infinite]="true"
   #nav
-
   [images]="imageObject"
 ></ng-image-slider>
+<button (click)="muestraDatos()">MUESTRA</button>
 <div class="container_cards">
   <div class="card" *ngFor="let item of celulares">
     <div class="favorite_icon" (click)="toggleFavorite(item)">
       <!-- <i class="fa-solid fa-heart" *ngIf="item.favorite"></i>
       <i class="fa-regular fa-heart" *ngIf="!item.favorite"></i> -->
     </div>
-    <img [src]="'data:image/jpeg;base64,' + item.imagen" alt="{{item.marca}} {{item.modelo}}">
+    <img [src]="'data:image/png;base64,' + item.imagen" alt="{{item.marca}} {{item.modelo}}">
     <div class="card_info">
       <label class="card_name">{{item.modelo}}</label>
       <label class="card_price">{{item.precio_completo | currency}}</label>

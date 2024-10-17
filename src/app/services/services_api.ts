@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { catchError, Observable, tap, throwError } from 'rxjs';
 import { LoginRequest } from '../login/domain/request/login_request';
-import {CelularResponse,Tipos } from '../administrador_panel/domain/response/administrador_response';
+import {CelularResponse,Tipos, UserRequest, UserResponse } from '../administrador_panel/domain/response/administrador_response';
 import { InsertaCelularRequest } from '../administrador_panel/domain/request/administrador_request';
 import { PayPalResponse } from '../bandeja-principal/components/shopping-cart/response/response_shopping';
 
@@ -52,13 +52,8 @@ export class ApiService {
     return this.http.get(`${this.apiUrl}/api/users/profile`, { headers });
   }
 
-  getCelulares(): Observable<CelularResponse[]> {  // Cambia el tipo a Observable<Marca[]>
-    const token = localStorage.getItem('access_token');
-    const headers = {
-      'Authorization': `Bearer ${token}`
-    };
-
-    return this.http.get<CelularResponse[]>(`${this.apiUrl}/api/celulares/`, { headers });  // Usa el endpoint correcto
+  getCelulares(): Observable<CelularResponse[]> {
+    return this.http.post<CelularResponse[]>(`${this.apiUrl}/api/celulares`,'');
   }
 
   createPayment(total: number, currency: string): Observable<PayPalResponse> {
@@ -81,4 +76,12 @@ export class ApiService {
   insertPhone(formData: FormData): Observable<any> {
     return this.http.post(`${this.apiUrl}/api/insert_celular`, formData);
   }
+
+  getUsers(): Observable<UserResponse[]> {
+    return this.http.post<UserResponse[]>(`${this.apiUrl}/api/user`,'');  // Cambiar tab_table por tabla_tab
+  }
+
+  apiUserManage(requestUser: UserRequest): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/api/user_manage`, requestUser);
+ }
 }

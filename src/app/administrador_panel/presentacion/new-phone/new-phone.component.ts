@@ -18,6 +18,7 @@ export class NewPhoneComponent implements OnInit {
   marcas: Tipos[] = [];
   componentes: Tipos[] = [];
   imagenSeleccionada!: File;
+  imagenSeleccionadaBase64:string = ''
 
   constructor(private fb: FormBuilder, private apiService: ApiService,private snackBar: MatSnackBar) { }
 
@@ -80,18 +81,18 @@ export class NewPhoneComponent implements OnInit {
   // Manejar la selección de imagen
   onImageSelected(event: Event): void {
     const input = event.target as HTMLInputElement;
-    const file = input.files?.[0];  // Obtener el archivo desde el evento
+    const file = input.files?.[0];  // Obtener el archivo seleccionado
 
     if (file) {
       const reader = new FileReader();
       reader.onload = () => {
-        this.selectedImage = reader.result;  // Asignar la imagen seleccionada para vista previa
+        this.selectedImage = reader.result;
+        this.imagenSeleccionadaBase64 = reader.result as string;  // Aquí almacenamos la imagen en Base64
       };
-
-      this.imagenSeleccionada = file;  // Asignar el archivo a imagenSeleccionada
-      reader.readAsDataURL(file);  // Leer el archivo como Data URL
+      reader.readAsDataURL(file);  // Leer el archivo como Data URL (Base64)
     }
   }
+
 
   // Enviar el formulario
   onSubmit(): void {
@@ -144,8 +145,10 @@ export class NewPhoneComponent implements OnInit {
     // Convertir las partes a JSON string y agregarlas
     formData.append('partes', JSON.stringify(this.parte));
 
-    // Agregar la imagen al FormData
-    formData.append('imagen', this.imagenSeleccionada);
+    // Agregar la imagen en Base64
+    if (this.imagenSeleccionadaBase64) {
+      formData.append('imagen', this.imagenSeleccionadaBase64);  // Aquí envías la imagen en Base64
+    }
 
     // Llama a la API y envía el FormData
     this.apiService.insertPhone(formData).subscribe(response => {

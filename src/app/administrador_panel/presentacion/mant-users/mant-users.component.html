@@ -8,12 +8,12 @@
     </mat-form-field>
 
     <div class="container_button">
-      <button class="button" (click)="addPhone()">
+      <!-- <button class="button" (click)="addPhone()">
         <mat-icon>add</mat-icon>
         NEW
-      </button>
+      </button> -->
 
-      <button class="button" (click)="muestraPhone()">
+      <button class="button">
         <mat-icon>search</mat-icon>
         SEARCH
       </button>
@@ -35,7 +35,7 @@
           <!-- <button mat-icon-button type="button" class="button_edit" aria-label="Edit">
             <mat-icon>edit</mat-icon>
           </button> -->
-          <button mat-icon-button type="button" class="button_delete" aria-label="Delete">
+          <button mat-icon-button type="button" class="button_delete" aria-label="Delete" (click)="openDialog('0ms', '0ms',row)">
             <mat-icon>delete</mat-icon>
           </button>
         </div>

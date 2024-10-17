@@ -1,10 +1,12 @@
 import { Component } from '@angular/core';
-import { CelularResponse } from '../../domain/response/administrador_response';
+import { CelularResponse, UserRequest, UserResponse } from '../../domain/response/administrador_response';
 import { NewPhoneComponent } from '../new-phone/new-phone.component';
 import { MetadataTable } from 'src/app/interfaces/metada-table.interface';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ApiService } from 'src/app/services/services_api';
+import { DialogYesOrNot } from 'src/app/message_custom/YesOrNot/yesOrNot';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-mant-users',
@@ -12,7 +14,7 @@ import { ApiService } from 'src/app/services/services_api';
   styleUrls: ['./mant-users.component.css']
 })
 export class MantUsersComponent {
-  constructor(public dialog: MatDialog,private apiService: ApiService){}
+  constructor(public dialog: MatDialog,private apiService: ApiService,private snackBar: MatSnackBar){}
 
   group!:FormGroup
 
@@ -24,13 +26,13 @@ export class MantUsersComponent {
   //description_phone
   ngOnInit():void{
     this.initializeForm()
-    this.muestraPhone()
+    this.muestraUser()
   }
 
-  dataTable: CelularResponse[] = [];
+  dataTable: UserResponse[] = [];
   metadataTable: MetadataTable[] = [
-    { field: "modelo", title: "Model" },
-    { field: "precio_completo", title: "Price" },
+    { field: "username", title: "Username" },
+    { field: "email", title: "Email" },
     // { field: "available", title: "Available" }
   ];
 
@@ -43,14 +45,14 @@ export class MantUsersComponent {
     });
   }
 
-  celulares!:CelularResponse[]
+  users!:UserResponse[]
 
-  muestraPhone(){
-    this.apiService.getCelulares().subscribe(
-      (data: CelularResponse[]) => {
-        this.celulares = data;
-        this.dataTable = this.celulares
-        console.log(this.celulares)
+  muestraUser(){
+    this.users = []
+    this.apiService.getUsers().subscribe(
+      (data: UserResponse[]) => {
+        this.users = data;
+        this.dataTable = this.users
       },
       error => {
         console.error('Error al obtener marcas', error);
@@ -58,8 +60,53 @@ export class MantUsersComponent {
     );
   }
 
-  buscaPhone(){
-    console.log('')
+  deleteUser(row:any){
+    const user_request:UserRequest = <UserRequest>{}
+
+    user_request.accion = 'D'
+    user_request.email = ''
+    user_request.is_admin = 0
+    user_request.password = ''
+    user_request.user_id = row.id_user
+    user_request.username =''
+
+    this.apiService.apiUserManage(user_request).subscribe({
+      next: (response) => {
+        this.snackBar.open('Usuario eliminado con exito', 'OK', {
+          duration: 3000,
+          verticalPosition: "top",
+          horizontalPosition: "end"
+        });
+        this.muestraUser()
+      },
+      error: (err) => {
+        this.snackBar.open('Error al elminar usuario', 'OK', {
+          duration: 3000,
+          verticalPosition: "top",
+          horizontalPosition: "end"
+        });
+      }
+    });
+  }
+
+  openDialog(enterAnimationDuration: string, exitAnimationDuration: string, row:any): void {
+    const dialogRef = this.dialog.open(DialogYesOrNot, {
+      width: '350px',
+      height: '150px',
+      enterAnimationDuration,
+      exitAnimationDuration,
+      data: {
+        title: 'Delete User',
+        message: 'Are you sure you want to delete user?'
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.deleteUser(row)
+      } else {
+      }
+    });
   }
 
 

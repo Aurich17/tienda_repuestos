@@ -1,0 +1,58 @@
+*{
+  overflow-y: hidden;
+}
+
+.container_buttons{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+
+.container_general{
+  width: 100%;
+  height: 150px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+/* General container for buttons */
+.container_buttons {
+  display: flex;
+  justify-content: space-around;
+  padding-top: 10px;
+}
+
+/* Common styles for both buttons */
+.button {
+  padding: 10px 20px;
+  font-size: 0.9rem;
+  font-weight: bold;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Style for No button */
+.button_no {
+  background-color: #f44336; /* Red color */
+  color: white;
+}
+
+.button_no:hover {
+  background-color: #d32f2f; /* Darker red on hover */
+  color: #fff;
+}
+
+/* Style for Yes button */
+.button_yes {
+  background-color: #4caf50; /* Green color */
+  color: white;
+}
+
+.button_yes:hover {
+  background-color: #388e3c; /* Darker green on hover */
+  color: #fff;
+}

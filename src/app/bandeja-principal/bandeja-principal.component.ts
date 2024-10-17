@@ -169,24 +169,39 @@ export class BandejaPrincipalComponent {
 
   celulares!:CelularResponse[]
 
-  muestraPhone(){
+  muestraDatos(){
+    console.log(this.celulares)
+  }
+
+   isValidBase64(value:any) {
+    const pattern = /^[A-Za-z0-9+/]+={0,2}$/; // Validación de base64
+    return pattern.test(value);
+  }
+
+  muestraPhone() {
     this.apiService.getCelulares().subscribe(
       (data: CelularResponse[]) => {
         this.celulares = data;
-        for(let i = 0; i<this.celulares.length; i++){
-          const item = {
-            // image: 'data:image/jpeg;base64,'+this.celulares[i].imagen,
-            thumbImage: 'data:image/jpeg;base64,'+this.celulares[i].imagen,
-            title: this.celulares[i].modelo
+        for (let i = 0; i < this.celulares.length; i++) {
+          const imagenBase64 = this.celulares[i].imagen;
+
+          if (this.isValidBase64(imagenBase64)) { // Validar el Base64
+            const item = {
+              thumbImage: 'data:image/jpeg;base64,' + imagenBase64,
+              title: this.celulares[i].modelo
+            }
+            this.imageObject.push(item);
+            console.log(typeof imagenBase64);
+          } else {
+            console.log(`La imagen en índice ${i} no es un Base64 válido:`, imagenBase64);
           }
-          this.imageObject.push(item)
         }
       },
       error => {
         console.error('Error al obtener marcas', error);
       }
     );
-  }
+}
 
   logout(): void {
     // Eliminar el token de localStorage y actualizar el estado

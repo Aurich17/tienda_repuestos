@@ -27,7 +27,7 @@ export class DetailsPhoneComponent {
   columnsToView: string[] = ['attribute', 'value', 'available', 'actions'];
   dataTable!: ParteResponse[]
   metadataTable: MetadataTable[] = [
-    { field: "nombre_parte", title: "Attribute" },
+    { field: "nombre", title: "Attribute" },
     { field: "precio", title: "Value" },
     { field: "cantidad", title: "Available" } // Solo debe estar una vez
   ];
