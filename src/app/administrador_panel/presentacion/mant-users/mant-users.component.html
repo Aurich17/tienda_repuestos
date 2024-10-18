@@ -35,6 +35,9 @@
           <!-- <button mat-icon-button type="button" class="button_edit" aria-label="Edit">
             <mat-icon>edit</mat-icon>
           </button> -->
+          <button mat-icon-button type="button" class="button_edit" aria-label="Edit" (click)="editUser(row)">
+            <mat-icon>edit</mat-icon>
+          </button>
           <button mat-icon-button type="button" class="button_delete" aria-label="Delete" (click)="openDialog('0ms', '0ms',row)">
             <mat-icon>delete</mat-icon>
           </button>

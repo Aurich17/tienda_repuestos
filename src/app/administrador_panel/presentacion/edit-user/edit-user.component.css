@@ -1,0 +1,68 @@
+body{
+  overflow-y: hidden;
+}
+
+.container_general {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  max-width: 800px;
+  margin: auto;
+  padding: 20px;
+  background-color: #FFFFFF;
+  border-radius: 8px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Contenedor de inputs */
+.container_input {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+/* Estilo general de los inputs */
+mat-form-field {
+  width: 100%;
+}
+
+/* Estilo para inputs de 1/3 del ancho */
+.input3 {
+  flex: 1;
+  margin-right: 15px;
+}
+
+/* Estilo para inputs de 1/2 del ancho */
+.input2 {
+  flex: 1;
+  margin-right: 15px;
+}
+
+.input2:last-child {
+  margin-right: 0; /* Elimina margen derecho en el último elemento */
+}
+
+/* Botón de guardar */
+.save-button {
+  background-color: #6CF8A6;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-size: 16px;
+}
+
+.save-button:hover {
+  background-color: #39C37D;
+}
+
+/* Centrar el botón */
+.button-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}

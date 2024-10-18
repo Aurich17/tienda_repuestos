@@ -34,6 +34,7 @@ import { HeaderComponent } from './header/header.component';
 import { DashboardComponent } from './administrador_panel/presentacion/dashboard/dashboard.component';
 import { NgChartsModule } from 'ng2-charts';
 import { NgImageSliderModule } from 'ng-image-slider';
+import { EditUserComponent } from './administrador_panel/presentacion/edit-user/edit-user.component';
 
 @NgModule({
   declarations: [
@@ -51,6 +52,7 @@ import { NgImageSliderModule } from 'ng-image-slider';
     ShoppingCartComponent,
     HeaderComponent,
     DashboardComponent,
+    EditUserComponent,
   ],
   imports: [
     BrowserModule,

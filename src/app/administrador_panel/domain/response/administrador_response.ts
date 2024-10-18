@@ -28,7 +28,13 @@ export interface UserResponse {
   email: string,
   is_admin: number,
   created_at: Date,
-  updated_at: Date
+  updated_at: Date,
+  nombre_completo: string,
+  doi_tag: string,
+  doi_cod: string,
+  doi_number: string,
+  nacionalidad_cod: string,
+  nacionalidad_tag: string
 }
 
 export interface UserRequest {
@@ -37,5 +43,9 @@ export interface UserRequest {
   username: string,
   email: string,
   password: string,
-  is_admin: number
+  is_admin: number,
+  nom_completo:string
+  doi_cod:string
+  num_doi:string
+  nac_cod:string
 }

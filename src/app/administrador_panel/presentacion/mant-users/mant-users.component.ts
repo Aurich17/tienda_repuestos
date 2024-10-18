@@ -7,6 +7,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ApiService } from 'src/app/services/services_api';
 import { DialogYesOrNot } from 'src/app/message_custom/YesOrNot/yesOrNot';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { EditUserComponent } from '../edit-user/edit-user.component';
 
 @Component({
   selector: 'app-mant-users',
@@ -69,6 +70,10 @@ export class MantUsersComponent {
     user_request.password = ''
     user_request.user_id = row.id_user
     user_request.username =''
+    user_request.nom_completo = ''
+    user_request.doi_cod = ''
+    user_request.num_doi = ''
+    user_request.nac_cod = ''
 
     this.apiService.apiUserManage(user_request).subscribe({
       next: (response) => {
@@ -104,6 +109,22 @@ export class MantUsersComponent {
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.deleteUser(row)
+      } else {
+      }
+    });
+  }
+
+  editUser(item:any) {
+    const dialogRef = this.dialog.open(EditUserComponent, {
+      width: '100vw',  // ancho
+      height: '90vh',  // altura
+      //border-radius: '20px',
+      data: item
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.muestraUser()
       } else {
       }
     });
