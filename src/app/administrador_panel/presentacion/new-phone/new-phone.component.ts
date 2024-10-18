@@ -84,15 +84,38 @@ export class NewPhoneComponent implements OnInit {
     const file = input.files?.[0];  // Obtener el archivo seleccionado
 
     if (file) {
+      // Validar que el archivo sea una imagen
+      const validImageTypes = ['image/jpeg', 'image/png'];
+      if (!validImageTypes.includes(file.type)) {
+        console.log('El archivo seleccionado no es una imagen válida');
+        return;  // Si no es una imagen, salir de la función
+      }
+
       const reader = new FileReader();
       reader.onload = () => {
-        this.selectedImage = reader.result;
-        this.imagenSeleccionadaBase64 = reader.result as string;  // Aquí almacenamos la imagen en Base64
+        const arrayBuffer = reader.result as ArrayBuffer;
+        const base64String = this.arrayBufferToBase64(arrayBuffer);  // Convertir a Base64
+
+        // Guardar la imagen Base64 sin el prefijo
+        this.imagenSeleccionadaBase64 = base64String;
+
+        // También puedes mantener el Data URL si lo necesitas para mostrar la imagen
+        this.selectedImage = 'data:' + file.type + ';base64,' + base64String;
       };
-      reader.readAsDataURL(file);  // Leer el archivo como Data URL (Base64)
+      reader.readAsArrayBuffer(file);  // Leer el archivo como ArrayBuffer
     }
   }
 
+    // Función para convertir ArrayBuffer a Base64
+  arrayBufferToBase64(buffer: ArrayBuffer): string {
+    let binary = '';
+    const bytes = new Uint8Array(buffer);
+    const len = bytes.byteLength;
+    for (let i = 0; i < len; i++) {
+      binary += String.fromCharCode(bytes[i]);
+    }
+    return btoa(binary);  // Convertir a Base64
+  }
 
   // Enviar el formulario
   onSubmit(): void {

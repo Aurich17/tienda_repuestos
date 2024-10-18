@@ -4,14 +4,11 @@
   #nav
   [images]="imageObject"
 ></ng-image-slider>
-<button (click)="muestraDatos()">MUESTRA</button>
 <div class="container_cards">
   <div class="card" *ngFor="let item of celulares">
     <div class="favorite_icon" (click)="toggleFavorite(item)">
-      <!-- <i class="fa-solid fa-heart" *ngIf="item.favorite"></i>
-      <i class="fa-regular fa-heart" *ngIf="!item.favorite"></i> -->
     </div>
-    <img [src]="'data:image/png;base64,' + item.imagen" alt="{{item.marca}} {{item.modelo}}">
+    <img [src]="'data:image/jpeg;base64,' + item.imagen" alt="{{item.marca}} {{item.modelo}}">
     <div class="card_info">
       <label class="card_name">{{item.modelo}}</label>
       <label class="card_price">{{item.precio_completo | currency}}</label>
