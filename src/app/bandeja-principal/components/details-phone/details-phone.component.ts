@@ -20,6 +20,7 @@ export class DetailsPhoneComponent {
 
   ngOnInit(){
     this.muestraPhone()
+    console.log(this.item)
   }
   //ESTO TRAE LOS DATOS DEL CELULAR
   imageObject: { thumbImage: string; title?: string }[] = [];

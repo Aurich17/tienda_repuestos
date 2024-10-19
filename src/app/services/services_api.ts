@@ -58,15 +58,15 @@ export class ApiService {
 
   createPayment(total: number, currency: string): Observable<PayPalResponse> {
     // Suponiendo que haces una solicitud POST a tu API
-    return this.http.post<PayPalResponse>(`${this.apiUrl}/create-payment`, { total, currency });
+    return this.http.post<PayPalResponse>(`${this.apiUrl}/api/create-payment`, { total, currency });
   }
 
   executePayment(paymentId: string, payerId: string): Observable<any> {
-    return this.http.get<any>(`${this.apiUrl}/payment/success?paymentId=${paymentId}&PayerID=${payerId}`);
+    return this.http.get<any>(`${this.apiUrl}/api/payment/success?paymentId=${paymentId}&PayerID=${payerId}`);
   }
 
   getPayPalClientId(): Observable<any> {
-    return this.http.get(`${this.apiUrl}/paypal-client-id`);
+    return this.http.get(`${this.apiUrl}/api/paypal-client-id`);
   }
 
   getTipos(tabla_tab: string): Observable<Tipos[]> {

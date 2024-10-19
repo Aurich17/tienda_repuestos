@@ -24,16 +24,17 @@ export class CartService {
     } else {
       // Si la parte no está en el carrito, la agrega como un nuevo item con cantidad 1
       const newItem = {
-        id: item.id, // ID del celular
+        id: item.id_celular, // ID del celular
         modelo: item.modelo, // Modelo del celular
         marca: item.marca, // Marca del celular
         imagen: item.imagen, // Imagen del celular
-        nombre_parte: parte.nombre_parte, // Nombre de la parte
+        nombre_parte: parte.nombre, // Nombre de la parte
         precio: parte.precio, // Precio de la parte
         quantity: 1 // Cantidad inicial de la parte
       };
       currentCart.push(newItem);
-      console.log('Parte agregada al carrito');
+      console.log('Este es el carrito:');
+      console.log(currentCart);
     }
 
     this.cartItems.next(currentCart); // Actualiza los productos del carrito
@@ -41,11 +42,16 @@ export class CartService {
 
     this.getCartTotal()
   }
-  // Eliminar producto del carrito
+  // Eliminar producto del carrito (específicamente una parte del celular)
   removeFromCart(item: any) {
     const currentCart = this.cartItems.value;
-    const updatedCart = currentCart.filter(cartItem => cartItem.id !== item.id);
-    this.cartItems.next(updatedCart);
+
+    // Filtra los productos del carrito para eliminar solo la parte específica del celular
+    const updatedCart = currentCart.filter(cartItem =>
+      !(cartItem.id === item.id && cartItem.nombre_parte === item.nombre_parte)
+    );
+
+    this.cartItems.next(updatedCart); // Actualiza los productos del carrito
   }
 
   // Actualizar la cantidad de un producto
