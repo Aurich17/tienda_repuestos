@@ -12,7 +12,7 @@ export interface ParteResponse {
 }
 
 export interface CelularResponse {
-    celular_id: number;
+    id_celular: number;
     marca: string;
     modelo: string; //modelo
     precio_completo: number;//precio
@@ -48,4 +48,10 @@ export interface UserRequest {
   doi_cod:string
   num_doi:string
   nac_cod:string
+}
+
+
+export interface paypalRequest{
+  paymentId: string,
+  payerId: string
 }

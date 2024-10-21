@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { catchError, Observable, tap, throwError } from 'rxjs';
 import { LoginRequest } from '../login/domain/request/login_request';
-import {CelularResponse,Tipos, UserRequest, UserResponse } from '../administrador_panel/domain/response/administrador_response';
+import {CelularResponse,paypalRequest,Tipos, UserRequest, UserResponse } from '../administrador_panel/domain/response/administrador_response';
 import { InsertaCelularRequest } from '../administrador_panel/domain/request/administrador_request';
 import { PayPalResponse } from '../bandeja-principal/components/shopping-cart/response/response_shopping';
 
@@ -61,8 +61,8 @@ export class ApiService {
     return this.http.post<PayPalResponse>(`${this.apiUrl}/api/create-payment`, { total, currency });
   }
 
-  executePayment(paymentId: string, payerId: string): Observable<any> {
-    return this.http.get<any>(`${this.apiUrl}/api/payment/success?paymentId=${paymentId}&PayerID=${payerId}`);
+  executePayment(request:paypalRequest): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/api/payment/success`,request);
   }
 
   getPayPalClientId(): Observable<any> {

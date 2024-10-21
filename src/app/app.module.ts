@@ -35,6 +35,8 @@ import { DashboardComponent } from './administrador_panel/presentacion/dashboard
 import { NgChartsModule } from 'ng2-charts';
 import { NgImageSliderModule } from 'ng-image-slider';
 import { EditUserComponent } from './administrador_panel/presentacion/edit-user/edit-user.component';
+import { PaymentResultComponent } from './bandeja-principal/components/payment-result/payment-result.component';
+import { CustomSliderComponent } from './shared/components/custom-slider/custom-slider.component';
 
 @NgModule({
   declarations: [
@@ -53,6 +55,8 @@ import { EditUserComponent } from './administrador_panel/presentacion/edit-user/
     HeaderComponent,
     DashboardComponent,
     EditUserComponent,
+    PaymentResultComponent,
+    CustomSliderComponent,
   ],
   imports: [
     BrowserModule,

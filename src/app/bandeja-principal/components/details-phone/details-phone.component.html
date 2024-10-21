@@ -1,7 +1,7 @@
 <div class="container_general">
   <div class="container_image">
     <div class="image_container">
-      <img [src]="'data:image/jpeg;base64,' + item.imagen" alt="{{item['nombre']}}">
+      <img [src]="'data:image/jpeg;base64,' + item.imagen">
     </div>
     <div class="image_name_container">
       <h2>{{item.modelo}}</h2>
@@ -34,10 +34,12 @@
   </mat-card>
 </div>
 
-<ng-image-slider
-  [autoSlide]="1"
-  [infinite]="true"
-  #nav
-  [imageSize]="{width: '220px', height: '170px'}"
+<div style="width: 80%; margin: auto;">
+  <app-custom-slider
   [images]="imageObject"
-></ng-image-slider>
+  [autoSlide]="true"
+  [slideInterval]="5000"
+></app-custom-slider>
+</div>
+
+<div style="height: 20px;"></div>

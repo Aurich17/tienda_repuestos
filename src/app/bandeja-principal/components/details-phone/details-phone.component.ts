@@ -5,6 +5,7 @@ import { detail_phone_response } from './response/detail-phone.response';
 import { CelularResponse, ParteResponse } from 'src/app/administrador_panel/domain/response/administrador_response';
 import { CartService } from 'src/app/services/shoppin_cart_service';
 import { ApiService } from 'src/app/services/services_api';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-details-phone',
@@ -13,24 +14,25 @@ import { ApiService } from 'src/app/services/services_api';
 })
 export class DetailsPhoneComponent {
   @Input() item_cart: any; // Recibe el producto actual
-  constructor(@Inject(MAT_DIALOG_DATA) public data: any, private cartService: CartService,private apiService: ApiService) {
-    this.item = data
-    this.dataTable = data.partes || [];
-  }
+  constructor(
+    private route: ActivatedRoute,
+    private cartService: CartService,
+    private apiService: ApiService
+  ) {}
 
-  ngOnInit(){
-    this.muestraPhone()
-    console.log(this.item)
+  ngOnInit() {
+    const phoneId = this.route.snapshot.paramMap.get('id'); // Obtiene el parámetro de la URL
+    this.muestraPhone(phoneId);
   }
   //ESTO TRAE LOS DATOS DEL CELULAR
-  imageObject: { thumbImage: string; title?: string }[] = [];
+  imageObject:any = [];
   item:any
   columnsToView: string[] = ['attribute', 'value', 'available', 'actions'];
   dataTable!: ParteResponse[]
   metadataTable: MetadataTable[] = [
-    { field: "nombre", title: "Attribute" },
-    { field: "precio", title: "Value" },
-    { field: "cantidad", title: "Available" } // Solo debe estar una vez
+    { field: "nombre", title: "Componente" },
+    { field: "precio", title: "Precio" },
+    { field: "cantidad", title: "Stock" } // Solo debe estar una vez
   ];
 
   getRowClass(row: any): string {
@@ -43,21 +45,20 @@ export class DetailsPhoneComponent {
 
   celulares!:CelularResponse[]
 
-  muestraPhone(){
+  muestraPhone(id: string | null) {
     this.apiService.getCelulares().subscribe(
       (data: CelularResponse[]) => {
         this.celulares = data;
-        for(let i = 0; i<this.celulares.length; i++){
-          const item = {
-            // image: 'data:image/jpeg;base64,'+this.celulares[i].imagen,
-            thumbImage: 'data:image/jpeg;base64,'+this.celulares[i].imagen,
-            title: this.celulares[i].modelo
-          }
-          this.imageObject.push(item)
+        this.item = this.celulares.find(celular => celular.id_celular.toString() === id); // Filtra el celular correcto
+        if (this.item) {
+          this.dataTable = this.item.partes
+        }
+        for(let i =0; i<this.celulares.length;i++){
+          this.imageObject.push(this.celulares[i].imagen);
         }
       },
-      error => {
-        console.error('Error al obtener marcas', error);
+      (error) => {
+        console.error('Error al obtener el celular', error);
       }
     );
   }

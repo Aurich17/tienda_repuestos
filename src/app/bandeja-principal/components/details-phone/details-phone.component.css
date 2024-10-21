@@ -1,10 +1,12 @@
 .container_general {
-  width: 100%;
-  height: 100%;
+  width: 80%;
+  height: 450px;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: space-around;
+  /* background-color: #39C37D; */
+  margin: 0 auto;
 }
 
 .container_image {
@@ -108,10 +110,10 @@ img:hover {
 /* Estilos para la tarjeta */
 .container_card {
   width: 100%;
-  margin-top: 20px;
   display: flex;
   justify-content: center;
-  margin-bottom: 20px;
+  margin-bottom: 30px;
+  margin-top: 30px;
 }
 
 .description-card {
@@ -125,6 +127,7 @@ img:hover {
 .description-card mat-card-header {
   background-color: #6CF8A6;
   border-radius: 10px 10px 0 0;
+  color: white;
 }
 
 .description-card p {

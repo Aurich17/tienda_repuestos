@@ -1,0 +1,16 @@
+<div class="slider-container">
+  <div class="slider-wrapper">
+    <div *ngFor="let image of currentImages" class="slider-item">
+      <div>
+        <img [src]="'data:image/png;base64,' + image" />
+      </div>
+      <button class="details">DETALLES</button>
+    </div>
+  </div>
+  <button class="prev" (click)="prevSlide()">
+    <mat-icon>arrow_back</mat-icon>
+  </button>
+  <button class="next" (click)="nextSlide()">
+    <mat-icon>arrow_forward</mat-icon>
+  </button>
+</div>

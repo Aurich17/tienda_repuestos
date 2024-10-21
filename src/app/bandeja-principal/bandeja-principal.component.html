@@ -1,9 +1,11 @@
-<ng-image-slider
-  [autoSlide]="1"
-  [infinite]="true"
-  #nav
+<!-- <div style="width: 80%; margin: auto; background-color: red;">
+  <app-custom-slider
   [images]="imageObject"
-></ng-image-slider>
+  [autoSlide]="true"
+  [slideInterval]="5000"
+></app-custom-slider>
+</div> -->
+
 <div class="container_cards">
   <div class="card" *ngFor="let item of celulares">
     <div class="favorite_icon" (click)="toggleFavorite(item)">
@@ -14,8 +16,7 @@
       <label class="card_price">{{item.precio_completo | currency}}</label>
     </div>
     <div class="container_buttons_card">
-      <button class="button_card" >Add</button>
-      <button class="button_card" (click)="openDetails(item)">Details</button>
+      <button class="button_card" [routerLink]="['/details-phone', item.id_celular]">Details</button>
     </div>
   </div>
 </div>

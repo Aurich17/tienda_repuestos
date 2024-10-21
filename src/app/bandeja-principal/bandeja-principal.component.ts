@@ -24,30 +24,13 @@ export class BandejaPrincipalComponent {
   isLoggedIn: boolean = false;
   isAdmin: boolean = true;
 
-  imageObject: { thumbImage: string; title?: string }[] = [];
+  imageObject:any = [];
 
   constructor(public dialog: MatDialog,private snackBar: MatSnackBar,private apiService: ApiService,private router: Router, private route: ActivatedRoute) {}
 
   ngOnInit(){
     this.muestraPhone()
     this.isLoggedIn = !!localStorage.getItem('access_token');
-
-    this.route.queryParams.subscribe(params => {
-      const paymentId = params['paymentId'];
-      const payerId = params['PayerID'];
-
-      if (paymentId && payerId) {
-        this.apiService.executePayment(paymentId, payerId).subscribe(
-          (response) => {
-            // Manejar la respuesta de la ejecución del pago
-            console.log('Payment executed successfully', response);
-          },
-          (error) => {
-            console.error('Error executing payment', error);
-          }
-        );
-      }
-    });
   }
   // OPEN MODAL
   openDetails(item:any) {
@@ -184,17 +167,18 @@ export class BandejaPrincipalComponent {
         this.celulares = data;
         console.log(this.celulares)
         for (let i = 0; i < this.celulares.length; i++) {
-          const imagenBase64 = this.celulares[i].imagen;
-
-          if (this.isValidBase64(imagenBase64)) { // Validar el Base64
-            const item = {
-              thumbImage: 'data:image/jpeg;base64,' + imagenBase64,
-              title: this.celulares[i].modelo
-            }
-            // console.log(item)
-            this.imageObject.push(item);
-          } else {
-          }
+          // const imagenBase64 = this.celulares[i].imagen;
+          this.imageObject.push(this.celulares[i].imagen)
+          console.log(this.imageObject)
+          // if (this.isValidBase64(imagenBase64)) { // Validar el Base64
+          //   const item = {
+          //     thumbImage: 'data:image/jpeg;base64,' + imagenBase64,
+          //     title: this.celulares[i].modelo
+          //   }
+          //   // console.log(item)
+          //   this.imageObject.push(item);
+          // } else {
+          // }
         }
       },
       error => {

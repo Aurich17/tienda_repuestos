@@ -7,12 +7,16 @@ import { MantUsersComponent } from './administrador_panel/presentacion/mant-user
 import { ShoppingCartComponent } from './bandeja-principal/components/shopping-cart/shopping-cart.component';
 import { AdminGuard } from './guards/admin.guard';
 import { DashboardComponent } from './administrador_panel/presentacion/dashboard/dashboard.component';
+import { PaymentResultComponent } from './bandeja-principal/components/payment-result/payment-result.component';
+import { DetailsPhoneComponent } from './bandeja-principal/components/details-phone/details-phone.component';
 
 const routes: Routes = [
   // Rutas principales que ocupan toda la pantalla
   { path: '', redirectTo: '/store', pathMatch: 'full' },
   { path: 'store', component: BandejaPrincipalComponent },
   { path: 'cart', component: ShoppingCartComponent},
+  { path: 'payment-result', component: PaymentResultComponent },
+  { path: 'details-phone/:id', component: DetailsPhoneComponent },
 
   // Rutas dentro del admin que ocupan toda la pantalla
   { path: 'admin', component: PanelAdminComponent, canActivate: [AdminGuard],
