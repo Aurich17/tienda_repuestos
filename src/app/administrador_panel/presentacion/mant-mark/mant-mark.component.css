@@ -1,0 +1,133 @@
+.container_general {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin: 20px 0; /* Espacio vertical entre el contenido */
+}
+
+.container_button {
+  width: 550px;
+  display: flex;
+  justify-content: space-around;
+}
+
+.description_phone {
+  width: 470px;
+  margin-right: 20px; /* Espacio entre input y botones */
+}
+
+.button {
+  font-size: 16px;
+  padding: 10px 20px;
+  border: none;
+  background-color: #6CF8A6;
+  color: white;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Sombra suave */
+  display: flex;
+  align-items: center;
+  /* width: ; */
+  gap: 8px; /* Espacio entre icono y texto */
+  margin-bottom: 20px;
+}
+
+.button:hover {
+  background-color: #39C37D;
+  box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.mat-icon {
+  font-size: 20px;
+}
+
+.button:active {
+  background-color: #003d82;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2); /* Sombra más pequeña en click */
+}
+
+.mat-form-field {
+  width: 100%;
+}
+
+h1 {
+  font-family: 'Arial', sans-serif;
+  font-size: 24px;
+  color: #333;
+  margin-bottom: 20px;
+  margin-bottom: 50px;
+}
+
+
+/* BUTTON CAR */
+.cart-button {
+  display: flex;
+  align-items: center;
+  gap: 5px; /* Espacio entre el ícono y el texto */
+}
+
+.icon {
+  display: block;
+  font-size: 20px;
+  padding: 0;
+  margin: 0 auto;
+  background-color: aqua;
+}
+
+.cart-button:hover {
+  background-color: #0056b3; /* Color de fondo más oscuro al hacer hover */
+  box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.2); /* Sombra más fuerte al hacer hover */
+}
+
+.cart-button:active {
+  background-color: #0056b3; /* Color más oscuro cuando está activo (click) */
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2); /* Sombra más pequeña al hacer click */
+}
+
+
+.buttons_table {
+  display: flex;
+  justify-content: flex-start; /* Alinea los botones al inicio */
+  gap: 8px; /* Espacio entre los botones */
+  /* background-color: #c82333; */
+  width: 10px;
+}
+
+.button_edit, .button_delete {
+  display: flex;
+  align-items: center;
+  justify-content: center; /* Asegura que el contenido esté centrado */
+  color: white;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+.button_edit {
+  background-color: #fd7e14; /* Naranja */
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.button_edit:hover {
+  background-color: #e96500;
+}
+
+.button_delete {
+  background-color: #dc3545; /* Rojo */
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  /* justify-content: center; */
+}
+
+.button_delete:hover {
+  background-color: #c82333;
+}

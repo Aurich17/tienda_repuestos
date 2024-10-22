@@ -18,13 +18,11 @@ import { ShoppingCartComponent } from './components/shopping-cart/shopping-cart.
   // encapsulation: ViewEncapsulation.None
 })
 export class BandejaPrincipalComponent {
-  // faSignInAlt = faSignInAlt;
-  // faShoppingCart = faShoppingCart;
-  // faSignOutAlt = faSignOutAlt;
   isLoggedIn: boolean = false;
   isAdmin: boolean = true;
 
   imageObject:any = [];
+  celularesPorMarca: { [key: string]: CelularResponse[] } = {};
 
   constructor(public dialog: MatDialog,private snackBar: MatSnackBar,private apiService: ApiService,private router: Router, private route: ActivatedRoute) {}
 
@@ -37,7 +35,6 @@ export class BandejaPrincipalComponent {
     this.dialog.open(DetailsPhoneComponent, {
       width: '70vw',  // ancho
       height: '90vh',  // altura
-      //border-radius: '20px',
       data: item
     });
   }
@@ -47,8 +44,6 @@ export class BandejaPrincipalComponent {
       this.dialog.open(ShoppingCartComponent, {
         width: '60vw',  // ancho
         height: '90vh',  // altura
-        //border-radius: '20px',
-        // data: item,
         disableClose: true
       });// Lógica para abrir el carrito de compras
     } else {
@@ -144,7 +139,6 @@ export class BandejaPrincipalComponent {
   mensaje(){
     this.snackBar.open('Registration successful!', 'Close', {
       duration: 3000, // El mensaje dura 3 segundos
-      // panelClass: ['custom-snackbar'], // Aplica la clase personalizada
       verticalPosition: "top", // Posición del snackbar
       horizontalPosition: "end"
     });
@@ -161,25 +155,39 @@ export class BandejaPrincipalComponent {
     return pattern.test(value);
   }
 
+  // muestraPhone() {
+  //   this.apiService.getCelulares().subscribe(
+  //     (data: CelularResponse[]) => {
+  //       this.celulares = data;
+  //       console.log(this.celulares)
+  //       for (let i = 0; i < this.celulares.length; i++) {
+  //         this.imageObject.push(this.celulares[i].imagen)
+  //         console.log(this.imageObject)
+  //       }
+  //     },
+  //     error => {
+  //       console.error('Error al obtener marcas', error);
+  //     }
+  //   );
+  // }
+
   muestraPhone() {
     this.apiService.getCelulares().subscribe(
       (data: CelularResponse[]) => {
         this.celulares = data;
-        console.log(this.celulares)
-        for (let i = 0; i < this.celulares.length; i++) {
-          // const imagenBase64 = this.celulares[i].imagen;
-          this.imageObject.push(this.celulares[i].imagen)
-          console.log(this.imageObject)
-          // if (this.isValidBase64(imagenBase64)) { // Validar el Base64
-          //   const item = {
-          //     thumbImage: 'data:image/jpeg;base64,' + imagenBase64,
-          //     title: this.celulares[i].modelo
-          //   }
-          //   // console.log(item)
-          //   this.imageObject.push(item);
-          // } else {
-          // }
-        }
+        console.log(this.celulares);
+
+        // Agrupar celulares por marca
+        this.celularesPorMarca = this.celulares.reduce<{ [key: string]: CelularResponse[] }>((acc, celular) => {
+          const marca = celular.marca; // Asegúrate de que `marca` esté en tu objeto
+          if (!acc[marca]) {
+            acc[marca] = []; // Inicializar el array si no existe
+          }
+          acc[marca].push(celular); // Agregar el celular al array de la marca
+          return acc;
+        }, {});
+
+        console.log(this.celularesPorMarca); // Verifica la estructura del objeto agrupado
       },
       error => {
         console.error('Error al obtener marcas', error);
@@ -188,7 +196,6 @@ export class BandejaPrincipalComponent {
   }
 
   logout(): void {
-    // Eliminar el token de localStorage y actualizar el estado
     localStorage.removeItem('access_token');
     this.isLoggedIn = false;
   }

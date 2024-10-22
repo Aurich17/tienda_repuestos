@@ -37,6 +37,8 @@ import { NgImageSliderModule } from 'ng-image-slider';
 import { EditUserComponent } from './administrador_panel/presentacion/edit-user/edit-user.component';
 import { PaymentResultComponent } from './bandeja-principal/components/payment-result/payment-result.component';
 import { CustomSliderComponent } from './shared/components/custom-slider/custom-slider.component';
+import { MantComponentComponent } from './administrador_panel/presentacion/mant-component/mant-component.component';
+import { MantMarkComponent } from './administrador_panel/presentacion/mant-mark/mant-mark.component';
 
 @NgModule({
   declarations: [
@@ -57,6 +59,8 @@ import { CustomSliderComponent } from './shared/components/custom-slider/custom-
     EditUserComponent,
     PaymentResultComponent,
     CustomSliderComponent,
+    MantComponentComponent,
+    MantMarkComponent,
   ],
   imports: [
     BrowserModule,

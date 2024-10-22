@@ -31,7 +31,8 @@
   margin-top: 30px;
   display: flex;
   justify-content: space-around;
-  flex-wrap: wrap;
+  /* flex-wrap: wrap; */
+  flex-direction: column;
 }
 
 .card {
@@ -182,9 +183,10 @@
   color: white;  /* Color del texto */
   text-align: center;  /* Centrar el texto */
   padding: 20px 0;  /* Espaciado superior e inferior */
-  position: relative;  /* Permitir posicionamiento */
+  position: end; /* Permitir posicionamiento dentro del flujo */
   bottom: 0;  /* Posicionar al fondo */
   width: 100%;  /* Ancho completo */
+  display: block;
 }
 
 .footer-content {
@@ -204,3 +206,26 @@
 
 
 /* SLIDER */
+.divider{
+  /* background-color: #007BFF; */
+  display: flex;
+  flex-direction: column;
+}
+
+.divider_card{
+  /* background-color: orange; */
+  display: flex;
+  flex-direction: row;
+}
+
+.body{
+  display: flex;
+  flex-direction: column;
+}
+
+.marca{
+  background-color:#6CF8A6;
+  height: 30px;
+  text-align: center;
+  border-radius: 20px;
+}

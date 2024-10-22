@@ -2,8 +2,8 @@
 <div class="header">
   <h1 class="title">CellPhone</h1>
   <div class="nav-links">
-    <a href="#about" *ngIf="!isLoggedIn">About Us</a>
-    <a href="#contact" *ngIf="!isLoggedIn">Contact</a>
+    <!-- <a href="#about" *ngIf="!isLoggedIn">About Us</a>
+    <a href="#contact" *ngIf="!isLoggedIn">Contact</a> -->
 
     <!-- Botón de Login, visible solo si no está logueado -->
     <button mat-button class="login-btn login-button" *ngIf="!isLoggedIn" (click)="openLogin()">

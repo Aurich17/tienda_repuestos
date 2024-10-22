@@ -22,6 +22,8 @@ table {
   padding: 10px;
   font-weight: bold;
   text-transform: uppercase;
+  background-color: #6CF8A6;;
+  border: 4px solid #e0e0e0 ;
 }
 
 /* Estilos para las filas */
@@ -32,6 +34,9 @@ table {
   color: var(--color-texto);
   border-bottom: 1px solid #e0e0e0; /* Línea divisoria sutil */
   transition: background-color 0.3s ease; /* Transición suave para hover */
+  border-bottom: 5px solid #e0e0e0;
+  border-left: 5px solid #e0e0e0;
+  border-right: 5px solid #e0e0e0;
 }
 
 .highline:hover {
@@ -50,6 +55,7 @@ td {
   font-weight: bold;
   font-size: 18px;
   text-align: center;
+  background-color: aquamarine;
 }
 
 /* Alternancia de colores para filas */
@@ -72,7 +78,7 @@ input {
 
 /* Mejoras en el aspecto visual de los botones */
 button {
-  background-color: #4caf50;
+  background-color: #4c4eaf;
   color: white;
   border: none;
   border-radius: 5px;
@@ -90,6 +96,10 @@ button:hover {
 button mat-icon {
   margin-right: 5px;
   font-size: 18px;
+}
+
+.title_header{
+  background-color: orange;
 }
 
 /* Mejoras de visibilidad en pantallas pequeñas */

@@ -14,11 +14,19 @@
       </mat-list-item>
       <mat-list-item (click)="sidenav.mode === 'over' && sidenav.toggle()" [routerLink]="['/admin/add-product']">
         <mat-icon matListItemIcon>stay_primary_portrait</mat-icon>
-        Mant Phone
+        Mant Phones
       </mat-list-item>
       <mat-list-item (click)="sidenav.mode === 'over' && sidenav.toggle()" [routerLink]="['/admin/mant-users']">
         <mat-icon matListItemIcon>supervised_user_circle</mat-icon>
         Mant Users
+      </mat-list-item>
+      <mat-list-item (click)="sidenav.mode === 'over' && sidenav.toggle()" [routerLink]="['/admin/mant-component']">
+        <mat-icon matListItemIcon>build</mat-icon>
+        Mant Components
+      </mat-list-item>
+      <mat-list-item (click)="sidenav.mode === 'over' && sidenav.toggle()" [routerLink]="['/admin/mant-mark']">
+        <mat-icon matListItemIcon>group_work</mat-icon>
+        Mant Marks
       </mat-list-item>
     </mat-nav-list>
   </mat-sidenav>

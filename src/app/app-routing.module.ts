@@ -9,6 +9,8 @@ import { AdminGuard } from './guards/admin.guard';
 import { DashboardComponent } from './administrador_panel/presentacion/dashboard/dashboard.component';
 import { PaymentResultComponent } from './bandeja-principal/components/payment-result/payment-result.component';
 import { DetailsPhoneComponent } from './bandeja-principal/components/details-phone/details-phone.component';
+import { MantComponentComponent } from './administrador_panel/presentacion/mant-component/mant-component.component';
+import { MantMarkComponent } from './administrador_panel/presentacion/mant-mark/mant-mark.component';
 
 const routes: Routes = [
   // Rutas principales que ocupan toda la pantalla
@@ -24,7 +26,9 @@ const routes: Routes = [
       // Esta es la ruta secundaria que mostrará solo en una parte específica del layout
       { path: 'dashboard', component: DashboardComponent},
       { path: 'add-product', component: MantProductoComponent },
-      { path: 'mant-users', component: MantUsersComponent }
+      { path: 'mant-users', component: MantUsersComponent },
+      { path: 'mant-component', component: MantComponentComponent },
+      { path: 'mant-mark', component: MantMarkComponent }
     ]
   },
 ];
