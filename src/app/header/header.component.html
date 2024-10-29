@@ -3,29 +3,23 @@
   <h1 class="title">CellPhone</h1>
   <p-toast></p-toast>
   <div class="nav-links">
-    <!-- <a href="#about" *ngIf="!isLoggedIn">About Us</a>
-    <a href="#contact" *ngIf="!isLoggedIn">Contact</a> -->
-
-
     <p-button
-    icon="pi pi-sign-in"
     [style]="{ 'background-color': 'transparent', border: 'none' }"
     *ngIf="!isLoggedIn" (click)="openLogin()">
+      <i class="pi pi-sign-in text-3xl" [style]="{'font-size': '24px' }"></i>
     </p-button>
 
-    <button mat-icon-button *ngIf="isLoggedIn" class="cart-user">
-      <mat-icon>person</mat-icon>
-    </button>
+    <p-button [style]="{ 'background-color': 'transparent', border: 'none' }" *ngIf="isLoggedIn"><i class="pi pi-user text-3xl" [style]="{'font-size': '24px' }"></i></p-button>
     <!-- Botón de Carrito, visible solo si está logueado -->
-    <button mat-icon-button *ngIf="isLoggedIn" class="cart-button" [routerLink]="['/cart']">
-      <mat-icon>shopping_cart</mat-icon>
-    </button>
+     <p-button [style]="{ 'background-color': 'transparent', border: 'none' }" *ngIf="isLoggedIn">
+       <i class="pi pi-shopping-cart text-3xl" pBadge value={{cartService.getCartItemCount()}} *ngIf="isLoggedIn" [routerLink]="['/cart']"   [style]="{'font-size': '24px' }"></i>
+     </p-button>
 
     <p-button
-    icon="pi pi-sign-out"
-    [style]="{ 'background-color': 'transparent', border: 'none' }"
+    [style]="{ 'background-color': 'transparent', border: 'none', }"
     *ngIf="isLoggedIn"
     (click)="logout()">
+      <i class="pi pi-sign-out ext-3xl" [style]="{'font-size': '24px' }"></i>
     </p-button>
   </div>
 </div>

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { catchError, Observable, tap, throwError } from 'rxjs';
 import { LoginRequest } from '../login/domain/request/login_request';
-import {CelularResponse,paypalRequest,Tipos, UserRequest, UserResponse } from '../administrador_panel/domain/response/administrador_response';
+import {CelularResponse,paypalRequest,Tipos, UserListaRequest, UserRequest, UserResponse } from '../administrador_panel/domain/response/administrador_response';
 import { InsertaCelularRequest } from '../administrador_panel/domain/request/administrador_request';
 import { PayPalResponse } from '../bandeja-principal/components/shopping-cart/response/response_shopping';
 
@@ -77,8 +77,8 @@ export class ApiService {
     return this.http.post(`${this.apiUrl}/api/insert_celular`, formData);
   }
 
-  getUsers(): Observable<UserResponse[]> {
-    return this.http.post<UserResponse[]>(`${this.apiUrl}/api/user`,'');  // Cambiar tab_table por tabla_tab
+  getUsers(user_request:UserListaRequest): Observable<UserResponse[]> {
+    return this.http.post<UserResponse[]>(`${this.apiUrl}/api/user`,user_request);  // Cambiar tab_table por tabla_tab
   }
 
   apiUserManage(requestUser: UserRequest): Observable<any> {

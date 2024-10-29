@@ -20,7 +20,6 @@ export class CartService {
     if (existingItem) {
       // Si la parte ya está en el carrito, actualiza la cantidad
       existingItem.quantity += 1;
-      console.log('Parte ya en el carrito');
     } else {
       // Si la parte no está en el carrito, la agrega como un nuevo item con cantidad 1
       const newItem = {
@@ -33,13 +32,9 @@ export class CartService {
         quantity: 1 // Cantidad inicial de la parte
       };
       currentCart.push(newItem);
-      console.log('Este es el carrito:');
-      console.log(currentCart);
     }
 
     this.cartItems.next(currentCart); // Actualiza los productos del carrito
-    console.log('Carrito actualizado:', currentCart);
-
     this.getCartTotal()
   }
   // Eliminar producto del carrito (específicamente una parte del celular)
@@ -71,8 +66,10 @@ export class CartService {
       const itemTotal = item.precio * item.quantity; // Usa el precio de la parte
       return acc + (isNaN(itemTotal) ? 0 : itemTotal); // Asegúrate de que itemTotal es un número
     }, 0);
-
-    console.log('Total del carrito:', total);
     return total;
+  }
+
+  getCartItemCount() {
+    return this.cartItems.value.reduce((acc, item) => acc + item.quantity, 0);
   }
 }

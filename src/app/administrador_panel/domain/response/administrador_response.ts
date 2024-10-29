@@ -50,6 +50,9 @@ export interface UserRequest {
   nac_cod:string
 }
 
+export interface UserListaRequest {
+  name_user: string,
+}
 
 export interface paypalRequest{
   paymentId: string,

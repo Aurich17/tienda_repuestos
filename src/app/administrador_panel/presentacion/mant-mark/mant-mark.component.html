@@ -6,7 +6,7 @@
       <input pInputText id="username" aria-describedby="username-help" formControlName="description_mark"  placeholder="Description Mark" style="width: 100%;"/>
     </div>
     <div class="container_button">
-      <p-button label="search" icon="pi pi-plus" styleClass="p-button-outlined" (click)="addMark()"></p-button>
+      <p-button label="new" icon="pi pi-plus" styleClass="p-button-outlined" (click)="addMark()"></p-button>
       <p-button label="search" icon="pi pi-search" styleClass="p-button-outlined"></p-button>
       <p-button label="close" icon="pi pi-times" styleClass="p-button-outlined" routerLink="/admin"></p-button>
     </div>
@@ -19,12 +19,8 @@
       <th mat-header-cell *matHeaderCellDef></th>
       <td mat-cell *matCellDef="let row">
         <div class="buttons_table">
-          <button mat-icon-button type="button" class="button_edit" aria-label="Edit">
-            <mat-icon>edit</mat-icon>
-          </button>
-          <button mat-icon-button type="button" class="button_delete" aria-label="Delete">
-            <mat-icon>delete</mat-icon>
-          </button>
+          <p-button icon="pi pi-pencil" styleClass="p-button-rounded p-button-outlined" [style]="{color:'orange'}"></p-button>
+          <p-button icon="pi pi-trash" styleClass="p-button-rounded p-button-outlined" [style]="{color:'red'}"></p-button>
         </div>
       </td>
     </ng-container>

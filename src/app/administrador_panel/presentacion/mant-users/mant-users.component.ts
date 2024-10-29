@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { CelularResponse, UserRequest, UserResponse } from '../../domain/response/administrador_response';
+import { CelularResponse, UserListaRequest, UserRequest, UserResponse } from '../../domain/response/administrador_response';
 import { NewPhoneComponent } from '../new-phone/new-phone.component';
 import { MetadataTable } from 'src/app/interfaces/metada-table.interface';
 import { FormControl, FormGroup } from '@angular/forms';
@@ -21,7 +21,7 @@ export class MantUsersComponent {
 
   initializeForm(){
     this.group = new FormGroup({
-      description_phone : new FormControl (null,null)
+      user_name : new FormControl (null,null)
     });
    }
   //description_phone
@@ -49,8 +49,12 @@ export class MantUsersComponent {
   users!:UserResponse[]
 
   muestraUser(){
+    const values = this.group.value
+    const user_request:UserListaRequest  = <UserListaRequest >{}
+
+    user_request.name_user = values.user_name != null ? values.user_name : '%',
     this.users = []
-    this.apiService.getUsers().subscribe(
+    this.apiService.getUsers(user_request).subscribe(
       (data: UserResponse[]) => {
         this.users = data;
         this.dataTable = this.users

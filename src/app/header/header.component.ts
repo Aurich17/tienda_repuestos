@@ -6,6 +6,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { ApiService } from '../services/services_api';
 import { ShoppingCartComponent } from '../bandeja-principal/components/shopping-cart/shopping-cart.component';
 import { AuthService } from '../services/auth_service';
+import { CartService } from '../services/shoppin_cart_service';
 
 @Component({
   selector: 'app-header',
@@ -13,7 +14,7 @@ import { AuthService } from '../services/auth_service';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit{
-  constructor(public dialog: MatDialog,private snackBar: MatSnackBar,private apiService: ApiService,private router: Router, private route: ActivatedRoute,private authService: AuthService) {}
+  constructor(public dialog: MatDialog,private authService: AuthService, public cartService: CartService) {}
   isLoggedIn: boolean = false;
   products!:[];
   ngOnInit() {
