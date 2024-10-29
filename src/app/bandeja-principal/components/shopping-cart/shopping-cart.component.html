@@ -11,10 +11,11 @@
           <p>{{item.marca}}</p>
           <p>Price: {{item.precio | currency}}</p> <!-- Mostrar precio de la parte -->
         </div>
+
         <div class="cart-item-quantity">
-          <button (click)="decreaseQuantity(item)" [disabled]="item.quantity <= 1">-</button>
-          <input type="number" [(ngModel)]="item.quantity" min="1" (input)="updateQuantity(item, item.quantity)">
-          <button (click)="increaseQuantity(item)">+</button>
+          <p-inputNumber [(ngModel)]="item.quantity" [showButtons]="true" buttonLayout="horizontal" inputId="horizontal" spinnerMode="horizontal" [step]="1"
+          decrementButtonClass="p-button-danger" incrementButtonClass="p-button-success" incrementButtonIcon="pi pi-plus"
+          decrementButtonIcon="pi pi-minus" [min]="1" style="text-align: center;"></p-inputNumber>
         </div>
         <div class="cart-item-remove">
           <button (click)="removeFromCart(item)"><mat-icon>delete</mat-icon></button>

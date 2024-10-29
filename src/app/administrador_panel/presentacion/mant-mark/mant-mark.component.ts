@@ -18,7 +18,7 @@ export class MantMarkComponent {
 
   initializeForm(){
     this.group = new FormGroup({
-      description_phone : new FormControl (null,null)
+      description_mark : new FormControl (null,null)
     });
    }
   //description_phone

@@ -97,7 +97,7 @@ export class MantUsersComponent {
   openDialog(enterAnimationDuration: string, exitAnimationDuration: string, row:any): void {
     const dialogRef = this.dialog.open(DialogYesOrNot, {
       width: '350px',
-      height: '150px',
+      height: '160px',
       enterAnimationDuration,
       exitAnimationDuration,
       data: {

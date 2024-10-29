@@ -15,10 +15,12 @@ import { AuthService } from '../services/auth_service';
 export class HeaderComponent implements OnInit{
   constructor(public dialog: MatDialog,private snackBar: MatSnackBar,private apiService: ApiService,private router: Router, private route: ActivatedRoute,private authService: AuthService) {}
   isLoggedIn: boolean = false;
-
-  ngOnInit(){
+  products!:[];
+  ngOnInit() {
+    this.authService.checkLoginStatus(); // Verifica si el usuario sigue logueado al cargar la página
+    // Suscribirse al estado de autenticación
     this.authService.isLoggedIn$.subscribe((isLoggedIn) => {
-      this.isLoggedIn = isLoggedIn;
+      this.isLoggedIn = isLoggedIn; // Actualiza el estado del componente
     });
   }
 

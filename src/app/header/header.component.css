@@ -1,5 +1,5 @@
 *{
-  color: black;
+  color: white;
 }
 
 .header {
@@ -7,14 +7,15 @@
   justify-content: space-between;
   align-items: center;
   padding: 5px 20px;
-  background: #6cf8a6;
+  background: linear-gradient(90deg, #005ea8, #007ad9, #66b8ff);
   margin-bottom: 5px;
+  color: white;
 }
 
 .title {
   font-size: 40px; /* Un poco más pequeño */
   font-weight: bold;
-  color: #1F1F1F;
+  color: white;
 }
 
 .nav-links {
@@ -70,7 +71,7 @@
 
 /* Estilos específicos para cada botón */
 .login-button {
-  background-color: #FF6D00;
+  background-color: #7AB2D3;
   color: white;
   /* border-color: #007bff; Color del borde para el botón de Login */
 }
@@ -130,7 +131,7 @@
 
 /* Estilo del botón de logout */
 .logout-button {
-  background-color: #6cf8a6;
+  background-color: #4A628A;
   color: #121212;
   border-radius: 4px;
   padding: 5px 15px;
@@ -147,5 +148,5 @@
 }
 
 .logout-button:hover {
-  background-color: #53d88e; /* Color verde más oscuro en hover */
+  background-color: #4A628A; /* Color verde más oscuro en hover */
 }

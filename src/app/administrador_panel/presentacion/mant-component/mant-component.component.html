@@ -1,27 +1,14 @@
 <h1 style="text-align: center;">MANT COMPONENT</h1>
 <form [formGroup]="group">
   <div class="container_general">
-    <!-- Input de descripción del teléfono -->
-    <mat-form-field class="description_phone" appearance="outline">
-      <mat-label>Description Mark</mat-label>
-      <input matInput type="text" formControlName="description_phone">
-    </mat-form-field>
-
+    <div style="width: 60%">
+      <!-- <label for="username">Username</label> -->
+      <input pInputText id="username" aria-describedby="username-help" formControlName="description_component"  placeholder="Description Component" style="width: 100%;"/>
+    </div>
     <div class="container_button">
-      <button class="button" (click)="addMark()">
-        <mat-icon>add</mat-icon>
-        NEW
-      </button>
-
-      <button class="button" (click)="muestraComponente()">
-        <mat-icon>search</mat-icon>
-        SEARCH
-      </button>
-
-      <button class="button" routerLink="/admin">
-        <mat-icon>close</mat-icon>
-        CLOSE
-      </button>
+      <p-button label="search" icon="pi pi-plus" styleClass="p-button-outlined" (click)="addMark()"></p-button>
+      <p-button label="search" icon="pi pi-search" styleClass="p-button-outlined"></p-button>
+      <p-button label="close" icon="pi pi-times" styleClass="p-button-outlined" routerLink="/admin"></p-button>
     </div>
   </div>
 </form>

@@ -13,6 +13,7 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./details-phone.component.css']
 })
 export class DetailsPhoneComponent {
+  responsiveOptions: any[] = [];
   @Input() item_cart: any; // Recibe el producto actual
   constructor(
     private route: ActivatedRoute,

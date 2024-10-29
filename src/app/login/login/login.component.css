@@ -49,7 +49,7 @@ h2 {
 .login-btn, .register-btn {
   width: 100%;
   padding: 10px;
-  background-color: #6CF8A6 ;
+  background-color: #7AB2D3 ;
   color: #ffffff;
   font-size: 16px;
   border: none;
@@ -59,7 +59,7 @@ h2 {
 }
 
 .login-btn:hover, .register-btn:hover {
-  background-color: #39C37D  ;
+  background-color: #5A9EBF ;
 }
 
 .register-link, .login-link {
@@ -95,4 +95,37 @@ h2 {
 
 .custom-snackbar .mat-simple-snackbar-action {
   color: #FFD700;  /* Cambia el color del botón 'Close' */
+}
+
+.imagen{
+  margin: 0 auto;
+  /* background-color: red; */
+  width: 100px;
+}
+
+.group_principal{
+  display: flex;
+  justify-content: space-around;
+  flex-direction: column;
+}
+
+.input2{
+  height: 20px;
+}
+
+
+.prime-button {
+  background-color: #007ad9; /* Color primario de PrimeNG */
+  color: white; /* Color del texto */
+  border: none; /* Sin borde */
+  border-radius: 4px; /* Esquinas redondeadas */
+  padding: 10px 20px; /* Espaciado interno */
+  font-size: 1rem; /* Tamaño de fuente */
+  cursor: pointer; /* Cambia el cursor al pasar el mouse */
+  transition: background-color 0.3s ease; /* Transición suave */
+  text-align: center; /* Alineación centrada */
+}
+
+.prime-button:hover {
+  background-color: #005bb5; /* Color al pasar el mouse */
 }

@@ -8,6 +8,7 @@ import { CustomMessageComponent } from '../message_custom/custom-message/custom-
 import { ActivatedRoute, Router } from '@angular/router';
 import { CelularResponse } from '../administrador_panel/domain/response/administrador_response';
 import { ShoppingCartComponent } from './components/shopping-cart/shopping-cart.component';
+import { AuthService } from '../services/auth_service';
 // import { faSignInAlt, faShoppingCart, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
@@ -18,17 +19,41 @@ import { ShoppingCartComponent } from './components/shopping-cart/shopping-cart.
   // encapsulation: ViewEncapsulation.None
 })
 export class BandejaPrincipalComponent {
+  //CARRUSEL
+  // products: Product[];
+  responsiveOptions: any[] = [];
+
   isLoggedIn: boolean = false;
   isAdmin: boolean = true;
 
   imageObject:any = [];
   celularesPorMarca: { [key: string]: CelularResponse[] } = {};
 
-  constructor(public dialog: MatDialog,private snackBar: MatSnackBar,private apiService: ApiService,private router: Router, private route: ActivatedRoute) {}
+  constructor(public dialog: MatDialog,private snackBar: MatSnackBar,private apiService: ApiService,private router: Router, private route: ActivatedRoute,private authService: AuthService) {}
+
 
   ngOnInit(){
     this.muestraPhone()
-    this.isLoggedIn = !!localStorage.getItem('access_token');
+    // this.isLoggedIn = !!localStorage.getItem('access_token');
+    this.authService.checkLoginStatus()
+
+    this.responsiveOptions = [
+      {
+          breakpoint: '1199px',
+          numVisible: 1,
+          numScroll: 1
+      },
+      {
+          breakpoint: '991px',
+          numVisible: 1 ,
+          numScroll: 1
+      },
+      {
+          breakpoint: '767px',
+          numVisible: 1,
+          numScroll: 1
+      }
+  ];
   }
   // OPEN MODAL
   openDetails(item:any) {

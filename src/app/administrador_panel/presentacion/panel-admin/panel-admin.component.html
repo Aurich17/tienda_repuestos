@@ -3,7 +3,19 @@
     <mat-icon *ngIf="!sidenav.opened">menu</mat-icon>
     <mat-icon *ngIf="sidenav.opened">close</mat-icon>
   </button>
-  Panel Admin
+  <!-- Título del toolbar -->
+  <span>Panel Admin</span>
+
+  <!-- Usar flex para empujar el siguiente contenido al extremo derecho -->
+  <span class="spacer"></span>
+
+  <!-- Botón de logout en la esquina superior derecha -->
+  <p-button
+  icon="pi pi-sign-out"
+  [style]="{ 'background-color': 'transparent', border: 'none' }"
+  *ngIf="isLoggedIn"
+  (click)="logout()">
+</p-button>
 </mat-toolbar>
 <mat-sidenav-container>
   <mat-sidenav>

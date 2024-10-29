@@ -19,7 +19,7 @@ export class MantProductoComponent {
 
   initializeForm(){
     this.group = new FormGroup({
-      description_phone : new FormControl (null,null)
+      description_component : new FormControl (null,null)
     });
    }
   //description_phone

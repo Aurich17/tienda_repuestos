@@ -1,28 +1,41 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, NgZone, OnInit, ViewChild } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { ApiService } from 'src/app/services/services_api';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { CustomMessageComponent } from 'src/app/message_custom/custom-message/custom-message.component';
-import { Observable } from 'rxjs';
+import { Observable, switchMap } from 'rxjs';
 import { HttpHeaders } from '@angular/common/http';
 import { LoginRequest } from '../domain/request/login_request';
 import { Router } from '@angular/router';
 // import {BandejaPrincipalComponent} from
 import { BandejaPrincipalComponent } from 'src/app/bandeja-principal/bandeja-principal.component';
 import { AuthService } from 'src/app/services/auth_service';
+import { Tipos } from 'src/app/administrador_panel/domain/response/administrador_response';
+import { Message } from 'primeng/api/message';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  styleUrls: ['./login.component.css'],
 })
 export class LoginComponent implements OnInit {
 
+    messages!: Message[];
     group!:FormGroup
     group_login!:FormGroup
-    constructor(public dialog: MatDialog,private apiService: ApiService,private snackBar: MatSnackBar, private router: Router,public dialogRef: MatDialogRef<LoginComponent>,private authService: AuthService) {}
+    documentos: Tipos[] = []
+    nacionalidades: Tipos[] = [];
+    constructor(public dialog: MatDialog,private apiService: ApiService,private snackBar: MatSnackBar,
+      private router: Router,public dialogRef: MatDialogRef<LoginComponent>,private authService: AuthService,
+      private messageService: MessageService,private ngZone: NgZone) {}
     @ViewChild(CustomMessageComponent) customMessageComponent!: CustomMessageComponent;
+
+
+    show(type: string, message: string) {
+      this.messageService.add({ severity: type, detail: message });
+    }
 
     showCustomMessage() {
       this.customMessageComponent.message = 'Registration Successful!';
@@ -34,7 +47,9 @@ export class LoginComponent implements OnInit {
       this.group = new FormGroup({
         user_name : new FormControl (null,null),
         user_email : new FormControl(null,null),
-        user_password: new FormControl(null,null)
+        user_password: new FormControl(null,null),
+        documentoTipo :new FormControl(null,null),
+        numDocumento: new FormControl(null,null)
       });
 
       this.group_login = new FormGroup({
@@ -45,6 +60,7 @@ export class LoginComponent implements OnInit {
 
     ngOnInit():void{
       this.initializeForm()
+      this.loadTipos()
     }
     // Variable para alternar entre el formulario de login y registro
     showLogin: boolean = true;
@@ -106,7 +122,8 @@ export class LoginComponent implements OnInit {
           localStorage.setItem('access_token', response.access_token);
           this.apiService.getProfile().subscribe(
             (profile) => {
-              console.log(profile)
+              // this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Logueo Exitoso' });
+              this.show('success', 'Logueo Exitoso');
               let rol = profile.is_admin == true ? 'admin' : 'user'
               if (profile.is_admin) {
                 this.router.navigate(['/admin']);
@@ -128,4 +145,21 @@ export class LoginComponent implements OnInit {
         }
       );
     }
+
+    loadTipos(): void {
+      this.apiService.getTipos('NAC').pipe(
+        switchMap((data: Tipos[]) => {
+          this.nacionalidades = data;
+          // Aquí haces la segunda llamada API
+          return this.apiService.getTipos('DOI');
+        })
+      ).subscribe(
+        (response) => {
+          console.log('Resultado de la segunda API:', response);
+          this.documentos = response
+        }
+      );
+    }
+
+    //PARA VALIDAR QUE EL TOKEN SIGUE
 }

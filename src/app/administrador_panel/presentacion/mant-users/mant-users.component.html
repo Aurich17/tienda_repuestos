@@ -2,26 +2,18 @@
 <form [formGroup]="group">
   <div class="container_general">
     <!-- Input de descripción del teléfono -->
-    <mat-form-field class="description_phone" appearance="outline">
+    <!-- <mat-form-field class="description_phone" appearance="outline">
       <mat-label>User Name</mat-label>
       <input matInput type="text" formControlName="description_phone">
-    </mat-form-field>
+    </mat-form-field> -->
+    <div style="width: 60%">
+      <!-- <label for="username">Username</label> -->
+      <input pInputText id="username" aria-describedby="username-help" formControlName="login_user" placeholder="Username" style="width: 100%;"/>
+    </div>
 
     <div class="container_button">
-      <!-- <button class="button" (click)="addPhone()">
-        <mat-icon>add</mat-icon>
-        NEW
-      </button> -->
-
-      <button class="button">
-        <mat-icon>search</mat-icon>
-        SEARCH
-      </button>
-
-      <button class="button" routerLink="/admin">
-        <mat-icon>close</mat-icon>
-        CLOSE
-      </button>
+      <p-button label="search" icon="pi pi-search" styleClass="p-button-outlined"></p-button>
+      <p-button label="close" icon="pi pi-times" styleClass="p-button-outlined" routerLink="/admin"></p-button>
     </div>
   </div>
 </form>

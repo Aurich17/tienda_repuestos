@@ -15,7 +15,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CdkTableExporterModule } from 'cdk-table-exporter';
 import { MatTableExporterModule } from 'mat-table-exporter';
 import {MatIconModule} from '@angular/material/icon';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { LoginComponent } from './login/login/login.component';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { CustomMessageComponent } from './message_custom/custom-message/custom-message.component';
@@ -39,6 +39,22 @@ import { PaymentResultComponent } from './bandeja-principal/components/payment-r
 import { CustomSliderComponent } from './shared/components/custom-slider/custom-slider.component';
 import { MantComponentComponent } from './administrador_panel/presentacion/mant-component/mant-component.component';
 import { MantMarkComponent } from './administrador_panel/presentacion/mant-mark/mant-mark.component';
+import { AuthInterceptor } from './services/auth_interceptor';
+//PRIME
+import { CardModule } from 'primeng/card';
+import { ButtonModule } from 'primeng/button';
+import { ImageModule } from 'primeng/image';
+import { DividerModule } from 'primeng/divider';
+import { CarouselModule } from 'primeng/carousel';
+import { InputTextModule } from 'primeng/inputtext';
+import { PasswordModule } from 'primeng/password';
+import { InputNumberModule } from 'primeng/inputnumber';
+import { OrderListModule } from 'primeng/orderlist';
+import { MessagesModule } from 'primeng/messages';
+import { ToastModule } from 'primeng/toast';
+import { MessageService } from 'primeng/api';
+import { BadgeModule } from 'primeng/badge';
+
 
 @NgModule({
   declarations: [
@@ -83,9 +99,21 @@ import { MantMarkComponent } from './administrador_panel/presentacion/mant-mark/
     MatInputModule,
     MatSelectModule,
     NgChartsModule,
-    NgImageSliderModule
+    NgImageSliderModule,
+    CardModule,
+    ButtonModule,
+    ImageModule,
+    DividerModule,
+    CarouselModule,
+    InputTextModule,
+    PasswordModule,
+    InputNumberModule,
+    OrderListModule,
+    MessagesModule,
+    ToastModule,
+    BadgeModule
   ],
-  providers: [],
+  providers: [{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },MessageService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

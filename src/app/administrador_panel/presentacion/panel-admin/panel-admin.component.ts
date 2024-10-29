@@ -1,6 +1,7 @@
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { Component, ViewChild } from '@angular/core';
 import { MatSidenav } from '@angular/material/sidenav';
+import { AuthService } from 'src/app/services/auth_service';
 
 @Component({
   selector: 'app-panel-admin',
@@ -12,12 +13,17 @@ import { MatSidenav } from '@angular/material/sidenav';
 export class PanelAdminComponent {
   @ViewChild(MatSidenav, {static: true})
   sidenav!: MatSidenav;
-
-  constructor(private observer: BreakpointObserver) {
+  isLoggedIn: boolean = false;
+  constructor(private observer: BreakpointObserver, private authService:AuthService) {
 
   }
 
   ngOnInit(): void {
+    this.authService.checkLoginStatus(); // Verifica si el usuario sigue logueado al cargar la página
+    // Suscribirse al estado de autenticación
+    this.authService.isLoggedIn$.subscribe((isLoggedIn) => {
+      this.isLoggedIn = isLoggedIn; // Actualiza el estado del componente
+    });
     this.observer.observe(["(max-width: 800px)"])
     .subscribe((res) => {
       if(res.matches) {
@@ -28,5 +34,10 @@ export class PanelAdminComponent {
         this.sidenav.open();
       }
     })
+  }
+
+  logout() {
+    this.authService.logout(); // Llamar al servicio para cerrar sesión
+    localStorage.removeItem('access_token');
   }
 }

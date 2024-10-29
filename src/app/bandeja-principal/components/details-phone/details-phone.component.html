@@ -21,25 +21,25 @@
     </app-table>
   </div>
 </div>
+<div style="height: 20px;"></div>
+<p-card header="Description" [style]="{width: '80%', margin:'0 auto'}">
+  <p>{{ item.descripcion }}</p>
+</p-card>
+<div style="height: 20px;"></div>
+<p-carousel [value]="celulares" [numVisible]="5" [numScroll]="1" [circular]="true" [responsiveOptions]="responsiveOptions" [autoplayInterval]="3000" >
+  <ng-template pTemplate="item" let-item>
+    <div class="border-1 surface-border border-round m-2 text-center py-5 px-3" style="width: 250px; height: 350px;">
+      <div class="mb-3" style="width: 150px; height: 200px; margin: 0 auto;">
+        <img [src]="'data:image/jpeg;base64,' + item.imagen" [alt]="item.marca + ' ' + item.modelo" style="width: 150px; height: 200px;" />
+      </div>
+      <div style="display: flex; flex-direction: column; align-items: center;">
+        <h4 class="card_name mb-1" style="text-align: center;">{{ item.modelo }}</h4>
+        <h6 class="card_price mt-0 mb-3" style="text-align: center;">{{ item.precio_completo | currency }}</h6>
+        <p-button label="Detalles" styleClass="p-button-outlined" [routerLink]="['/details-phone', item.id_celular]"></p-button>
+      </div>
+    </div>
+  </ng-template>
+</p-carousel>
 
-<!-- Mat Card para la descripción del celular -->
-<div class="container_card">
-  <mat-card class="description-card">
-    <mat-card-header>
-      <mat-card-title>DESCRIPTION</mat-card-title>
-    </mat-card-header>
-    <mat-card-content>
-      <p>{{ item.descripcion }}</p>
-    </mat-card-content>
-  </mat-card>
-</div>
-
-<div style="width: 80%; margin: auto;">
-  <app-custom-slider
-  [images]="imageObject"
-  [autoSlide]="true"
-  [slideInterval]="5000"
-></app-custom-slider>
-</div>
 
 <div style="height: 20px;"></div>
