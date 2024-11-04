@@ -28,7 +28,7 @@ export class HeaderComponent implements OnInit{
   openLogin() {
     this.dialog.open(LoginComponent, {
       width: '400px',
-      height: '500px',        // Clase personalizada para el fondo
+      height: '600px',        // Clase personalizada para el fondo
     });
   }
 

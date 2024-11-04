@@ -3,6 +3,7 @@
   <h1 class="title">CellPhone</h1>
   <p-toast></p-toast>
   <div class="nav-links">
+
     <p-button
     [style]="{ 'background-color': 'transparent', border: 'none' }"
     *ngIf="!isLoggedIn" (click)="openLogin()">
@@ -10,10 +11,10 @@
     </p-button>
 
     <p-button [style]="{ 'background-color': 'transparent', border: 'none' }" *ngIf="isLoggedIn"><i class="pi pi-user text-3xl" [style]="{'font-size': '24px' }"></i></p-button>
-    <!-- Botón de Carrito, visible solo si está logueado -->
-     <p-button [style]="{ 'background-color': 'transparent', border: 'none' }" *ngIf="isLoggedIn">
+    <p-button [style]="{ 'background-color': 'transparent', border: 'none' }" *ngIf="isLoggedIn"><i class="pi pi-history text-3xl" [style]="{'font-size': '24px' }"></i></p-button>
+    <p-button [style]="{ 'background-color': 'transparent', border: 'none' }" *ngIf="isLoggedIn">
        <i class="pi pi-shopping-cart text-3xl" pBadge value={{cartService.getCartItemCount()}} *ngIf="isLoggedIn" [routerLink]="['/cart']"   [style]="{'font-size': '24px' }"></i>
-     </p-button>
+    </p-button>
 
     <p-button
     [style]="{ 'background-color': 'transparent', border: 'none', }"

@@ -5,6 +5,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MetadataTable } from 'src/app/interfaces/metada-table.interface';
 import { ApiService } from 'src/app/services/services_api';
 import { NewPhoneComponent } from '../new-phone/new-phone.component';
+import { TipoListaRequest } from '../../domain/request/administrador_request';
 
 @Component({
   selector: 'app-mant-component',
@@ -18,7 +19,7 @@ export class MantComponentComponent {
 
   initializeForm(){
     this.group = new FormGroup({
-      description_phone : new FormControl (null,null)
+      description_component : new FormControl (null,null)
     });
    }
   //description_phone
@@ -44,7 +45,11 @@ export class MantComponentComponent {
 
 
   muestraComponente(){
-    this.apiService.getTipos('COM').subscribe(
+    const values = this.group.value
+    const tipo_request:TipoListaRequest = <TipoListaRequest>{}
+    tipo_request.tabla_tab = 'COM'
+    tipo_request.desc_tipos = values.description_component != null ? values.description_component : '%'
+    this.apiService.getTipos(tipo_request).subscribe(
       (data: Tipos[]) => {
         this.dataTable = data
       },

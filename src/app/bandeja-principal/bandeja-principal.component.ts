@@ -9,6 +9,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { CelularResponse } from '../administrador_panel/domain/response/administrador_response';
 import { ShoppingCartComponent } from './components/shopping-cart/shopping-cart.component';
 import { AuthService } from '../services/auth_service';
+import { PhoneListaRequest } from '../administrador_panel/domain/request/administrador_request';
 // import { faSignInAlt, faShoppingCart, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
@@ -197,7 +198,9 @@ export class BandejaPrincipalComponent {
   // }
 
   muestraPhone() {
-    this.apiService.getCelulares().subscribe(
+    const user_request:PhoneListaRequest  = <PhoneListaRequest >{}
+    user_request.name_phone = '%'
+    this.apiService.getCelulares(user_request).subscribe(
       (data: CelularResponse[]) => {
         this.celulares = data;
         console.log(this.celulares);

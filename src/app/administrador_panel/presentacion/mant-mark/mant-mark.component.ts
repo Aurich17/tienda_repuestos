@@ -5,6 +5,7 @@ import { MetadataTable } from 'src/app/interfaces/metada-table.interface';
 import { FormGroup, FormControl } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ApiService } from 'src/app/services/services_api';
+import { TipoListaRequest } from '../../domain/request/administrador_request';
 
 @Component({
   selector: 'app-mant-mark',
@@ -45,7 +46,11 @@ export class MantMarkComponent {
   celulares!:CelularResponse[]
 
   muestraMarca(){
-    this.apiService.getTipos('MAR').subscribe(
+    const values = this.group.value
+    const tipo_request:TipoListaRequest = <TipoListaRequest>{}
+    tipo_request.tabla_tab = 'MAR'
+    tipo_request.desc_tipos = values.description_mark != null ? values.description_mark : '%'
+    this.apiService.getTipos(tipo_request).subscribe(
       (data: Tipos[]) => {
         this.dataTable = data
       },

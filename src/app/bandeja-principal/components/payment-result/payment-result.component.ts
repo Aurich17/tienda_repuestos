@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { paypalRequest } from 'src/app/administrador_panel/domain/response/administrador_response';
+import { paypalRequest } from 'src/app/administrador_panel/domain/request/administrador_request';
+//import { paypalRequest } from 'src/app/administrador_panel/domain/response/administrador_response';
 import { ApiService } from 'src/app/services/services_api';
 
 @Component({

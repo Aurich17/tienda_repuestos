@@ -14,6 +14,7 @@ import { AuthService } from 'src/app/services/auth_service';
 import { Tipos } from 'src/app/administrador_panel/domain/response/administrador_response';
 import { Message } from 'primeng/api/message';
 import { MessageService } from 'primeng/api';
+import { TipoListaRequest } from 'src/app/administrador_panel/domain/request/administrador_request';
 
 @Component({
   selector: 'app-login',
@@ -22,6 +23,7 @@ import { MessageService } from 'primeng/api';
 })
 export class LoginComponent implements OnInit {
 
+    selectedDocument!: Tipos;
     messages!: Message[];
     group!:FormGroup
     group_login!:FormGroup
@@ -141,17 +143,21 @@ export class LoginComponent implements OnInit {
           );
         },
         (error) => {
+          this.show('error', 'Credenciales Incorrectas');
           console.error('Error en el login:', error);
         }
       );
     }
 
     loadTipos(): void {
-      this.apiService.getTipos('NAC').pipe(
+      const tipo_request:TipoListaRequest = <TipoListaRequest>{}
+      tipo_request.tabla_tab = 'NAC'
+      this.apiService.getTipos(tipo_request).pipe(
         switchMap((data: Tipos[]) => {
           this.nacionalidades = data;
           // Aquí haces la segunda llamada API
-          return this.apiService.getTipos('DOI');
+          tipo_request.tabla_tab = 'DOI'
+          return this.apiService.getTipos(tipo_request);
         })
       ).subscribe(
         (response) => {

@@ -1,10 +1,11 @@
 import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { Tipos, UserRequest } from '../../domain/response/administrador_response';
+import { Tipos } from '../../domain/response/administrador_response';
 import { ApiService } from 'src/app/services/services_api';
 import { switchMap } from 'rxjs';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { TipoListaRequest, UserRequest } from '../../domain/request/administrador_request';
 
 @Component({
   selector: 'app-edit-user',
@@ -36,11 +37,15 @@ export class EditUserComponent {
    }
 
   loadTipos(): void {
-    this.apiService.getTipos('NAC').pipe(
+    const tipo_request:TipoListaRequest = <TipoListaRequest>{}
+    tipo_request.tabla_tab = 'NAC'
+    tipo_request.desc_tipos = '%'
+    this.apiService.getTipos(tipo_request).pipe(
       switchMap((data: Tipos[]) => {
         this.nacionalidades = data;
         // Aquí haces la segunda llamada API
-        return this.apiService.getTipos('DOI');
+        tipo_request.tabla_tab = 'DOI'
+        return this.apiService.getTipos(tipo_request);
       })
     ).subscribe(
       (response) => {

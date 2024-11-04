@@ -1,3 +1,5 @@
+<div class="absolute top-0 z-[-2] h-screen w-screen bg-white bg-[radial-gradient(100%_50%_at_50%_0%,rgba(0,163,255,0.13)_0,rgba(0,163,255,0)_50%,rgba(0,163,255,0)_100%)]"></div>
+
 <div class="login-container">
   <div class="login-card" *ngIf="showLogin">
     <!-- Login Form -->
@@ -5,7 +7,7 @@
       <img src="https://cdn-icons-png.flaticon.com/512/1077/1077114.png" style="width: 100px; height: 100px;">
     </div>
     <div style="height: 10px;"></div>
-
+    <div style="height: 10px;"></div>
 
     <form [formGroup]="group_login">
       <div class="flex flex-column gap-2" style="display: flex; flex-direction: column; margin-bottom: 20px;">
@@ -36,33 +38,53 @@
     <div class="imagen">
       <img src="https://cdn-icons-png.flaticon.com/512/1077/1077114.png" style="width: 100px; height: 100px;">
     </div>
+    <div style="height: 10px;"></div>
+    <div style="height: 10px;"></div>
     <form [formGroup]="group" class="group_principal">
-      <div class="input-group">
-        <label for="new-username">Username</label>
-        <input type="text" id="new-username" placeholder="Enter your name" required formControlName="user_name">
+      <div class="p-inputgroup">
+        <span class="p-inputgroup-addon">
+            <i class="pi pi-user"></i>
+        </span>
+        <input pInputText placeholder="Username" formControlName="user_name"/>
       </div>
-      <div class="input-group">
-        <label for="new-email">Email Address</label>
-        <input type="email" id="new-email" placeholder="Enter your email" required formControlName="user_email">
+      <div style="height: 10px;"></div>
+      <div class="p-inputgroup">
+        <span class="p-inputgroup-addon">
+            <i class="pi pi-at"></i>
+        </span>
+        <input pInputText placeholder="Email" formControlName="user_email"/>
       </div>
-      <div class="input-group">
-        <label for="new-password">Password</label>
-        <input type="password" id="new-password" placeholder="Create your password" required formControlName="user_password">
+      <div style="height: 10px;"></div>
+      <div class="p-inputgroup">
+        <span class="p-inputgroup-addon">
+            <i class="pi pi-lock"></i>
+        </span>
+        <input pInputText type="password" placeholder="Password" formControlName="user_password"/>
       </div>
-      <mat-form-field appearance="outline" class="input2">
-        <mat-label>Documento de Identidad</mat-label>
-        <mat-select formControlName="documentoTipo">
-          <mat-option *ngFor="let documento of documentos" [value]="documento.cod_tipo">
-            {{documento.des_tipo}}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-
-      <mat-form-field appearance="outline" class="input2">
-        <mat-label>Numero Documento</mat-label>
-        <input matInput type="text" formControlName="numDocumento">
-      </mat-form-field>
-      <button type="submit" class="register-btn" (click)="registerUser()">Register</button>
+      <div style="height: 10px;"></div>
+      <div class="p-inputgroup">
+        <span class="p-inputgroup-addon">
+          <i class="pi pi-id-card"></i>
+        </span>
+        <p-dropdown
+          [options]="documentos"
+          [(ngModel)]="selectedDocument"
+          placeholder="Seleccione un Documento"
+          optionLabel="des_tipo"
+          formControlName="numDocumento"
+          [style]="{ 'width': '100%' }">
+        </p-dropdown>
+      </div>
+      <div style="height: 10px;"></div>
+      <div class="p-inputgroup">
+        <span class="p-inputgroup-addon">
+            <i class="pi pi-hashtag"></i>
+        </span>
+        <input pInputText type="password" placeholder="Numero Documento" formControlName="numDocumento"/>
+      </div>
+      <div style="height: 10px;"></div>
+      <button (click)="registerUser()" style="width: 100%" class="prime-button">Register</button>
+      <!-- <button type="submit" class="register-btn" (click)="registerUser()">Register</button> -->
     </form>
     <div class="login-link">
       <p style="text-align: center;">Already have an account?</p>

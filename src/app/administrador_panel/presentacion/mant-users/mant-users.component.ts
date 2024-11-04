@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { CelularResponse, UserListaRequest, UserRequest, UserResponse } from '../../domain/response/administrador_response';
+import { CelularResponse, UserResponse } from '../../domain/response/administrador_response';
 import { NewPhoneComponent } from '../new-phone/new-phone.component';
 import { MetadataTable } from 'src/app/interfaces/metada-table.interface';
 import { FormControl, FormGroup } from '@angular/forms';
@@ -8,6 +8,7 @@ import { ApiService } from 'src/app/services/services_api';
 import { DialogYesOrNot } from 'src/app/message_custom/YesOrNot/yesOrNot';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { EditUserComponent } from '../edit-user/edit-user.component';
+import { UserListaRequest, UserRequest } from '../../domain/request/administrador_request';
 
 @Component({
   selector: 'app-mant-users',

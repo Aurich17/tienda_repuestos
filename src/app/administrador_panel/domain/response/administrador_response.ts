@@ -37,24 +37,4 @@ export interface UserResponse {
   nacionalidad_tag: string
 }
 
-export interface UserRequest {
-  accion: string,
-  user_id: number,
-  username: string,
-  email: string,
-  password: string,
-  is_admin: number,
-  nom_completo:string
-  doi_cod:string
-  num_doi:string
-  nac_cod:string
-}
 
-export interface UserListaRequest {
-  name_user: string,
-}
-
-export interface paypalRequest{
-  paymentId: string,
-  payerId: string
-}

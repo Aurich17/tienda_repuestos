@@ -2,10 +2,11 @@ import { Component,Inject, Input} from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MetadataTable } from 'src/app/interfaces/metada-table.interface';
 import { detail_phone_response } from './response/detail-phone.response';
-import { CelularResponse, ParteResponse } from 'src/app/administrador_panel/domain/response/administrador_response';
+import { CelularResponse, ParteResponse} from 'src/app/administrador_panel/domain/response/administrador_response';
 import { CartService } from 'src/app/services/shoppin_cart_service';
 import { ApiService } from 'src/app/services/services_api';
 import { ActivatedRoute } from '@angular/router';
+import { PhoneListaRequest } from 'src/app/administrador_panel/domain/request/administrador_request';
 
 @Component({
   selector: 'app-details-phone',
@@ -47,7 +48,10 @@ export class DetailsPhoneComponent {
   celulares!:CelularResponse[]
 
   muestraPhone(id: string | null) {
-    this.apiService.getCelulares().subscribe(
+    // phone_request
+    const user_request:PhoneListaRequest  = <PhoneListaRequest >{}
+    user_request.name_phone = '%',
+    this.apiService.getCelulares(user_request).subscribe(
       (data: CelularResponse[]) => {
         this.celulares = data;
         this.item = this.celulares.find(celular => celular.id_celular.toString() === id); // Filtra el celular correcto

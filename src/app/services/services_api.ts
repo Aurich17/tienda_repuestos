@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { catchError, Observable, tap, throwError } from 'rxjs';
 import { LoginRequest } from '../login/domain/request/login_request';
-import {CelularResponse,paypalRequest,Tipos, UserListaRequest, UserRequest, UserResponse } from '../administrador_panel/domain/response/administrador_response';
-import { InsertaCelularRequest } from '../administrador_panel/domain/request/administrador_request';
+import {CelularResponse,Tipos, UserResponse } from '../administrador_panel/domain/response/administrador_response';
+import { InsertaCelularRequest, paypalRequest, PhoneListaRequest, TipoListaRequest, UserListaRequest, UserRequest } from '../administrador_panel/domain/request/administrador_request';
 import { PayPalResponse } from '../bandeja-principal/components/shopping-cart/response/response_shopping';
 
 @Injectable({
@@ -52,8 +52,8 @@ export class ApiService {
     return this.http.get(`${this.apiUrl}/api/users/profile`, { headers });
   }
 
-  getCelulares(): Observable<CelularResponse[]> {
-    return this.http.post<CelularResponse[]>(`${this.apiUrl}/api/celulares`,'');
+  getCelulares(phone_request:PhoneListaRequest): Observable<CelularResponse[]> {
+    return this.http.post<CelularResponse[]>(`${this.apiUrl}/api/celulares`,phone_request);
   }
 
   createPayment(total: number, currency: string): Observable<PayPalResponse> {
@@ -69,8 +69,8 @@ export class ApiService {
     return this.http.get(`${this.apiUrl}/api/paypal-client-id`);
   }
 
-  getTipos(tabla_tab: string): Observable<Tipos[]> {
-    return this.http.post<Tipos[]>(`${this.apiUrl}/api/tipos`, {tabla_tab});  // Cambiar tab_table por tabla_tab
+  getTipos(request:TipoListaRequest): Observable<Tipos[]> {
+    return this.http.post<Tipos[]>(`${this.apiUrl}/api/tipos`,request);  // Cambiar tab_table por tabla_tab
   }
 
   insertPhone(formData: FormData): Observable<any> {

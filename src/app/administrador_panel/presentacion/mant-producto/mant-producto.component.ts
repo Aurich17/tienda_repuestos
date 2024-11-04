@@ -5,7 +5,8 @@ import { MetadataTable } from 'src/app/interfaces/metada-table.interface';
 import { NewPhoneComponent } from '../new-phone/new-phone.component';
 import { MatDialog } from '@angular/material/dialog';
 import { ApiService } from 'src/app/services/services_api';
-import { CelularResponse } from '../../domain/response/administrador_response';
+import { CelularResponse} from '../../domain/response/administrador_response';
+import { PhoneListaRequest } from '../../domain/request/administrador_request';
 
 @Component({
   selector: 'app-mant-producto',
@@ -19,7 +20,7 @@ export class MantProductoComponent {
 
   initializeForm(){
     this.group = new FormGroup({
-      description_component : new FormControl (null,null)
+      description_phone : new FormControl (null,null)
     });
    }
   //description_phone
@@ -47,7 +48,10 @@ export class MantProductoComponent {
   celulares!:CelularResponse[]
 
   muestraPhone(){
-    this.apiService.getCelulares().subscribe(
+    const values = this.group.value
+    const user_request:PhoneListaRequest  = <PhoneListaRequest >{}
+    user_request.name_phone = values.description_phone != null ? values.description_phone : '%',
+    this.apiService.getCelulares(user_request).subscribe(
       (data: CelularResponse[]) => {
         this.celulares = data;
         this.dataTable = this.celulares

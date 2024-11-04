@@ -3,7 +3,7 @@ import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ApiService } from 'src/app/services/services_api';
 import { Tipos } from '../../domain/response/administrador_response';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { InsertaCelularRequest, Parte } from '../../domain/request/administrador_request';
+import { InsertaCelularRequest, Parte, TipoListaRequest } from '../../domain/request/administrador_request';
 
 @Component({
   selector: 'app-new-phone',
@@ -129,7 +129,9 @@ export class NewPhoneComponent implements OnInit {
   }
 
   loadMarcas(): void {
-    this.apiService.getTipos('MAR').subscribe(
+    const tipo_request:TipoListaRequest = <TipoListaRequest>{}
+    tipo_request.tabla_tab = 'MAR'
+    this.apiService.getTipos(tipo_request).subscribe(
       (data: Tipos[]) => {
         this.marcas = data;
       },
@@ -140,7 +142,9 @@ export class NewPhoneComponent implements OnInit {
   }
 
   loadComponentes(): void {
-    this.apiService.getTipos('COM').subscribe(
+    const tipo_request:TipoListaRequest = <TipoListaRequest>{}
+    tipo_request.tabla_tab = 'COM'
+    this.apiService.getTipos(tipo_request).subscribe(
       (data: Tipos[]) => {
         this.componentes = data;
       },

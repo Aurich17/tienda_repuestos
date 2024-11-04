@@ -54,7 +54,7 @@ import { MessagesModule } from 'primeng/messages';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
 import { BadgeModule } from 'primeng/badge';
-
+import { DropdownModule } from 'primeng/dropdown';
 
 @NgModule({
   declarations: [
@@ -111,7 +111,8 @@ import { BadgeModule } from 'primeng/badge';
     OrderListModule,
     MessagesModule,
     ToastModule,
-    BadgeModule
+    BadgeModule,
+    DropdownModule
   ],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },MessageService],
   bootstrap: [AppComponent]
