@@ -19,6 +19,7 @@
 }
 
 .divider_card {
+  /* background-color: green; */
   display: flex;
   flex-wrap: wrap;
   gap: 20px;
@@ -88,4 +89,49 @@ img {
   width: 100%; /* Asegúrate de que el SVG ocupe todo el ancho */
   height: auto; /* Mantiene la proporción */
   z-index: 0; /* Coloca el SVG detrás del contenido del footer */
+}
+
+.separador{
+  height: 55px;
+}
+
+.heart-icon {
+  /* position: absolute; */
+  margin-top: 20px;
+  font-size: 1.5em; /* Ajusta el tamaño según prefieras */
+  color: rgb(247, 86, 86); /* Cambia el color a rojo o como prefieras */
+  cursor: pointer;
+  display: flex;
+  justify-content: end;
+  /* background-color: black; */
+  width: 20px;
+  align-items: end;
+  margin-left: 75%;
+}
+
+.carrusel{
+ /* background-color: red; */
+ width: 96vw;
+ margin: auto 0;
+}
+
+@media (max-width: 768px) {
+  .separador{
+    height: 15px;
+    /* background-color: red; */
+  }
+
+  .carrusel{
+    /* background-color: red; */
+    width: 90vw;
+    margin: 0 auto;
+  }
+
+  .marca {
+    text-align: center;
+  }
+
+  .footer-content{
+    background-color: #005ea8;
+  }
 }

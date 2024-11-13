@@ -1,4 +1,4 @@
-import { Component, ViewEncapsulation } from '@angular/core';
+import { Component, ViewEncapsulation,HostListener } from '@angular/core';
 import {MatDialog} from '@angular/material/dialog';
 import { DetailsPhoneComponent } from './components/details-phone/details-phone.component';
 import { ApiService } from '../services/services_api';
@@ -21,9 +21,7 @@ import { PhoneListaRequest } from '../administrador_panel/domain/request/adminis
 })
 export class BandejaPrincipalComponent {
   //CARRUSEL
-  // products: Product[];
-  responsiveOptions: any[] = [];
-
+  imageVisible:number = 4
   isLoggedIn: boolean = false;
   isAdmin: boolean = true;
 
@@ -32,29 +30,13 @@ export class BandejaPrincipalComponent {
 
   constructor(public dialog: MatDialog,private snackBar: MatSnackBar,private apiService: ApiService,private router: Router, private route: ActivatedRoute,private authService: AuthService) {}
 
+  screenWidth!: number;
 
   ngOnInit(){
     this.muestraPhone()
+    this.onResize();
     // this.isLoggedIn = !!localStorage.getItem('access_token');
     this.authService.checkLoginStatus()
-
-    this.responsiveOptions = [
-      {
-          breakpoint: '1199px',
-          numVisible: 1,
-          numScroll: 1
-      },
-      {
-          breakpoint: '991px',
-          numVisible: 1 ,
-          numScroll: 1
-      },
-      {
-          breakpoint: '767px',
-          numVisible: 1,
-          numScroll: 1
-      }
-  ];
   }
   // OPEN MODAL
   openDetails(item:any) {
@@ -181,21 +163,15 @@ export class BandejaPrincipalComponent {
     return pattern.test(value);
   }
 
-  // muestraPhone() {
-  //   this.apiService.getCelulares().subscribe(
-  //     (data: CelularResponse[]) => {
-  //       this.celulares = data;
-  //       console.log(this.celulares)
-  //       for (let i = 0; i < this.celulares.length; i++) {
-  //         this.imageObject.push(this.celulares[i].imagen)
-  //         console.log(this.imageObject)
-  //       }
-  //     },
-  //     error => {
-  //       console.error('Error al obtener marcas', error);
-  //     }
-  //   );
-  // }
+  @HostListener('window:resize', ['$event'])
+  onResize(event?: Event) {
+    this.screenWidth = window.innerWidth;
+    console.log('Tamaño de pantalla actual:', this.screenWidth);
+    if(this.screenWidth <= 768){
+      this.imageVisible = 1
+    }
+    // Puedes usar `this.screenWidth` para aplicar lógica condicional aquí
+  }
 
   muestraPhone() {
     const user_request:PhoneListaRequest  = <PhoneListaRequest >{}
@@ -228,3 +204,5 @@ export class BandejaPrincipalComponent {
     this.isLoggedIn = false;
   }
 }
+
+

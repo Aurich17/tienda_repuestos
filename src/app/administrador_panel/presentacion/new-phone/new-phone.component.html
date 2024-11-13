@@ -1,6 +1,6 @@
-<mat-drawer-container class="example-container">
+<div class="example-container">
   <!-- Panel lateral para la carga de imagen -->
-  <mat-drawer mode="side" opened class="drawer-image">
+  <div mode="side" opened class="drawer-image">
     <div class="image-upload-container">
       <h3>Image Phone</h3>
       <!-- Botón para seleccionar una imagen desde el sistema -->
@@ -11,10 +11,10 @@
       </div>
     </div>
     <h4 style="text-align: center;">{{name_phone}}</h4>
-  </mat-drawer>
+  </div>
 
   <!-- Contenido principal con los campos del celular -->
-  <mat-drawer-content>
+  <div class="drawer-content">
     <form [formGroup]="formNewPhone" (ngSubmit)="onSubmit()">
       <div class="form-container">
 
@@ -99,5 +99,5 @@
 
       </div>
     </form>
-  </mat-drawer-content>
-</mat-drawer-container>
+  </div>
+</div>

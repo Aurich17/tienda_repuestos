@@ -7,6 +7,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ApiService } from 'src/app/services/services_api';
 import { CelularResponse} from '../../domain/response/administrador_response';
 import { PhoneListaRequest } from '../../domain/request/administrador_request';
+import { DialogYesOrNot } from 'src/app/message_custom/YesOrNot/yesOrNot';
 
 @Component({
   selector: 'app-mant-producto',
@@ -65,6 +66,30 @@ export class MantProductoComponent {
 
   buscaPhone(){
     console.log('')
+  }
+
+  openDialog(enterAnimationDuration: string, exitAnimationDuration: string, row:any): void {
+    const dialogRef = this.dialog.open(DialogYesOrNot, {
+      width: '350px',
+      height: '160px',
+      enterAnimationDuration,
+      exitAnimationDuration,
+      data: {
+        title: 'Delete Phone',
+        message: 'Are you sure you want to delete phone?'
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        // this.deleteUser(row)
+      } else {
+      }
+    });
+  }
+
+  deletePhone(){
+
   }
 
 

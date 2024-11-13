@@ -43,3 +43,6 @@ export interface TipoListaRequest{
   tabla_tab: string,
   desc_tipos?: string
 }
+
+
+// export interface

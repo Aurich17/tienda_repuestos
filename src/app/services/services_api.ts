@@ -10,7 +10,8 @@ import { PayPalResponse } from '../bandeja-principal/components/shopping-cart/re
   providedIn: 'root'
 })
 export class ApiService {
-  private apiUrl = 'http://127.0.0.1:8000';  // Cambia esto según tu configuración
+  // private apiUrl = 'https://davfix.com'
+  private apiUrl = 'http://localhost:8000';
 
   constructor(private http: HttpClient) {}
 
@@ -40,14 +41,11 @@ export class ApiService {
   getProfile(): Observable<any> {
     const token = localStorage.getItem('access_token');
     if (!token) {
-      console.error('No token found in localStorage');
       return throwError('Token is missing');
     }
 
     let headers = new HttpHeaders();
     headers = headers.set('Authorization', `Bearer ${token}`);
-
-    console.log(headers);
 
     return this.http.get(`${this.apiUrl}/api/users/profile`, { headers });
   }
@@ -74,7 +72,7 @@ export class ApiService {
   }
 
   insertPhone(formData: FormData): Observable<any> {
-    return this.http.post(`${this.apiUrl}/api/insert_celular`, formData);
+    return this.http.post(`${this.apiUrl}/api/gestionaCelular`, formData);
   }
 
   getUsers(user_request:UserListaRequest): Observable<UserResponse[]> {

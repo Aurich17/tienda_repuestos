@@ -7,6 +7,7 @@ import { ApiService } from '../services/services_api';
 import { ShoppingCartComponent } from '../bandeja-principal/components/shopping-cart/shopping-cart.component';
 import { AuthService } from '../services/auth_service';
 import { CartService } from '../services/shoppin_cart_service';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-header',
@@ -14,7 +15,7 @@ import { CartService } from '../services/shoppin_cart_service';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit{
-  constructor(public dialog: MatDialog,private authService: AuthService, public cartService: CartService) {}
+  constructor(public dialog: MatDialog,private authService: AuthService, public cartService: CartService,private router: Router,private messageService: MessageService) {}
   isLoggedIn: boolean = false;
   products!:[];
   ngOnInit() {
@@ -23,6 +24,10 @@ export class HeaderComponent implements OnInit{
     this.authService.isLoggedIn$.subscribe((isLoggedIn) => {
       this.isLoggedIn = isLoggedIn; // Actualiza el estado del componente
     });
+  }
+
+  show(type: string, message: string) {
+    this.messageService.add({ severity: type, detail: message });
   }
 
   openLogin() {
@@ -35,5 +40,13 @@ export class HeaderComponent implements OnInit{
   logout() {
     this.authService.logout(); // Llamar al servicio para cerrar sesión
     localStorage.removeItem('access_token');
+  }
+
+  openCartShopping(){
+    if(this.cartService.getCartItemCount() > 0){
+      this.router.navigate(['/cart']);
+    }else{
+      this.show('warn','Ningun elemento en el carrito')
+    }
   }
 }

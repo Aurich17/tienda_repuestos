@@ -36,13 +36,7 @@ export class LoginComponent implements OnInit {
 
 
     show(type: string, message: string) {
-      this.messageService.add({ severity: type, detail: message });
-    }
-
-    showCustomMessage() {
-      this.customMessageComponent.message = 'Registration Successful!';
-      this.customMessageComponent.duration = 3000; // Tiempo en milisegundos
-      document.getElementById('customMessage')!.style.display = 'block';
+      this.messageService.add({ severity: type, detail: message});
     }
 
     initializeForm(){
@@ -124,17 +118,19 @@ export class LoginComponent implements OnInit {
           localStorage.setItem('access_token', response.access_token);
           this.apiService.getProfile().subscribe(
             (profile) => {
+              console.log('Este es el profile')
+              console.log(profile)
               // this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Logueo Exitoso' });
               this.show('success', 'Logueo Exitoso');
               let rol = profile.is_admin == true ? 'admin' : 'user'
               if (profile.is_admin) {
                 this.router.navigate(['/admin']);
-                this.authService.setUserRole(rol);
+                this.authService.setUserRole(rol,profile.username);
                 this.closeDialog();
               } else {
                 this.dialogRef.close();
                 this.authService.login();
-                this.authService.setUserRole(rol);
+                this.authService.setUserRole(rol,profile.username);
               }
             },
             (error) => {
@@ -152,6 +148,7 @@ export class LoginComponent implements OnInit {
     loadTipos(): void {
       const tipo_request:TipoListaRequest = <TipoListaRequest>{}
       tipo_request.tabla_tab = 'NAC'
+      tipo_request.desc_tipos = '%'
       this.apiService.getTipos(tipo_request).pipe(
         switchMap((data: Tipos[]) => {
           this.nacionalidades = data;

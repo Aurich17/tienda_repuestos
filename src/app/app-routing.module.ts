@@ -11,14 +11,20 @@ import { PaymentResultComponent } from './bandeja-principal/components/payment-r
 import { DetailsPhoneComponent } from './bandeja-principal/components/details-phone/details-phone.component';
 import { MantComponentComponent } from './administrador_panel/presentacion/mant-component/mant-component.component';
 import { MantMarkComponent } from './administrador_panel/presentacion/mant-mark/mant-mark.component';
+import { HistoryBuyComponent } from './bandeja-principal/components/history-buy/history-buy.component';
+import { UserProfileComponent } from './bandeja-principal/components/user-profile/user-profile.component';
+import { WishListComponent } from './bandeja-principal/components/wish-list/wish-list.component';
 
 const routes: Routes = [
   // Rutas principales que ocupan toda la pantalla
-  { path: '', redirectTo: '/store', pathMatch: 'full' },
-  { path: 'store', component: BandejaPrincipalComponent },
+  { path: '', redirectTo: '/', pathMatch: 'full' },
+  { path: '', component: BandejaPrincipalComponent },
   { path: 'cart', component: ShoppingCartComponent},
   { path: 'payment-result', component: PaymentResultComponent },
   { path: 'details-phone/:id', component: DetailsPhoneComponent },
+  { path: 'wish-list', component: WishListComponent},
+  { path: 'user-profile', component: UserProfileComponent},
+  { path: 'history', component: HistoryBuyComponent},
 
   // Rutas dentro del admin que ocupan toda la pantalla
   { path: 'admin', component: PanelAdminComponent, canActivate: [AdminGuard],

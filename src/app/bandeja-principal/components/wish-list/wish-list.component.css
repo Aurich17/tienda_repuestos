@@ -1,0 +1,28 @@
+.separador{
+  height: 10px;
+}
+
+.buscador{
+  width: 90%;
+  margin: 0 auto;
+}
+
+.container_general{
+  width: 60%;
+  margin: 0 auto;
+  height: 450px;
+  background-color: #f5f5f5; /* Gris muy claro */
+  border-radius: 20px;
+}
+
+.cabecera_lista{
+  /* background-color: green; */
+  width: 90%;
+  margin: 0 auto;
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  /* justify-content: space-between; */
+  font-size: 24px;
+  font-family: "Arvo", serif;
+}

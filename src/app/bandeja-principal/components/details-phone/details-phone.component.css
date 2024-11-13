@@ -135,3 +135,52 @@ img:hover {
   color: #333;
   line-height: 1.6;
 }
+
+::ng-deep .p-panel {
+  width: 80%;
+  margin: 0 auto;
+}
+
+@media (max-width: 768px) {
+  .separador{
+    /* background-color: #39C37D; */
+    height: 145px;
+  }
+
+  .carrusel{
+    width: 90vw;
+    margin: 0 auto;
+  }
+
+  .container_general{
+    /* background-color: red; */
+    flex-direction: column;
+    /* justify-content: space-around; */
+  }
+
+  img {
+    width: 180px;
+    height: 180px;
+  }
+
+  .image_name_container h2{
+    text-align: center;
+    font-size: 15px;
+   }
+
+   .image_container{
+     display: flex;
+     justify-content: center;
+   }
+
+   .container_details {
+    width: 98%;
+    margin: 0 auto;
+  }
+
+  .panel{
+    /* width: 100%; */
+    margin: 0 auto;
+    background-color: blue;
+  }
+}

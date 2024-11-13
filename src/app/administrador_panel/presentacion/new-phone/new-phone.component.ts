@@ -4,6 +4,7 @@ import { ApiService } from 'src/app/services/services_api';
 import { Tipos } from '../../domain/response/administrador_response';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { InsertaCelularRequest, Parte, TipoListaRequest } from '../../domain/request/administrador_request';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-new-phone',
@@ -20,7 +21,11 @@ export class NewPhoneComponent implements OnInit {
   imagenSeleccionada!: File;
   imagenSeleccionadaBase64:string = ''
 
-  constructor(private fb: FormBuilder, private apiService: ApiService,private snackBar: MatSnackBar) { }
+  constructor(private fb: FormBuilder, private apiService: ApiService,private snackBar: MatSnackBar,private messageService: MessageService,) { }
+  show(type: string, message: string) {
+    this.messageService.add({ severity: type, detail: message});
+  }
+
 
   initializeForm(){
     this.formNewPhone = this.fb.group({
@@ -163,6 +168,7 @@ export class NewPhoneComponent implements OnInit {
     const formData = new FormData();
 
     // Agregar los campos al FormData
+    formData.append('p_accion','I')
     formData.append('p_marca_cod', values.phoneMarca);
     formData.append('p_modelo', values.phoneName);
     formData.append('p_cantidad', values.phoneCount.toString());
@@ -170,20 +176,17 @@ export class NewPhoneComponent implements OnInit {
     formData.append('p_descripcion', values.phoneDescription);
 
     // Convertir las partes a JSON string y agregarlas
-    formData.append('partes', JSON.stringify(this.parte));
+    formData.append('p_partes', JSON.stringify(this.parte));
+    formData.append('p_celular_id','0')
 
     // Agregar la imagen en Base64
     if (this.imagenSeleccionadaBase64) {
-      formData.append('imagen', this.imagenSeleccionadaBase64);  // Aquí envías la imagen en Base64
+      formData.append('p_imagen', this.imagenSeleccionadaBase64);  // Aquí envías la imagen en Base64
     }
 
     // Llama a la API y envía el FormData
     this.apiService.insertPhone(formData).subscribe(response => {
-      this.snackBar.open('Registration successful!', 'Close', {
-        duration: 3000,
-        verticalPosition: "top",
-        horizontalPosition: "end"
-      });
+      this.show('success', 'Celular Registrado');
       this.limpiarFormulario();
     }, error => {
       this.snackBar.open('Error', 'Close', {

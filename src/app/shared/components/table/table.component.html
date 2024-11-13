@@ -1,5 +1,5 @@
 
-<div fxLayout="column">
+<div fxLayout="column" style="overflow-x: auto;">
 <table matTableExporter mat-table [dataSource] = "dataSource"  #exporter="matTableExporter"> <!--Recibe los datos-->
  <ng-container></ng-container>
     <ng-container *ngFor="let metadata of metadataTable" [matColumnDef]="metadata.field">

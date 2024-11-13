@@ -1,6 +1,6 @@
 <!-- header.component.html -->
 <div class="header">
-  <h1 class="title">CellPhone</h1>
+  <h1 class="title" [routerLink]="['']" style="cursor: pointer;">CellPhone</h1>
   <p-toast></p-toast>
   <div class="nav-links">
 
@@ -9,11 +9,11 @@
     *ngIf="!isLoggedIn" (click)="openLogin()">
       <i class="pi pi-sign-in text-3xl" [style]="{'font-size': '24px' }"></i>
     </p-button>
-
-    <p-button [style]="{ 'background-color': 'transparent', border: 'none' }" *ngIf="isLoggedIn"><i class="pi pi-user text-3xl" [style]="{'font-size': '24px' }"></i></p-button>
-    <p-button [style]="{ 'background-color': 'transparent', border: 'none' }" *ngIf="isLoggedIn"><i class="pi pi-history text-3xl" [style]="{'font-size': '24px' }"></i></p-button>
-    <p-button [style]="{ 'background-color': 'transparent', border: 'none' }" *ngIf="isLoggedIn">
-       <i class="pi pi-shopping-cart text-3xl" pBadge value={{cartService.getCartItemCount()}} *ngIf="isLoggedIn" [routerLink]="['/cart']"   [style]="{'font-size': '24px' }"></i>
+    <p-button [style]="{ 'background-color': 'transparent', border: 'none' }" *ngIf="isLoggedIn" [routerLink]="['/wish-list']"><i class="pi pi-gift text-3xl" [style]="{'font-size': '24px' }"></i></p-button>
+    <p-button [style]="{ 'background-color': 'transparent', border: 'none' }" *ngIf="isLoggedIn" [routerLink]="['/user-profile']"><i class="pi pi-user text-3xl" [style]="{'font-size': '24px' }"></i></p-button>
+    <p-button [style]="{ 'background-color': 'transparent', border: 'none' }" *ngIf="isLoggedIn" [routerLink]="['/history']"><i class="pi pi-history text-3xl" [style]="{'font-size': '24px' }"></i></p-button>
+    <p-button [style]="{ 'background-color': 'transparent', border: 'none' }" *ngIf="isLoggedIn" (click)="openCartShopping()">
+       <i class="pi pi-shopping-cart text-3xl" pBadge value={{cartService.getCartItemCount()}} *ngIf="isLoggedIn" [style]="{'font-size': '24px' }"></i>
     </p-button>
 
     <p-button

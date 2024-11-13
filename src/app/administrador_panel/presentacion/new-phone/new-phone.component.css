@@ -2,6 +2,7 @@
   display: flex;
   height: 90vh;
   background-color: #f9f9f9;
+  overflow-y: hidden;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
@@ -11,6 +12,9 @@
   background-color: #ffffff;
   border-right: 1px solid #ddd;
   box-shadow: 2px 0 8px rgba(0, 0, 0, 0.05);
+  position: sticky;
+  top: 0; /* Se mantiene estático en la parte superior */
+  height: 100vh; /* Altura completa de la pantalla */
 }
 
 .image-upload-container {
@@ -78,7 +82,9 @@ input[type="file"]:hover {
   background-color: #e9e9e9;
 }
 
-mat-drawer-content {
+.drawer-content {
+  flex-grow: 1;
+  overflow-y: auto; /* Permite desplazamiento solo en esta sección */
   padding: 30px;
 }
 
@@ -176,4 +182,74 @@ button[mat-icon-button] {
   justify-content: space-around;
   margin-bottom: 40px;
   /* background-color: #333; */
+}
+
+
+@media (max-width: 768px) {
+  .example-container {
+    flex-direction: column;
+    height: auto; /* Ocupa toda la altura de la pantalla */
+    overflow-y: auto; /* Habilita el desplazamiento vertical en el contenedor */
+
+  }
+
+  .drawer-image {
+    width: 100%;
+    height: 450px;
+    position: relative;
+    /* background-color: #28a745; */
+  }
+
+  .drawer-content {
+    overflow-y: hidden;
+    /* height: auto; */
+  }
+
+  .form-container{
+    width: 100%;
+    /* background-color: #007BFF; */
+  }
+
+  .container_form_sub_price{
+    flex-direction: column;
+    /* background-color: greenyellow; */
+    width: 150%;
+    margin: 0 auto;
+  }
+
+  .container_form_sub{
+    /* background-color: #007BFF; */
+    width: 150%;
+    margin: 0 auto;
+  }
+
+  .input1{
+    width: 100%;
+  }
+
+  .input2{
+    width: 100%;
+  }
+
+  .input3{
+    width: 100%;
+  }
+
+  .container_form_compponent{
+    flex-direction: column;
+    /* background-color: #28a745; */
+    width: 110%;
+  }
+
+  .button_delete{
+    width: 100%;
+  }
+
+  .container_button{
+    flex-direction: column;
+  }
+
+  .container_details{
+    overflow-x: auto;
+  }
 }
