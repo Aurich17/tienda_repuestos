@@ -3,7 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { BehaviorSubject, catchError, Observable, of, shareReplay, tap, throwError } from 'rxjs';
 import { LoginRequest } from '../login/domain/request/login_request';
 import {CelularResponse,Tipos, UserResponse } from '../administrador_panel/domain/response/administrador_response';
-import { GestionaCelularRequest, InsertaCelularRequest, paypalRequest, PhoneListaRequest, TipoListaRequest, UserListaRequest, UserRequest } from '../administrador_panel/domain/request/administrador_request';
+import { GestionaCelularRequest, InsertaCelularRequest, InsertTiposRequest, paypalRequest, PhoneListaRequest, TipoListaRequest, UserListaRequest, UserRequest } from '../administrador_panel/domain/request/administrador_request';
 import { PayPalResponse } from '../bandeja-principal/components/shopping-cart/response/response_shopping';
 
 @Injectable({
@@ -102,5 +102,9 @@ export class ApiService {
 
   apiUserManage(requestUser: UserRequest): Observable<any> {
     return this.http.post<any>(`${this.apiUrl}/api/user_manage`, requestUser);
+ }
+
+ insertTipos(requestTipos:InsertTiposRequest):Observable<any>{
+  return this.http.post<any>(`${this.apiUrl}/api/insertTipos`, requestTipos);
  }
 }

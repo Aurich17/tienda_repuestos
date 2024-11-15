@@ -56,3 +56,11 @@ export interface GestionaCelularRequest{
   p_partes:Parte[];
   p_celular_id?:number,
 }
+
+export interface InsertTiposRequest{
+  accion:string,
+  p_id_tipo:number,
+  p_tab_tabla:string,
+  p_des_tipo:string,
+  p_cod_tipo:string
+}

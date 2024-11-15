@@ -66,3 +66,31 @@ mat-form-field {
   justify-content: center;
   margin-top: 20px;
 }
+
+@media (max-width: 768px) {
+  /* Contenedor general */
+  .container_general {
+    display: flex;
+    flex-direction: column;
+    max-height: 100vh; /* Limita la altura al 100% de la pantalla visible */
+    overflow-y: auto; /* Habilita el desplazamiento vertical */
+    padding: 10px; /* Agrega algo de espacio alrededor */
+    box-sizing: border-box; /* Asegura que el padding no sume al ancho */
+  }
+
+  /* Asegurar que los inputs se apilen en columna */
+  .container_input {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 0px;
+    margin-top: 50px;
+  }
+  /* Botón ajustado */
+  .button-container {
+    margin-top: 0px;
+    display: flex;
+    justify-content: center;
+    /* margin-top: 20px; */
+    margin-bottom: 140px;
+  }
+}

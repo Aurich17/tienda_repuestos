@@ -127,6 +127,16 @@ h1 {
   background-color: #c82333;
 }
 
+th,td{
+  /* background-color: orange; */
+  color: white;
+  width: 150px;
+}
+
+.container_input{
+  width: 60%;
+}
+
 @media (max-width: 768px) {
   .container_general{
     flex-direction: column;
@@ -150,8 +160,21 @@ h1 {
   }
 
   .container_details {
-    /* background-color: #003d82; */
-    overflow-x: scroll; /* Habilita el desplazamiento horizontal */
-    width: 100%; /* Asegura que el contenedor ocupe todo el ancho disponible */
+    overflow-x: auto; /* Permite desplazamiento horizontal en el contenedor */
+    width: 100%; /* Asegura que ocupe todo el ancho */
+  }
+
+  app-table {
+      /* background-color: orange; */
+      min-width: 800px; /* Define un ancho mínimo para la tabla */
+      max-width: 100%; /* Limita el ancho máximo al 100% del contenedor */
+      overflow-x: auto; /* Habilita desplazamiento horizontal en la tabla */
+      display: block; /* Asegura que el ancho máximo se respete */
+  }
+
+  th,td{
+    /* background-color: orange; */
+    color: white;
+    width: 50px;
   }
 }
