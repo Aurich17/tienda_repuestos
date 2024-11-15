@@ -6,6 +6,7 @@ import { MetadataTable } from 'src/app/interfaces/metada-table.interface';
 import { ApiService } from 'src/app/services/services_api';
 import { NewPhoneComponent } from '../new-phone/new-phone.component';
 import { TipoListaRequest } from '../../domain/request/administrador_request';
+import { NewTipoComponent } from '../new-tipo/new-tipo.component';
 
 @Component({
   selector: 'app-mant-component',
@@ -34,12 +35,12 @@ export class MantComponentComponent {
     { field: "des_tipo", title: "Component" },
   ];
 
-  addMark() {
-    this.dialog.open(NewPhoneComponent, {
+  addComponent() {
+    this.dialog.open(NewTipoComponent, {
       width: '100vw',  // ancho
       height: '90vh',  // altura
+      data: {'title':'AGREGA COMPONENTE','index':this.dataTable[this.dataTable.length-1].cod_tipo,'tab_tabla':'COM'}
       //border-radius: '20px',
-      // data: item
     });
   }
 

@@ -1,14 +1,14 @@
-<h1 style="text-align: center;">MANT COMPONENT</h1>
+<h1 style="text-align: center;">MANT COMPONENTES</h1>
 <form [formGroup]="group">
   <div class="container_general">
-    <div style="width: 60%">
+    <div class="container_input">
       <!-- <label for="username">Username</label> -->
       <input pInputText id="username" aria-describedby="username-help" formControlName="description_component"  placeholder="Description Component" style="width: 100%;"/>
     </div>
     <div class="container_button">
-      <p-button label="new" icon="pi pi-plus" styleClass="p-button-raised" (click)="addMark()"></p-button>
-      <p-button label="search" icon="pi pi-search" styleClass="p-button-raised" (click)="muestraComponente()"></p-button>
-      <p-button label="close" icon="pi pi-times" styleClass="p-button-raised" routerLink="/admin"></p-button>
+      <p-button label="NUEVO" icon="pi pi-plus" styleClass="p-button-raised button_principal" (click)="addComponent()"></p-button>
+      <p-button label="BUSCAR" icon="pi pi-search" styleClass="p-button-raised button_principal" (click)="muestraComponente()"></p-button>
+      <p-button label="CERRAR" icon="pi pi-times" styleClass="p-button-raised button_principal" routerLink="/admin"></p-button>
     </div>
   </div>
 </form>

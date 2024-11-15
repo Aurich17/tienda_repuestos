@@ -131,3 +131,32 @@ h1 {
 .button_delete:hover {
   background-color: #c82333;
 }
+
+@media (max-width: 768px) {
+  .container_general{
+    flex-direction: column;
+  }
+  .container_button{
+    margin-top: 20px;
+    flex-direction: column;
+    /* background-color: red; */
+    width: 90%;
+    justify-content: space-around;
+  }
+
+  ::ng-deep .button_principal {
+    width: 100%;
+    margin-top: 10px;
+  }
+
+  .container_input{
+    /* background-color: green; */
+    width: 90%;
+  }
+
+  .container_details {
+    /* background-color: #003d82; */
+    overflow-x: scroll; /* Habilita el desplazamiento horizontal */
+    width: 100%; /* Asegura que el contenedor ocupe todo el ancho disponible */
+  }
+}

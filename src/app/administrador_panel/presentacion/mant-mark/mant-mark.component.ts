@@ -6,6 +6,7 @@ import { FormGroup, FormControl } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ApiService } from 'src/app/services/services_api';
 import { TipoListaRequest } from '../../domain/request/administrador_request';
+import { NewTipoComponent } from '../new-tipo/new-tipo.component';
 
 @Component({
   selector: 'app-mant-mark',
@@ -35,11 +36,11 @@ export class MantMarkComponent {
   ];
 
   addMark() {
-    this.dialog.open(NewPhoneComponent, {
+    this.dialog.open(NewTipoComponent, {
       width: '100vw',  // ancho
       height: '90vh',  // altura
+      data: {'title':'AGREGA MARCA','index':this.dataTable[this.dataTable.length-1].cod_tipo,'tab_tabla':'MAR'}
       //border-radius: '20px',
-      // data: item
     });
   }
 

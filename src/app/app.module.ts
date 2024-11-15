@@ -60,6 +60,7 @@ import { BadgeModule } from 'primeng/badge';
 import { DropdownModule } from 'primeng/dropdown';
 import { PanelModule } from 'primeng/panel';
 import { AvatarModule } from 'primeng/avatar';
+import { NewTipoComponent } from './administrador_panel/presentacion/new-tipo/new-tipo.component';
 
 
 @NgModule({
@@ -86,6 +87,7 @@ import { AvatarModule } from 'primeng/avatar';
     WishListComponent,
     UserProfileComponent,
     HistoryBuyComponent,
+    NewTipoComponent,
   ],
   imports: [
     BrowserModule,

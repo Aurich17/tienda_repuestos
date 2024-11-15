@@ -1,20 +1,14 @@
-<h1 style="text-align: center;">MANT USERS</h1>
+<h1 style="text-align: center;">MANT USUARIOS</h1>
 <form [formGroup]="group">
   <div class="container_general">
-    <!-- Input de descripción del teléfono -->
-    <!-- <mat-form-field class="description_phone" appearance="outline">
-      <mat-label>User Name</mat-label>
-      <input matInput type="text" formControlName="description_phone">
-    </mat-form-field> -->
-    <div style="width: 60%">
-      <!-- <label for="username">Username</label> -->
-      <input pInputText id="username" aria-describedby="username-help" formControlName="user_name" placeholder="Name User" style="width: 100%;"/>
+    <div class="container_input">
+      <input pInputText id="username" aria-describedby="username-help" formControlName="user_name" placeholder="Nombre Usuario" style="width: 100%;"/>
     </div>
 
     <div class="container_button">
-      <p-button label="NUEVO" icon="pi pi-plus" styleClass="p-button-raised" (click)="muestraUser()"></p-button>
-      <p-button label="BUSCAR" icon="pi pi-search" styleClass="p-button-raised" (click)="muestraUser()"></p-button>
-      <p-button label="CERRAR" icon="pi pi-times" styleClass="p-button-raised" routerLink="/admin"></p-button>
+      <p-button label="NUEVO" icon="pi pi-plus" styleClass="p-button-raised button_principal" (click)="muestraUser()"></p-button>
+      <p-button label="BUSCAR" icon="pi pi-search" styleClass="p-button-raised button_principal" (click)="muestraUser()"></p-button>
+      <p-button label="CERRAR" icon="pi pi-times" styleClass="p-button-raised button_principal" routerLink="/admin"></p-button>
     </div>
   </div>
 </form>
