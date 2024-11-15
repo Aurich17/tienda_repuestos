@@ -6,8 +6,9 @@ import { NewPhoneComponent } from '../new-phone/new-phone.component';
 import { MatDialog } from '@angular/material/dialog';
 import { ApiService } from 'src/app/services/services_api';
 import { CelularResponse} from '../../domain/response/administrador_response';
-import { PhoneListaRequest } from '../../domain/request/administrador_request';
+import { GestionaCelularRequest, PhoneListaRequest } from '../../domain/request/administrador_request';
 import { DialogYesOrNot } from 'src/app/message_custom/YesOrNot/yesOrNot';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-mant-producto',
@@ -15,8 +16,11 @@ import { DialogYesOrNot } from 'src/app/message_custom/YesOrNot/yesOrNot';
   styleUrls: ['./mant-producto.component.css']
 })
 export class MantProductoComponent {
-  constructor(public dialog: MatDialog,private apiService: ApiService){}
+  constructor(public dialog: MatDialog,private apiService: ApiService,private messageService: MessageService){}
 
+  show(type: string, message: string) {
+    this.messageService.add({ severity: type, detail: message});
+  }
   group!:FormGroup
 
   initializeForm(){
@@ -82,15 +86,49 @@ export class MantProductoComponent {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        // this.deleteUser(row)
+        this.deletePhone(row.id_celular)
       } else {
       }
     });
   }
 
-  deletePhone(){
+  deletePhone(id:number){
+    const celulares_request:GestionaCelularRequest = <GestionaCelularRequest>{}
+    celulares_request.p_accion = 'D'
+    celulares_request.p_marca_cod = ''
+    celulares_request.p_modelo = ''
+    celulares_request.p_cantidad = 0
+    celulares_request.p_precio_completo = 0
+    celulares_request.p_descripcion = ''
+    celulares_request.p_imagen = ''
+    celulares_request.p_partes = []
+    celulares_request.p_celular_id = id
 
+    this.apiService.gestionaCelular(celulares_request).subscribe(
+      (data: CelularResponse[]) => {
+        this.show('success', 'Celular Eliminado');
+        this.muestraPhone()
+      },
+      error => {
+        console.error('Error al obtener marcas', error);
+      }
+    );
   }
 
+  editPhone(item:any) {
+    const dialogRef = this.dialog.open(NewPhoneComponent, {
+      width: '100vw',  // ancho
+      height: '90vh',  // altura
+      //border-radius: '20px',
+      data: item
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.muestraPhone()
+      } else {
+      }
+    });
+  }
 
 }

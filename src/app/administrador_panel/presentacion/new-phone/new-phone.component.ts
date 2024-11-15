@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, OnInit,Inject} from '@angular/core';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ApiService } from 'src/app/services/services_api';
 import { Tipos } from '../../domain/response/administrador_response';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { InsertaCelularRequest, Parte, TipoListaRequest } from '../../domain/request/administrador_request';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { GestionaCelularRequest, InsertaCelularRequest, Parte, TipoListaRequest } from '../../domain/request/administrador_request';
 import { MessageService } from 'primeng/api';
 
 @Component({
@@ -21,27 +22,66 @@ export class NewPhoneComponent implements OnInit {
   imagenSeleccionada!: File;
   imagenSeleccionadaBase64:string = ''
 
-  constructor(private fb: FormBuilder, private apiService: ApiService,private snackBar: MatSnackBar,private messageService: MessageService,) { }
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any,private fb: FormBuilder, private apiService: ApiService,private snackBar: MatSnackBar,private messageService: MessageService,) { }
   show(type: string, message: string) {
     this.messageService.add({ severity: type, detail: message});
   }
 
 
-  initializeForm(){
-    this.formNewPhone = this.fb.group({
-      phoneMarca: [null,null],
-      phoneName: ['', Validators.required],
-      phonePrice: [null, Validators.required],
-      phoneDescription: [null,Validators.required],
-      components: this.fb.array([]),  // FormArray para componentes
-      phoneCount: [null,null]
-    });
-   }
+  // initializeForm(){
+  //   this.formNewPhone = this.fb.group({
+  //     phoneMarca: [null,null],
+  //     phoneName: [null, Validators.required],
+  //     phonePrice: [null, Validators.required],
+  //     phoneDescription: [null,Validators.required],
+  //     components: this.fb.array([]),  // FormArray para componentes
+  //     phoneCount: [null,null]
+  //   });
+  //  }
+
+  initializeForm() {
+    if(this.data != null){
+      this.formNewPhone = new FormGroup({
+        phoneMarca: new FormControl(
+          this.data.cod_marca !== null && this.data.cod_marca !== '' ? this.data.cod_marca : null,
+          null
+        ),
+        phoneName: new FormControl(
+          this.data.modelo !== null && this.data.modelo !== '' ? this.data.modelo : null,
+          Validators.required
+        ),
+        phonePrice: new FormControl(
+          this.data.precio_completo !== null && this.data.precio_completo !== '' ? this.data.precio_completo : null,
+          Validators.required
+        ),
+        phoneDescription: new FormControl(
+          this.data.descripcion !== null && this.data.descripcion !== '' ? this.data.descripcion : null,
+          Validators.required
+        ),
+        components: new FormArray([]),  // FormArray para componentes
+        phoneCount: new FormControl(this.data.cantidad, null)
+      });
+    }else{
+      this.formNewPhone = new FormGroup({
+        phoneMarca: new FormControl(null,null),
+        phoneName: new FormControl(null,Validators.required),
+        phonePrice: new FormControl(null,Validators.required),
+        phoneDescription: new FormControl(null,Validators.required),
+        components: new FormArray([]),  // FormArray para componentes
+        phoneCount: new FormControl(null, null)
+      });
+    }
+  }
 
    name_phone:string = ''
 
   ngOnInit(): void {
     this.initializeForm()
+    if(this.data != null){
+      this.name_phone = this.data.modelo !== null && this.data.modelo !== '' ? this.data.modelo : ''
+      this.selectedImage = 'data:' + 'image/jpeg' + ';base64,' + this.data.imagen;
+      this.setComponents(this.data.partes)
+    }
      // Escuchar cambios en el campo 'phoneName'
     this.formNewPhone.get('phoneName')?.valueChanges.subscribe(value => {
       this.name_phone = value;
@@ -54,6 +94,21 @@ export class NewPhoneComponent implements OnInit {
   // Getter para los componentes
   get components(): FormArray {
     return this.formNewPhone.get('components') as FormArray;
+  }
+
+  setComponents(componentsData: any[]) {
+    // Limpia el FormArray si ya tiene elementos
+    this.components.clear();
+
+    // Itera sobre el arreglo componentsData y agrega un FormGroup por cada elemento
+    componentsData.forEach(component => {
+      const componentGroup = new FormGroup({
+        componentName: new FormControl(component.cod_parte || null, Validators.required), // Cambiado a componentName
+        componentQuantity: new FormControl(component.cantidad || null, Validators.required), // Cambiado a componentQuantity
+        componentPrice: new FormControl(component.precio || null, Validators.required) // Cambiado a componentPrice
+      });
+      this.components.push(componentGroup);  // Agrega el FormGroup al FormArray
+    });
   }
 
   // Agregar componente
@@ -163,29 +218,26 @@ export class NewPhoneComponent implements OnInit {
   registrarCelular() {
     const values = this.formNewPhone.value;
     this.saveComponentsToParteList();
+    const celulares_request:GestionaCelularRequest = <GestionaCelularRequest>{}
 
     // Crear un objeto FormData
     const formData = new FormData();
 
     // Agregar los campos al FormData
-    formData.append('p_accion','I')
-    formData.append('p_marca_cod', values.phoneMarca);
-    formData.append('p_modelo', values.phoneName);
-    formData.append('p_cantidad', values.phoneCount.toString());
-    formData.append('p_precio_completo', values.phonePrice.toString());
-    formData.append('p_descripcion', values.phoneDescription);
-
+    celulares_request.p_accion = this.data != null ? 'U' : 'I'
+    celulares_request.p_marca_cod = values.phoneMarca
+    celulares_request.p_modelo = values.phoneName
+    celulares_request.p_cantidad = values.phoneCount
+    celulares_request.p_precio_completo = values.phonePrice
+    celulares_request.p_descripcion = values.phoneDescription
     // Convertir las partes a JSON string y agregarlas
-    formData.append('p_partes', JSON.stringify(this.parte));
-    formData.append('p_celular_id','0')
-
-    // Agregar la imagen en Base64
-    if (this.imagenSeleccionadaBase64) {
-      formData.append('p_imagen', this.imagenSeleccionadaBase64);  // Aquí envías la imagen en Base64
-    }
+    celulares_request.p_partes = this.parte
+    // formData.append('p_partes', JSON.stringify(this.parte));
+    celulares_request.p_celular_id = this.data != null ? this.data.id_celular : 0
+    celulares_request.p_imagen = this.imagenSeleccionadaBase64
 
     // Llama a la API y envía el FormData
-    this.apiService.insertPhone(formData).subscribe(response => {
+    this.apiService.gestionaCelular(celulares_request).subscribe(response => {
       this.show('success', 'Celular Registrado');
       this.limpiarFormulario();
     }, error => {

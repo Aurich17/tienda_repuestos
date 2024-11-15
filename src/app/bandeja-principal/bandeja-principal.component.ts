@@ -174,20 +174,28 @@ export class BandejaPrincipalComponent {
   }
 
   muestraPhone() {
-    const user_request:PhoneListaRequest  = <PhoneListaRequest >{}
-    user_request.name_phone = '%'
+    const user_request: PhoneListaRequest = <PhoneListaRequest>{};
+    user_request.name_phone = '%';
+
     this.apiService.getCelulares(user_request).subscribe(
       (data: CelularResponse[]) => {
         this.celulares = data;
         console.log(this.celulares);
 
-        // Agrupar celulares por marca
-        this.celularesPorMarca = this.celulares.reduce<{ [key: string]: CelularResponse[] }>((acc, celular) => {
+        // Agrupar celulares por marca de manera eficiente usando un Map
+        const celularesPorMarca = new Map<string, CelularResponse[]>();
+
+        this.celulares.forEach(celular => {
           const marca = celular.marca; // Asegúrate de que `marca` esté en tu objeto
-          if (!acc[marca]) {
-            acc[marca] = []; // Inicializar el array si no existe
+          if (!celularesPorMarca.has(marca)) {
+            celularesPorMarca.set(marca, []);
           }
-          acc[marca].push(celular); // Agregar el celular al array de la marca
+          celularesPorMarca.get(marca)?.push(celular);
+        });
+
+        // Usar un tipo explícito para `acc` en el `reduce`
+        this.celularesPorMarca = Array.from(celularesPorMarca.entries()).reduce<{ [key: string]: CelularResponse[] }>((acc, [marca, celulares]) => {
+          acc[marca] = celulares;
           return acc;
         }, {});
 

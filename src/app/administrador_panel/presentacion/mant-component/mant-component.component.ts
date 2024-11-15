@@ -59,8 +59,4 @@ export class MantComponentComponent {
     );
   }
 
-  buscaPhone(){
-    console.log('')
-  }
-
 }

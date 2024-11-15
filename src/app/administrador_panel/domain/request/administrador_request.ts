@@ -45,4 +45,14 @@ export interface TipoListaRequest{
 }
 
 
-// export interface
+export interface GestionaCelularRequest{
+  p_accion:string,
+  p_marca_cod:string,
+  p_modelo:string,
+  p_cantidad?:number,
+  p_precio_completo?:number,
+  p_descripcion:string
+  p_imagen:string,
+  p_partes:Parte[];
+  p_celular_id?:number,
+}

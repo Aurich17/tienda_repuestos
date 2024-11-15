@@ -7,6 +7,7 @@ export interface Tipos {
 
 export interface ParteResponse {
     nombre: string;
+    cod_parte: string;
     precio: number;
     cantidad: number;
 }
@@ -14,6 +15,7 @@ export interface ParteResponse {
 export interface CelularResponse {
     id_celular: number;
     marca: string;
+    cod_marca:string;
     modelo: string; //modelo
     precio_completo: number;//precio
     descripcion?: string;  // Este campo es opcional

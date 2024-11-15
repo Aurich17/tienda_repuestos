@@ -1,17 +1,24 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { catchError, Observable, tap, throwError } from 'rxjs';
+import { BehaviorSubject, catchError, Observable, of, shareReplay, tap, throwError } from 'rxjs';
 import { LoginRequest } from '../login/domain/request/login_request';
 import {CelularResponse,Tipos, UserResponse } from '../administrador_panel/domain/response/administrador_response';
-import { InsertaCelularRequest, paypalRequest, PhoneListaRequest, TipoListaRequest, UserListaRequest, UserRequest } from '../administrador_panel/domain/request/administrador_request';
+import { GestionaCelularRequest, InsertaCelularRequest, paypalRequest, PhoneListaRequest, TipoListaRequest, UserListaRequest, UserRequest } from '../administrador_panel/domain/request/administrador_request';
 import { PayPalResponse } from '../bandeja-principal/components/shopping-cart/response/response_shopping';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ApiService {
-  // private apiUrl = 'https://davfix.com'
   private apiUrl = 'http://localhost:8000';
+  // private apiUrl = 'https://davfix.com'
+
+  //PARA ALMACENAR LOS DATOS QUE SON DE UNA SOLA CARGA
+  private celularesCache$: BehaviorSubject<CelularResponse[] | null> = new BehaviorSubject<CelularResponse[] | null>(null);
+
+  clearCache() {
+    this.celularesCache$.next(null); // Limpiar el caché cuando sea necesario
+  }
 
   constructor(private http: HttpClient) {}
 
@@ -50,9 +57,23 @@ export class ApiService {
     return this.http.get(`${this.apiUrl}/api/users/profile`, { headers });
   }
 
-  getCelulares(phone_request:PhoneListaRequest): Observable<CelularResponse[]> {
-    return this.http.post<CelularResponse[]>(`${this.apiUrl}/api/celulares`,phone_request);
+  // getCelulares(phone_request:PhoneListaRequest): Observable<CelularResponse[]> {
+  //   return this.http.post<CelularResponse[]>(`${this.apiUrl}/api/celulares`,phone_request);
+  // }
+  getCelulares(phone_request: PhoneListaRequest, forceReload: boolean = false): Observable<CelularResponse[]> {
+    if (!forceReload && this.celularesCache$.value) {
+      // Si ya tenemos los datos en caché y no se necesita recargar, devolvemos los datos del caché
+      return of(this.celularesCache$.value);
+    }
+
+    // Si se requiere recargar o no hay datos en caché, hacemos la llamada a la API
+    return this.http.post<CelularResponse[]>(`${this.apiUrl}/api/celulares`, phone_request).pipe(
+      tap((data) => this.celularesCache$.next(data)), // Guardar los datos en caché
+      shareReplay(1)  // Compartir la respuesta entre suscriptores
+    );
   }
+
+
 
   createPayment(total: number, currency: string): Observable<PayPalResponse> {
     // Suponiendo que haces una solicitud POST a tu API
@@ -71,7 +92,7 @@ export class ApiService {
     return this.http.post<Tipos[]>(`${this.apiUrl}/api/tipos`,request);  // Cambiar tab_table por tabla_tab
   }
 
-  insertPhone(formData: FormData): Observable<any> {
+  gestionaCelular(formData: GestionaCelularRequest): Observable<any> {
     return this.http.post(`${this.apiUrl}/api/gestionaCelular`, formData);
   }
 
