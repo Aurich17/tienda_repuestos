@@ -6,7 +6,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { CustomMessageComponent } from 'src/app/message_custom/custom-message/custom-message.component';
 import { Observable, switchMap } from 'rxjs';
 import { HttpHeaders } from '@angular/common/http';
-import { LoginRequest } from '../domain/request/login_request';
+import { LoginRequest, RegisterRequest } from '../domain/request/login_request';
 import { Router } from '@angular/router';
 // import {BandejaPrincipalComponent} from
 import { BandejaPrincipalComponent } from 'src/app/bandeja-principal/bandeja-principal.component';
@@ -74,31 +74,7 @@ export class LoginComponent implements OnInit {
 
     registerUser(): void {
       const values = this.group.value;
-      this.apiService.insertaUsuario({
-        username: values.user_name,
-        email: values.user_email,
-        password: values.user_password
-      }).subscribe(
-        item => {
-          // Mostrar mensaje de éxito
-          this.snackBar.open('Registration successful!', 'Close', {
-            duration: 3000, // El mensaje dura 3 segundos
-            verticalPosition: "top", // Posición del snackbar
-            horizontalPosition: "end"
-          });
-
-          // Redirigir o cambiar a la vista de login
-          this.openLogin();  // Alterna a la vista de login
-        },
-        error => {
-          // Manejar errores si el registro falla
-          this.snackBar.open('Registration failed. Try again.', 'Close', {
-            duration: 3000,
-            verticalPosition: "top", // Posición del snackbar
-            horizontalPosition: "end"
-          });
-        }
-      );
+      const request:RegisterRequest =<RegisterRequest>{}
     }
 
 

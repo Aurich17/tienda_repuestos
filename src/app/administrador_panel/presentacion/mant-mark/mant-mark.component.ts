@@ -123,7 +123,7 @@ export class MantMarkComponent {
       exitAnimationDuration,
       data: {
         title: 'Delete Component',
-        message: 'Are you sure you want to delete component?'
+        message: 'Are you sure you want to delete mark?'
       }
     });
 

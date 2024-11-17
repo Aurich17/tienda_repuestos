@@ -31,7 +31,7 @@ export class MantProductoComponent {
   //description_phone
   ngOnInit():void{
     this.initializeForm()
-    this.muestraPhone()
+    this.muestraPhone(true)
   }
 
   dataTable: CelularResponse[] = [];
@@ -52,11 +52,11 @@ export class MantProductoComponent {
 
   celulares!:CelularResponse[]
 
-  muestraPhone(){
+  muestraPhone(valor:boolean){
     const values = this.group.value
     const user_request:PhoneListaRequest  = <PhoneListaRequest >{}
     user_request.name_phone = values.description_phone != null ? values.description_phone : '%',
-    this.apiService.getCelulares(user_request).subscribe(
+    this.apiService.getCelulares(user_request,valor).subscribe(
       (data: CelularResponse[]) => {
         this.celulares = data;
         this.dataTable = this.celulares
@@ -107,7 +107,7 @@ export class MantProductoComponent {
     this.apiService.gestionaCelular(celulares_request).subscribe(
       (data: CelularResponse[]) => {
         this.show('success', 'Celular Eliminado');
-        this.muestraPhone()
+        this.muestraPhone(true)
       },
       error => {
         console.error('Error al obtener marcas', error);
@@ -125,7 +125,7 @@ export class MantProductoComponent {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.muestraPhone()
+        this.muestraPhone(true)
       } else {
       }
     });

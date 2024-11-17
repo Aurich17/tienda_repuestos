@@ -22,7 +22,7 @@ export class NewPhoneComponent implements OnInit {
   imagenSeleccionada!: File;
   imagenSeleccionadaBase64:string = ''
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: any,private fb: FormBuilder, private apiService: ApiService,private snackBar: MatSnackBar,private messageService: MessageService,) { }
+  constructor(public dialogRef: MatDialogRef<NewPhoneComponent>,@Inject(MAT_DIALOG_DATA) public data: any,private fb: FormBuilder, private apiService: ApiService,private snackBar: MatSnackBar,private messageService: MessageService,) { }
   show(type: string, message: string) {
     this.messageService.add({ severity: type, detail: message});
   }
@@ -80,6 +80,7 @@ export class NewPhoneComponent implements OnInit {
     if(this.data != null){
       this.name_phone = this.data.modelo !== null && this.data.modelo !== '' ? this.data.modelo : ''
       this.selectedImage = 'data:' + 'image/jpeg' + ';base64,' + this.data.imagen;
+      this.imagenSeleccionadaBase64 = this.data.imagen;
       this.setComponents(this.data.partes)
     }
      // Escuchar cambios en el campo 'phoneName'
@@ -219,10 +220,6 @@ export class NewPhoneComponent implements OnInit {
     const values = this.formNewPhone.value;
     this.saveComponentsToParteList();
     const celulares_request:GestionaCelularRequest = <GestionaCelularRequest>{}
-
-    // Crear un objeto FormData
-    const formData = new FormData();
-
     // Agregar los campos al FormData
     celulares_request.p_accion = this.data != null ? 'U' : 'I'
     celulares_request.p_marca_cod = values.phoneMarca
@@ -238,15 +235,19 @@ export class NewPhoneComponent implements OnInit {
 
     // Llama a la API y envía el FormData
     this.apiService.gestionaCelular(celulares_request).subscribe(response => {
-      this.show('success', 'Celular Registrado');
-      this.limpiarFormulario();
+      // Aquí manejamos el éxito
+        this.show('success', 'Guardado Exitoso');
+        this.limpiarFormulario();
+        this.onConfirm();
     }, error => {
-      this.snackBar.open('Error', 'Close', {
+      console.log(error.message)
+      // Aquí manejamos el error
+      console.error('Error recibido:', error); // Esto te ayudará a depurar
+      this.snackBar.open('Error', error.message || 'Close', {
         duration: 3000,
         verticalPosition: "top",
         horizontalPosition: "end"
       });
-      console.log(error);
     });
   }
 
@@ -261,10 +262,9 @@ export class NewPhoneComponent implements OnInit {
     }
   }
 
-  click(){
-    const values = this.formNewPhone.value
-    console.log(values)
-
+  // Método para cerrar el diálogo con 'Yes'
+  onConfirm(): void {
+    this.dialogRef.close(true);
   }
 
 
