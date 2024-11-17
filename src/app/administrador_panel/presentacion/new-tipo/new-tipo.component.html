@@ -1,0 +1,11 @@
+<h1>{{data.title}}</h1>
+<form [formGroup]="group">
+  <div class="container_input">
+    <input pInputText id="username" aria-describedby="username-help" formControlName="name_tipo" placeholder="Nombre..." style="width: 100%;"/>
+  </div>
+</form>
+
+<div class="container_button">
+  <p-button label="GUARDAR" icon="pi pi-save" styleClass="p-button-raised button_principal" (click)="guardaTipo()"></p-button>
+  <p-button label="CERRAR" icon="pi pi-times" styleClass="p-button-raised button_principal" (click)="closeDialog()"></p-button>
+</div>

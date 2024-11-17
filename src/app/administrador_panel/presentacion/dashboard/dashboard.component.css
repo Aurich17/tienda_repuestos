@@ -1,0 +1,39 @@
+.container_data {
+  width: 98%;
+  height: 200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.container_data_cube {
+  background-color: #FFFFFF;
+  width: 250px;
+  height: 150px;
+  border-radius: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around; /* Centra verticalmente */
+  align-items: center; /* Centra horizontalmente */
+  text-align: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Añadir una ligera sombra para dar un efecto más elegante */
+  transition: transform 0.3s ease; /* Transición suave para hover */
+}
+
+.container_data_cube h3 {
+  font-size: 28px;
+  margin-bottom: 10px; /* Espacio entre el título y la cantidad */
+  color: #333; /* Asegura un buen contraste del título */
+}
+
+.container_data_cube p {
+  font-size: 60px;
+  font-weight: bold;
+  margin: 0; /* Eliminar márgenes extra */
+  color: #444; /* Asegura un buen contraste de la cantidad */
+}
+
+.container_data_cube:hover {
+  transform: scale(1.05); /* Agranda ligeramente la tarjeta al pasar el mouse */
+}

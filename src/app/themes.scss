@@ -1,0 +1,96 @@
+@use '@angular/material' as mat;
+@include mat.core();
+
+$SistemasKopito-primary: mat.define-palette(mat.$blue-palette, A200, A100, A400, A700);
+$SistemasKopito-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400, A700);
+$SistemasKopito-warn: mat.define-palette(mat.$red-palette, A200, A100, A400, A700);
+
+$prueba-app-light-primary: mat.define-palette(mat.$blue-palette, A200, A100, A400, A700);
+$prueba-app-dark-primary: mat.define-palette(mat.$indigo-palette, 100);
+$prueba-app-vivo-primary: mat.define-palette(mat.$blue-palette, 400);
+$dark-app-pink-primary: mat.define-palette(mat.$pink-palette, 500);
+
+$prueba-app-light-accent:  mat.define-palette(mat.$grey-palette, 100);
+$prueba-app-dark-accent:  mat.define-palette(mat.$blue-grey-palette, 900);
+$prueba-app-vivo-accent:  mat.define-palette(mat.$blue-grey-palette, 900);
+
+$prueba-app-light-warn:    mat.define-palette(mat.$red-palette, 700);
+$prueba-app-dark-warn:    mat.define-palette(mat.$red-palette,A400);
+$prueba-app-vivo-warn:    mat.define-palette(mat.$red-palette,A400);
+
+$light-app-theme: mat.define-light-theme($SistemasKopito-primary, $SistemasKopito-accent, $SistemasKopito-warn);
+//Nuevo Tema de prueba
+:root{
+  --color-fondo: #F5F5F5;
+  --color-tarjeta: #ecf0f1a1;
+  --color-boton: #1ABC9C;
+  --color-hover: #17A589;
+  --color-primary: #166DDC;
+  --color-filas: #ECF0F1;
+  --color-warn: #ff2200;
+  --color-texto: black;
+  --color-accent: #ECF0F1;
+}
+@include mat.all-component-themes($light-app-theme);
+// //Aqui termina el experimento
+
+
+.light-theme{
+  --color-fondo: #F5F5F5;
+  --color-tarjeta: #ecf0f1a1;
+  --color-boton: #2c82be;
+  --color-hover: #2c82be;
+  --color-primary: #166DDC;
+  --color-filas: #ECF0F1;
+  --color-texto: black;
+  --color-warn: #ff2200;
+  --color-accent: #ECF0F1;
+  $light-app-theme: mat.define-light-theme($prueba-app-light-primary, $prueba-app-light-accent, $prueba-app-light-warn);
+  @include mat.all-component-themes($light-app-theme);
+};
+
+
+.dark-theme{
+  --color-fondo: #2c2c54;
+  --color-tarjeta: #3D3D7E;
+  --color-boton: #8B78E6;
+  --color-hover: #7B1FA2;
+  --color-primary:  #4d4d8e;
+  --color-filas:  #3d3d6e;
+  --color-texto: white;
+  --color-warn: #ff2200;
+  --color-accent: #3D3D7E;
+  $dark-app-theme: mat.define-dark-theme($prueba-app-dark-primary, $prueba-app-dark-accent, $prueba-app-dark-warn);
+  @include mat.all-component-themes($dark-app-theme);
+}
+
+.vivo-theme{
+  --color-fondo: #1E1E1E;
+  --color-tarjeta: #292929;
+  --color-boton:  #1976D2;
+  --color-hover: #0D47A1;
+  --color-primary: #2196F3;
+  --color-filas: #3F3F3F;
+  --color-texto: white;
+  --color-warn: #ff2200;
+  --color-accent:  #292929;
+  $dark-app-theme: mat.define-dark-theme($prueba-app-vivo-primary, $prueba-app-dark-accent, $prueba-app-dark-warn);
+  @include mat.all-component-themes($dark-app-theme);
+}
+
+.tema-claro-dos{
+  --color-fondo: #FDEFF2;
+  --color-tarjeta: #FFF0F4;
+  --color-boton: #EB5286;
+  --color-hover: #C11D5D;
+  --color-primary: #FC5185;
+  --color-filas: #FFF0F4;
+  --color-texto: white;
+  --color-warn: #FFF0F4;
+  --color-accent:  #FFF0F4;
+  $light-app-theme: mat.define-light-theme($dark-app-pink-primary, $prueba-app-light-accent, $prueba-app-light-warn);
+  @include mat.all-component-themes($light-app-theme);
+}
+
+
+

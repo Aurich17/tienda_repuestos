@@ -1,0 +1,36 @@
+<div class="container_general">
+  <div class="container_cart">
+    <div class="cart-items" *ngFor="let item of cartItems">
+      <div class="cart-item">
+        <div class="cart-item-image">
+          <!-- Imagen del celular -->
+          <img [src]="'data:image/jpeg;base64,' + item.imagen" alt="{{item.modelo}}">
+        </div>
+        <div class="cart-item-details">
+          <h4>{{item.modelo}} - {{item.nombre_parte}}</h4> <!-- Mostrar modelo y parte -->
+          <p>{{item.marca}}</p>
+          <p>Price: {{item.precio | currency}}</p> <!-- Mostrar precio de la parte -->
+        </div>
+
+        <div class="cart-item-quantity">
+          <p-inputNumber [(ngModel)]="item.quantity" [showButtons]="true" buttonLayout="horizontal" inputId="horizontal" spinnerMode="horizontal" [step]="1"
+          decrementButtonClass="p-button-danger" incrementButtonClass="p-button-success" incrementButtonIcon="pi pi-plus"
+          decrementButtonIcon="pi pi-minus" [min]="1" style="text-align: center;"></p-inputNumber>
+        </div>
+        <div class="cart-item-remove">
+          <button (click)="removeFromCart(item)"><mat-icon>delete</mat-icon></button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="cartItems.length >=0" class="cart-summary">
+    <div class="summary-row">
+      <h3>Total:</h3>
+      <p>{{getCartTotal() | currency}}</p>
+    </div>
+    <div class="cart-buttons">
+      <button class="continue-shopping-btn" [routerLink]="['']">Continue Shopping</button>
+      <div id="paypal-button-container"></div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,255 @@
+.example-container {
+  display: flex;
+  height: 90vh;
+  background-color: #f9f9f9;
+  overflow-y: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.drawer-image {
+  width: 400px;
+  padding: 20px;
+  background-color: #ffffff;
+  border-right: 1px solid #ddd;
+  box-shadow: 2px 0 8px rgba(0, 0, 0, 0.05);
+  position: sticky;
+  top: 0; /* Se mantiene estático en la parte superior */
+  height: 100vh; /* Altura completa de la pantalla */
+}
+
+.image-upload-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+}
+
+.image-preview {
+  margin-top: 15px;
+}
+
+.preview-img {
+  max-width: 96%;
+  height: 250px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 5px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.form-container {
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  /* background-color: #14e236; */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+  border-radius: 8px;
+}
+
+.component-row {
+  display: flex;
+  align-items: start;
+  gap: 15px;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+mat-form-field {
+  width: 100%;
+}
+
+button {
+  margin-top: 20px;
+  border-radius: 8px;
+}
+
+h3 {
+  font-size: 18px;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+input[type="file"] {
+  background-color: #f1f1f1;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  cursor: pointer;
+}
+
+input[type="file"]:hover {
+  background-color: #e9e9e9;
+}
+
+.drawer-content {
+  flex-grow: 1;
+  overflow-y: auto; /* Permite desplazamiento solo en esta sección */
+  padding: 30px;
+}
+
+button[mat-raised-button] {
+  padding: 12px 20px;
+  font-size: 14px;
+  text-transform: uppercase;
+}
+
+button[mat-raised-button][color="primary"] {
+  background-color: #007BFF;
+  color: white;
+}
+
+button[mat-raised-button][color="accent"] {
+  background-color: #28a745;
+  color: white;
+}
+
+button[mat-icon-button] {
+  height: 50px; /* Ajusta la altura del botón para que sea similar a la del input */
+  width: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 40px;
+}
+
+.input1{
+  width: 150px;
+  /* flex-grow: 1; */
+}
+
+.input2{
+  width: 250px;
+}
+.input3{
+  width: 615px;
+}
+
+.container_form{
+  /* background-color: #007BFF; */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  width: 45vw;
+}
+
+.container_form_compponent{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 45vw;
+}
+.container_form_sub{
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  /* background-color: green; */
+}
+
+.container_form_sub_price{
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+  /* background-color: green; */
+}
+
+.container_form_delete {
+  display: flex;
+  align-items: center; /* Alinea verticalmente los elementos */
+  gap: 10px; /* Espacio entre el input y el botón */
+}
+
+.button_delete {
+  background-color: #dc3545; /* Rojo */
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  /* justify-content: center; */
+}
+
+.button_delete:hover {
+  background-color: #c82333;
+}
+
+.container_button{
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 40px;
+  /* background-color: #333; */
+}
+
+
+@media (max-width: 768px) {
+  .example-container {
+    flex-direction: column;
+    height: auto; /* Ocupa toda la altura de la pantalla */
+    overflow-y: auto; /* Habilita el desplazamiento vertical en el contenedor */
+
+  }
+
+  .drawer-image {
+    width: 100%;
+    height: 450px;
+    position: relative;
+    /* background-color: #28a745; */
+  }
+
+  .drawer-content {
+    overflow-y: hidden;
+    /* height: auto; */
+  }
+
+  .form-container{
+    width: 100%;
+    /* background-color: #007BFF; */
+  }
+
+  .container_form_sub_price{
+    flex-direction: column;
+    /* background-color: greenyellow; */
+    width: 150%;
+    margin: 0 auto;
+  }
+
+  .container_form_sub{
+    /* background-color: #007BFF; */
+    width: 150%;
+    margin: 0 auto;
+  }
+
+  .input1{
+    width: 100%;
+  }
+
+  .input2{
+    width: 100%;
+  }
+
+  .input3{
+    width: 100%;
+  }
+
+  .container_form_compponent{
+    flex-direction: column;
+    /* background-color: #28a745; */
+    width: 110%;
+  }
+
+  .button_delete{
+    width: 100%;
+  }
+
+  .container_button{
+    flex-direction: column;
+  }
+
+  .container_details{
+    overflow-x: auto;
+  }
+}

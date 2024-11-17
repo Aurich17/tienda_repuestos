@@ -1,0 +1,57 @@
+.slider-container {
+  position: relative;
+  width: 100%;  /* Ancho completo del contenedor */
+  overflow: hidden;  /* Oculta las imágenes que están fuera de la vista */
+}
+
+.slider-wrapper {
+  display: flex;
+  transition: transform 0.6s ease-in-out; /* Ajusta la duración y suavidad de la animación */
+  width: 100%; /* Ancho total del slider */
+}
+
+
+.slider-item {
+  flex: 0 0 25%;  /* Mostrar 4 imágenes a la vez */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin: 0 auto;
+  transition: transform 0.6s ease-in-out; /* Suavizar el desplazamiento */
+}
+
+.details {
+  width: 60%;
+  background-color: #6CF8A6;
+  margin: 0 auto;
+  border: none;
+  border-radius: 20px;
+  height: 30px;
+  font-size: 20px;
+  color: white;
+}
+
+img {
+  width: 100%;
+  height: 200px;  /* Ajusta la altura según tu preferencia */
+}
+
+.prev, .next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: #6CF8A6;
+  color: white;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+  border-radius: 100%;
+}
+
+.prev {
+  left: 10px;
+}
+
+.next {
+  right: 10px;
+}

@@ -1,0 +1,31 @@
+<h1 style="text-align: center;">MANT CELULARES</h1>
+<form [formGroup]="group">
+  <div class="container_general">
+    <!-- Input de descripción del teléfono -->
+    <div class="container_input">
+      <!-- <label for="username">Username</label> -->
+      <input pInputText id="username" aria-describedby="username-help" formControlName="description_phone"  placeholder="Nombre modelo" style="width: 100%;" styleClass="input_principal"/>
+    </div>
+
+    <div class="container_button">
+      <p-button label="NUEVO" icon="pi pi-plus" styleClass="p-button-raised button_principal" (click)="addPhone()"></p-button>
+      <p-button label="BUSCAR" icon="pi pi-search" styleClass="p-button-raised button_principal" (onClick)="muestraPhone(true)"></p-button>
+      <p-button label="CERRAR" icon="pi pi-times" styleClass="p-button-raised button_principal" routerLink="/admin"></p-button>
+    </div>
+  </div>
+</form>
+
+<div class="container_details">
+  <app-table [dataTable]="dataTable" [metadataTable]="metadataTable">
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef>Opciones</th>
+      <td mat-cell *matCellDef="let row">
+        <div class="buttons_table">
+          <p-button icon="pi pi-pencil" styleClass="p-button-rounded p-button-outlined" [style]="{color:'orange'}" (click)="editPhone(row)"></p-button>
+          <p-button icon="pi pi-trash" styleClass="p-button-rounded p-button-outlined" [style]="{color:'red'}" (click)="openDialog('0ms', '0ms', row)"></p-button>
+        </div>
+      </td>
+    </ng-container>
+  </app-table>
+</div>
+

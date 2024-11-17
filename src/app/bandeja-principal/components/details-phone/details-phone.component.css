@@ -1,10 +1,12 @@
 .container_general {
-  width: 100%;
-  height: 100%;
+  width: 80%;
+  height: 450px;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: space-around;
+  /* background-color: #39C37D; */
+  margin: 0 auto;
 }
 
 .container_image {
@@ -35,8 +37,8 @@
 }
 
 img {
-  width: 400px;
-  height: 400px;
+  width: 350px;
+  height: 350px;
   object-fit: cover;
   border-radius: 10px; /* Bordes redondeados */
   transition: transform 0.3s; /* Transición suave */
@@ -51,7 +53,7 @@ img:hover {
 
 /* TABLE */
 .available-yes {
-  background-color: #4caf50; /* Verde */
+  /* background-color: #4caf50; */
   color: white;
   padding: 5px;
   border-radius: 4px;
@@ -67,7 +69,7 @@ img:hover {
 
 /* BUTTON CAR */
 .cart-button {
-  background-color: #007bff;
+  background-color: #FFC107 ;
   color: white;
   border-radius: 5px;
   padding: 10px 15px;
@@ -81,14 +83,104 @@ img:hover {
 .cart-button mat-icon {
   margin-right: 8px; /* Espacio entre el icono y el texto */
   font-size: 24px; /* Tamaño del icono */
+  color: white;
 }
 
 .cart-button:hover {
-  background-color: #0056b3; /* Color de fondo más oscuro al hacer hover */
+  background-color: #39C37D ; /* Color de fondo más oscuro al hacer hover */
   box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.2); /* Sombra más fuerte al hacer hover */
 }
 
 .cart-button:active {
-  background-color: #0056b3; /* Color más oscuro cuando está activo (click) */
+  background-color: #39C37D ; /* Color más oscuro cuando está activo (click) */
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2); /* Sombra más pequeña al hacer click */
+}
+
+
+.card_contain{
+  width: 100%;
+}
+
+
+.container_god{
+  display: flex;
+  flex-direction: column;
+}
+
+/* Estilos para la tarjeta */
+.container_card {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 30px;
+  margin-top: 30px;
+}
+
+.description-card {
+  width: 80%; /* O ajusta el ancho que necesites */
+  background-color: #f9f9f9; /* Fondo claro */
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra para darle profundidad */
+}
+
+.description-card mat-card-header {
+  background-color: #4A628A;
+  border-radius: 10px 10px 0 0;
+  color: white;
+}
+
+.description-card p {
+  font-size: 16px;
+  color: #333;
+  line-height: 1.6;
+}
+
+::ng-deep .p-panel {
+  width: 80%;
+  margin: 0 auto;
+}
+
+@media (max-width: 768px) {
+  .separador{
+    /* background-color: #39C37D; */
+    height: 145px;
+  }
+
+  .carrusel{
+    width: 90vw;
+    margin: 0 auto;
+  }
+
+  .container_general{
+    /* background-color: red; */
+    flex-direction: column;
+    /* justify-content: space-around; */
+  }
+
+  img {
+    width: 180px;
+    height: 180px;
+  }
+
+  .image_name_container h2{
+    text-align: center;
+    font-size: 15px;
+   }
+
+   .image_container{
+     display: flex;
+     justify-content: center;
+   }
+
+   .container_details {
+    width: 98%;
+    margin: 0 auto;
+  }
+
+  .panel{
+    /* width: 100%; */
+    margin: 0 auto;
+    background-color: blue;
+  }
 }

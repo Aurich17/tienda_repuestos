@@ -1,0 +1,22 @@
+<div class="container_data">
+  <div class="container_data_cube">
+    <h3>Venta Diaria</h3>
+    <p>0</p>
+  </div>
+  <div class="container_data_cube">
+    <h3>Venta Semanal</h3>
+    <p>0</p>
+  </div>
+  <div class="container_data_cube">
+    <h3>Venta Mensual</h3>
+    <p>0</p>
+  </div>
+</div>
+
+<div style="display: block; width: 60%; margin: 0 auto">
+  <canvas baseChart
+          [data]="barChartData"
+          [options]="barChartOptions"
+          chartType="bar">
+  </canvas>
+</div>

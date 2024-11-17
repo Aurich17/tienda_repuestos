@@ -1,0 +1,46 @@
+mat-toolbar {
+  background: linear-gradient(90deg, #005ea8, #007ad9, #66b8ff);
+  color: #ffffff;
+}
+
+mat-sidenav {
+  width: 200px;
+  border-right: none;
+  padding: 16px 0;
+}
+
+.content {
+  height: calc(100svh - 98px);
+  border-radius: 10px;
+  padding: 16px;
+  max-width: 1520px;
+  margin: 0 auto;
+  font-size: 16px;
+  /* background-color: #DFF2EB ; */
+}
+
+mat-sidenav-container {
+  height: calc(100svh - 65px);
+}
+
+.spacer {
+  flex: 1; /* Empuja el contenido a la derecha */
+}
+
+/* Estilo del botón de logout */
+.logout-button {
+  background-color: #4A628A;
+  color: #121212;
+  border-radius: 4px;
+  padding: 5px 15px;
+  display: flex;
+  align-items: center;
+  transition: background-color 0.3s ease;
+  border: none;
+}
+
+.logout-button mat-icon {
+  margin-right: 8px; /* Espacio entre el ícono y el texto */
+  font-size: 24px; /* Tamaño del ícono */
+  color: #121212; /* Color del ícono */
+}

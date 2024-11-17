@@ -1,42 +1,45 @@
-<div class="header">
-  <h1 class="title">CellPhone</h1>
-  <div class="nav-links">
-    <a href="#about">About Us</a>
-    <a href="#contact">Contact</a>
-    <a href="#admin" *ngIf="isAdmin">Admin</a>
-    <button class="login-btn" (click)="openLogin()">Login</button>
-  </div>
-</div>
-<div class="category">
-  <h3>All</h3>
-  <h3>Samsung</h3>
-  <h3>Huawei</h3>
-  <h3>Motorola</h3>
-  <h3>Xiaomi</h3>
-  <h3>Bitel</h3>
-  <h3>Realme</h3>
-  <div class="search-bar">
-    <input type="text" placeholder="Search..." id="search-input">
-    <button id="search-button">Search</button>
-  </div>
-</div>
-
+<div class="body">
   <div class="container_cards">
-    <div class="card" *ngFor="let item of list">
-      <div class="favorite_icon" (click)="toggleFavorite(item)">
-        <i class="fa-solid fa-heart" *ngIf="item.favorite"></i>
-        <i class="fa-regular fa-heart" *ngIf="!item.favorite"></i>
-      </div>
-      <img [src]="item['imagen']" alt="{{item['nombre']}}">
-      <div class="card_info">
-        <label class="card_name">{{item['nombre']}}</label>
-        <label class="card_price">{{item['precio']}}</label>
-      </div>
-      <div class="container_buttons_card">
-        <button class="button_card" (click)="mensaje()">Add</button>
-        <button class="button_card" (click)="openDetails(item)">Details</button>
+    <div *ngFor="let marca of (celularesPorMarca | keyvalue)" class="divider">
+      <h2 class="marca">{{marca.key}}</h2>
+      <p-divider></p-divider>
+      <div class="divider_card">
+        <p-carousel [value]="marca.value" [numVisible]="imageVisible" [numScroll]="1" [circular]="true" [autoplayInterval]="3000" styleClass="carrusel">
+          <ng-template pTemplate="item" let-item>
+            <div class="border-1 surface-border border-round m-2 text-center py-5 px-3" style="width: 250px; height: 350px">
+              <i class="pi pi-heart heart-icon"></i>
+              <div class="mb-3" style="width: 200px; height: 200px; margin: 0 auto;">
+                <img [src]="'data:image/jpeg;base64,' + item.imagen" [alt]="item.marca + ' ' + item.modelo" style="width: 200px; height: 200px;" />
+              </div>
+              <div style="display: flex; flex-direction: column; align-items: center;">
+                <h4 class="card_name mb-1" style="text-align: center;">{{ item.modelo }}</h4>
+                <h6 class="card_price mt-0 mb-3" style="text-align: center;">S/{{ item.precio_completo}}</h6>
+                <p-button label="Detalles" styleClass="p-button-outlined" [routerLink]="['/details-phone', item.id_celular]"></p-button>
+              </div>
+            </div>
+          </ng-template>
+        </p-carousel>
       </div>
     </div>
   </div>
 
-
+  <div class="separador"></div>
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-content">
+      <p>&copy; 2024 CellPhone. All rights reserved.</p>
+      <div style="height: 10px;"></div>
+      <div style="display: flex; flex-direction: row; justify-content: space-around; width: 140px; margin: 0 auto;">
+        <img src="../../assets/visa.png" style="height: 40px;">
+        <img src="../../assets/logo.png" style="height: 40px;">
+      </div>
+      <div class="social-links">
+        <a href="#facebook"><i class="fa-brands fa-facebook"></i></a>
+        <a href="#youtube"><i class="fa-brands fa-youtube"></i></a>
+        <a href="https://wa.me/51902892907"><i class="fa-brands fa-whatsapp"></i></a>
+        <a href="#telegram"><i class="fa-brands fa-telegram"></i></a>
+      </div>
+    </div>
+    <img src="../../assets/footer.svg" alt="Wave Background" class="footer-wave" />
+  </footer>
+</div>

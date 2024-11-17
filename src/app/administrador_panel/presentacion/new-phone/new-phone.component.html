@@ -1,0 +1,103 @@
+<div class="example-container">
+  <!-- Panel lateral para la carga de imagen -->
+  <div mode="side" opened class="drawer-image">
+    <div class="image-upload-container">
+      <h3>Image Phone</h3>
+      <!-- Botón para seleccionar una imagen desde el sistema -->
+      <input type="file" (change)="onImageSelected($event)" accept="image/*">
+      <!-- Vista previa de la imagen cargada -->
+      <div class="image-preview" *ngIf="selectedImage">
+        <img [src]="selectedImage" alt="Imagen del celular" class="preview-img">
+      </div>
+    </div>
+    <h4 style="text-align: center;">{{name_phone}}</h4>
+  </div>
+
+  <!-- Contenido principal con los campos del celular -->
+  <div class="drawer-content">
+    <form [formGroup]="formNewPhone" (ngSubmit)="onSubmit()">
+      <div class="form-container">
+
+        <div class="container_form">
+          <!-- Nombre del celular -->
+           <div class="container_form_sub_price">
+            <mat-form-field appearance="outline" class="input1">
+              <mat-label>Count</mat-label>
+              <input matInput type="number" formControlName="phoneCount">
+            </mat-form-field>
+             <!-- Precio del celular -->
+             <mat-form-field appearance="outline" class="input1">
+               <mat-label>Price</mat-label>
+               <input matInput type="number" formControlName="phonePrice">
+             </mat-form-field>
+             <!-- Marca -->
+             <mat-form-field appearance="outline" class="input2">
+               <mat-label>Marca</mat-label>
+               <mat-select formControlName="phoneMarca">
+                 <mat-option *ngFor="let marca of marcas" [value]="marca.cod_tipo" >
+                   {{marca.des_tipo}}
+                 </mat-option>
+               </mat-select>
+             </mat-form-field>
+           </div>
+           <div class="container_form_sub">
+            <mat-form-field appearance="outline" class="input3">
+              <mat-label>Model Phone</mat-label>
+              <input matInput type="text" formControlName="phoneName">
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="input3">
+              <mat-label>Description</mat-label>
+              <input matInput type="text" formControlName="phoneDescription">
+            </mat-form-field>
+           </div>
+        </div>
+
+        <!-- Componentes del celular -->
+        <h3>Componentes del celular</h3>
+
+        <!-- Tabla para componentes -->
+        <div formArrayName="components" *ngFor="let component of components.controls; let i = index">
+          <div [formGroupName]="i" class="component-row">
+            <!-- Nombre del componente -->
+            <div class="container_form_compponent">
+             <mat-form-field appearance="outline" class="input2">
+              <mat-label>Componentes</mat-label>
+              <mat-select formControlName="componentName">
+                <mat-option *ngFor="let componente of componentes" [value]="componente.cod_tipo" >
+                  {{componente.des_tipo}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+
+              <mat-form-field appearance="outline" class="input1">
+                <mat-label>Cantidad</mat-label>
+                <input matInput type="number" formControlName="componentQuantity" placeholder="Ej: 2">
+              </mat-form-field>
+
+              <mat-form-field appearance="outline" class="input1">
+                <mat-label>Precio</mat-label>
+                <input matInput type="number" formControlName="componentPrice" placeholder="Ej: 99.99">
+              </mat-form-field>
+
+              <!-- Botón para eliminar componente -->
+              <button mat-icon-button color="warn" (click)="removeComponent(i)" class="button_delete">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Botón para agregar más componentes -->
+        <div class="container_button">
+          <button mat-raised-button color="primary" (click)="addComponent()">
+            Agregar componente
+          </button>
+          <!-- Botón para guardar -->
+          <button mat-raised-button color="accent" type="submit" (click)="registrarCelular()">Guardar Celular</button>
+        </div>
+
+      </div>
+    </form>
+  </div>
+</div>

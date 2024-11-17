@@ -1,0 +1,71 @@
+<body>
+  <h1 style="text-align: center;">EDIT USER</h1>
+<form [formGroup]="group" class="container_general">
+
+  <div class="container_input">
+    <mat-form-field appearance="outline" class="input2">
+
+      <mat-label>Nombre Completo</mat-label>
+      <input matInput type="text" formControlName="nombreCompleto">
+    </mat-form-field>
+  </div>
+
+  <div class="container_input">
+    <mat-form-field appearance="outline" class="input2">
+      <mat-label>User</mat-label>
+      <input matInput type="text" formControlName="user">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="input2">
+      <mat-label>Email</mat-label>
+      <input matInput type="text" formControlName="email">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="input2">
+      <mat-label>Admin</mat-label>
+      <mat-select formControlName="isAdmin">
+        <mat-option value="1">
+          YES
+        </mat-option>
+        <mat-option value="0">
+          NO
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <div class="container_input">
+    <mat-form-field appearance="outline" class="input2">
+      <mat-label>Documento de Identidad</mat-label>
+      <mat-select formControlName="documentoTipo">
+        <mat-option *ngFor="let documento of documentos" [value]="documento.cod_tipo">
+          {{documento.des_tipo}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="input2">
+      <mat-label>Numero Documento</mat-label>
+      <input matInput type="text" formControlName="numDocumento">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="input2">
+      <mat-label>Nacionalidad</mat-label>
+      <mat-select formControlName="naciolidadTipo">
+        <mat-option *ngFor="let nacionalidad of nacionalidades" [value]="nacionalidad.cod_tipo">
+          {{nacionalidad.des_tipo}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+
+
+  <!-- Contenedor del botón -->
+  <div class="button-container">
+    <p-button label="GUARDAR" icon="pi pi-save" styleClass="p-button-raised" (click)="updateUser()"></p-button>
+    <!-- <button class="save-button" type="submit" (click)="updateUser()">Guardar</button> -->
+  </div>
+</form>
+</body>
+

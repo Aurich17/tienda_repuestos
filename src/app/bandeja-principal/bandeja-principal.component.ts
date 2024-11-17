@@ -1,10 +1,16 @@
-import { Component, ViewEncapsulation } from '@angular/core';
+import { Component, ViewEncapsulation,HostListener } from '@angular/core';
 import {MatDialog} from '@angular/material/dialog';
 import { DetailsPhoneComponent } from './components/details-phone/details-phone.component';
 import { ApiService } from '../services/services_api';
 import { LoginComponent } from '../login/login/login.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { CustomMessageComponent } from '../message_custom/custom-message/custom-message.component'; // Importa el componente personalizado
+import { ActivatedRoute, Router } from '@angular/router';
+import { CelularResponse } from '../administrador_panel/domain/response/administrador_response';
+import { ShoppingCartComponent } from './components/shopping-cart/shopping-cart.component';
+import { AuthService } from '../services/auth_service';
+import { PhoneListaRequest } from '../administrador_panel/domain/request/administrador_request';
+// import { faSignInAlt, faShoppingCart, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-bandeja-principal',
@@ -14,17 +20,43 @@ import { CustomMessageComponent } from '../message_custom/custom-message/custom-
   // encapsulation: ViewEncapsulation.None
 })
 export class BandejaPrincipalComponent {
+  //CARRUSEL
+  imageVisible:number = 4
+  isLoggedIn: boolean = false;
   isAdmin: boolean = true;
-  constructor(public dialog: MatDialog,private apiService: ApiService,private snackBar: MatSnackBar) {}
 
+  imageObject:any = [];
+  celularesPorMarca: { [key: string]: CelularResponse[] } = {};
+
+  constructor(public dialog: MatDialog,private snackBar: MatSnackBar,private apiService: ApiService,private router: Router, private route: ActivatedRoute,private authService: AuthService) {}
+
+  screenWidth!: number;
+
+  ngOnInit(){
+    this.muestraPhone()
+    this.onResize();
+    // this.isLoggedIn = !!localStorage.getItem('access_token');
+    this.authService.checkLoginStatus()
+  }
   // OPEN MODAL
   openDetails(item:any) {
     this.dialog.open(DetailsPhoneComponent, {
-      width: '100vw',  // ancho
+      width: '70vw',  // ancho
       height: '90vh',  // altura
-      //border-radius: '20px',
       data: item
     });
+  }
+
+  openShoppingCart() {
+    if (this.isLoggedIn) {
+      this.dialog.open(ShoppingCartComponent, {
+        width: '60vw',  // ancho
+        height: '90vh',  // altura
+        disableClose: true
+      });// Lógica para abrir el carrito de compras
+    } else {
+      alert('Por favor, inicie sesión para acceder al carrito');
+    }
   }
 
   openLogin() {
@@ -115,9 +147,70 @@ export class BandejaPrincipalComponent {
   mensaje(){
     this.snackBar.open('Registration successful!', 'Close', {
       duration: 3000, // El mensaje dura 3 segundos
-      // panelClass: ['custom-snackbar'], // Aplica la clase personalizada
       verticalPosition: "top", // Posición del snackbar
       horizontalPosition: "end"
     });
   }
+
+  celulares!:CelularResponse[]
+
+  muestraDatos(){
+    console.log(this.celulares)
+  }
+
+   isValidBase64(value:any) {
+    const pattern = /^[A-Za-z0-9+/]+={0,2}$/; // Validación de base64
+    return pattern.test(value);
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event?: Event) {
+    this.screenWidth = window.innerWidth;
+    console.log('Tamaño de pantalla actual:', this.screenWidth);
+    if(this.screenWidth <= 768){
+      this.imageVisible = 1
+    }
+    // Puedes usar `this.screenWidth` para aplicar lógica condicional aquí
+  }
+
+  muestraPhone() {
+    const user_request: PhoneListaRequest = <PhoneListaRequest>{};
+    user_request.name_phone = '%';
+
+    this.apiService.getCelulares(user_request).subscribe(
+      (data: CelularResponse[]) => {
+        this.celulares = data;
+        console.log(this.celulares);
+
+        // Agrupar celulares por marca de manera eficiente usando un Map
+        const celularesPorMarca = new Map<string, CelularResponse[]>();
+
+        this.celulares.forEach(celular => {
+          const marca = celular.marca; // Asegúrate de que `marca` esté en tu objeto
+          if (!celularesPorMarca.has(marca)) {
+            celularesPorMarca.set(marca, []);
+          }
+          celularesPorMarca.get(marca)?.push(celular);
+        });
+
+        // Usar un tipo explícito para `acc` en el `reduce`
+        this.celularesPorMarca = Array.from(celularesPorMarca.entries()).reduce<{ [key: string]: CelularResponse[] }>((acc, [marca, celulares]) => {
+          acc[marca] = celulares;
+          return acc;
+        }, {});
+
+        console.log(this.celularesPorMarca); // Verifica la estructura del objeto agrupado
+      },
+      error => {
+        console.error('Error al obtener marcas', error);
+      }
+    );
+  }
+
+  logout(): void {
+    localStorage.removeItem('access_token');
+    this.isLoggedIn = false;
+  }
 }
+
+

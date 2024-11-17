@@ -1,35 +1,51 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { Component, NgZone, OnInit, ViewChild } from '@angular/core';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { ApiService } from 'src/app/services/services_api';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { CustomMessageComponent } from 'src/app/message_custom/custom-message/custom-message.component';
-import { Observable } from 'rxjs';
+import { Observable, switchMap } from 'rxjs';
 import { HttpHeaders } from '@angular/common/http';
+import { LoginRequest, RegisterRequest } from '../domain/request/login_request';
+import { Router } from '@angular/router';
+// import {BandejaPrincipalComponent} from
+import { BandejaPrincipalComponent } from 'src/app/bandeja-principal/bandeja-principal.component';
+import { AuthService } from 'src/app/services/auth_service';
+import { Tipos } from 'src/app/administrador_panel/domain/response/administrador_response';
+import { Message } from 'primeng/api/message';
+import { MessageService } from 'primeng/api';
+import { TipoListaRequest } from 'src/app/administrador_panel/domain/request/administrador_request';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  styleUrls: ['./login.component.css'],
 })
 export class LoginComponent implements OnInit {
 
+    selectedDocument!: Tipos;
+    messages!: Message[];
     group!:FormGroup
     group_login!:FormGroup
-    constructor(public dialog: MatDialog,private apiService: ApiService,private snackBar: MatSnackBar) {}
+    documentos: Tipos[] = []
+    nacionalidades: Tipos[] = [];
+    constructor(public dialog: MatDialog,private apiService: ApiService,private snackBar: MatSnackBar,
+      private router: Router,public dialogRef: MatDialogRef<LoginComponent>,private authService: AuthService,
+      private messageService: MessageService,private ngZone: NgZone) {}
     @ViewChild(CustomMessageComponent) customMessageComponent!: CustomMessageComponent;
 
-    showCustomMessage() {
-      this.customMessageComponent.message = 'Registration Successful!';
-      this.customMessageComponent.duration = 3000; // Tiempo en milisegundos
-      document.getElementById('customMessage')!.style.display = 'block';
+
+    show(type: string, message: string) {
+      this.messageService.add({ severity: type, detail: message});
     }
 
     initializeForm(){
       this.group = new FormGroup({
         user_name : new FormControl (null,null),
         user_email : new FormControl(null,null),
-        user_password: new FormControl(null,null)
+        user_password: new FormControl(null,null),
+        documentoTipo :new FormControl(null,null),
+        numDocumento: new FormControl(null,null)
       });
 
       this.group_login = new FormGroup({
@@ -40,6 +56,7 @@ export class LoginComponent implements OnInit {
 
     ngOnInit():void{
       this.initializeForm()
+      this.loadTipos()
     }
     // Variable para alternar entre el formulario de login y registro
     showLogin: boolean = true;
@@ -57,51 +74,39 @@ export class LoginComponent implements OnInit {
 
     registerUser(): void {
       const values = this.group.value;
-      this.apiService.insertaUsuario({
-        username: values.user_name,
-        email: values.user_email,
-        password: values.user_password
-      }).subscribe(
-        item => {
-          // Mostrar mensaje de éxito
-          this.snackBar.open('Registration successful!', 'Close', {
-            duration: 3000, // El mensaje dura 3 segundos
-            verticalPosition: "top", // Posición del snackbar
-            horizontalPosition: "end"
-          });
+      const request:RegisterRequest =<RegisterRequest>{}
+    }
 
-          // Redirigir o cambiar a la vista de login
-          this.openLogin();  // Alterna a la vista de login
-        },
-        error => {
-          // Manejar errores si el registro falla
-          this.snackBar.open('Registration failed. Try again.', 'Close', {
-            duration: 3000,
-            verticalPosition: "top", // Posición del snackbar
-            horizontalPosition: "end"
-          });
-        }
-      );
+
+    closeDialog(): void {
+      this.dialogRef.close();  // Aquí puedes pasar un valor si es necesario
     }
 
     login(): void {
       const values = this.group_login.value;
-      this.apiService.loginUsuario({
+      const loginRequest: LoginRequest = {
         username: values.login_user,
         password: values.login_password
-      }).subscribe(
+      };
+
+      this.apiService.loginUsuario(loginRequest).subscribe(
         (response) => {
           localStorage.setItem('access_token', response.access_token);
-          alert('LOGIN EXITOSO');
           this.apiService.getProfile().subscribe(
             (profile) => {
-              // Ahora tienes los detalles del perfil
+              console.log('Este es el profile')
+              console.log(profile)
+              // this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Logueo Exitoso' });
+              this.show('success', 'Logueo Exitoso');
+              let rol = profile.is_admin == true ? 'admin' : 'user'
               if (profile.is_admin) {
-                alert('Eres un administrador');
-                // Redirigir a una página de administrador o realizar una acción específica
+                this.router.navigate(['/admin']);
+                this.authService.setUserRole(rol,profile.username);
+                this.closeDialog();
               } else {
-                alert('Eres un usuario normal');
-                // Redirigir a otra página o realizar una acción para usuarios normales
+                this.dialogRef.close();
+                this.authService.login();
+                this.authService.setUserRole(rol,profile.username);
               }
             },
             (error) => {
@@ -110,9 +115,30 @@ export class LoginComponent implements OnInit {
           );
         },
         (error) => {
-          alert('ACCESO DENEGADO');
+          this.show('error', 'Credenciales Incorrectas');
           console.error('Error en el login:', error);
         }
       );
     }
+
+    loadTipos(): void {
+      const tipo_request:TipoListaRequest = <TipoListaRequest>{}
+      tipo_request.tabla_tab = 'NAC'
+      tipo_request.desc_tipos = '%'
+      this.apiService.getTipos(tipo_request).pipe(
+        switchMap((data: Tipos[]) => {
+          this.nacionalidades = data;
+          // Aquí haces la segunda llamada API
+          tipo_request.tabla_tab = 'DOI'
+          return this.apiService.getTipos(tipo_request);
+        })
+      ).subscribe(
+        (response) => {
+          console.log('Resultado de la segunda API:', response);
+          this.documentos = response
+        }
+      );
+    }
+
+    //PARA VALIDAR QUE EL TOKEN SIGUE
 }
