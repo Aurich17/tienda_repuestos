@@ -31,11 +31,7 @@ export class PaymentResultComponent {
 
     this.apiService.executePayment(request_paypal).subscribe(response => {
       if (response.success) {
-        // Redirige al usuario a una página de confirmación o muestra un mensaje de éxito
-        console.log('Pago realizado con éxito');
       } else {
-        // Muestra un mensaje de error si el pago falló
-        console.log('Pago fallido o cancelado');
       }
     });
   }

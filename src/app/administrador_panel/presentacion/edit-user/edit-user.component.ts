@@ -49,7 +49,6 @@ export class EditUserComponent {
       })
     ).subscribe(
       (response) => {
-        console.log('Resultado de la segunda API:', response);
         this.documentos = response
       }
     );

@@ -94,8 +94,6 @@ export class LoginComponent implements OnInit {
           localStorage.setItem('access_token', response.access_token);
           this.apiService.getProfile().subscribe(
             (profile) => {
-              console.log('Este es el profile')
-              console.log(profile)
               // this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Logueo Exitoso' });
               this.show('success', 'Logueo Exitoso');
               let rol = profile.is_admin == true ? 'admin' : 'user'
@@ -134,7 +132,6 @@ export class LoginComponent implements OnInit {
         })
       ).subscribe(
         (response) => {
-          console.log('Resultado de la segunda API:', response);
           this.documentos = response
         }
       );

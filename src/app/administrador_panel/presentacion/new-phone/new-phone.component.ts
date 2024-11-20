@@ -135,8 +135,6 @@ export class NewPhoneComponent implements OnInit {
         cantidad: control.get('componentQuantity')?.value
       };
     });
-
-    console.log(this.parte);  // Verificar la lista de partes en la consola
   }
 
   // Manejar la selección de imagen
@@ -148,7 +146,6 @@ export class NewPhoneComponent implements OnInit {
       // Validar que el archivo sea una imagen
       const validImageTypes = ['image/jpeg', 'image/png'];
       if (!validImageTypes.includes(file.type)) {
-        console.log('El archivo seleccionado no es una imagen válida');
         return;  // Si no es una imagen, salir de la función
       }
 
@@ -182,7 +179,6 @@ export class NewPhoneComponent implements OnInit {
   onSubmit(): void {
     if (this.formNewPhone.valid) {
       const newPhoneData = this.formNewPhone.value;
-      console.log('Datos del nuevo celular:', newPhoneData);
       // Lógica para enviar los datos a una API o servicio
     } else {
       console.error('Formulario inválido');
@@ -240,8 +236,6 @@ export class NewPhoneComponent implements OnInit {
         this.limpiarFormulario();
         this.onConfirm();
     }, error => {
-      console.log(error.message)
-      // Aquí manejamos el error
       console.error('Error recibido:', error); // Esto te ayudará a depurar
       this.snackBar.open('Error', error.message || 'Close', {
         duration: 3000,

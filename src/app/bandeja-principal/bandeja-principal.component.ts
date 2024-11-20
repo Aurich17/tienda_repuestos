@@ -24,7 +24,7 @@ export class BandejaPrincipalComponent {
   imageVisible:number = 4
   isLoggedIn: boolean = false;
   isAdmin: boolean = true;
-
+  wishList: any[] = [];
   imageObject:any = [];
   celularesPorMarca: { [key: string]: CelularResponse[] } = {};
 
@@ -155,7 +155,6 @@ export class BandejaPrincipalComponent {
   celulares!:CelularResponse[]
 
   muestraDatos(){
-    console.log(this.celulares)
   }
 
    isValidBase64(value:any) {
@@ -166,7 +165,6 @@ export class BandejaPrincipalComponent {
   @HostListener('window:resize', ['$event'])
   onResize(event?: Event) {
     this.screenWidth = window.innerWidth;
-    console.log('Tamaño de pantalla actual:', this.screenWidth);
     if(this.screenWidth <= 768){
       this.imageVisible = 1
     }
@@ -180,7 +178,6 @@ export class BandejaPrincipalComponent {
     this.apiService.getCelulares(user_request).subscribe(
       (data: CelularResponse[]) => {
         this.celulares = data;
-        console.log(this.celulares);
 
         // Agrupar celulares por marca de manera eficiente usando un Map
         const celularesPorMarca = new Map<string, CelularResponse[]>();
@@ -198,8 +195,6 @@ export class BandejaPrincipalComponent {
           acc[marca] = celulares;
           return acc;
         }, {});
-
-        console.log(this.celularesPorMarca); // Verifica la estructura del objeto agrupado
       },
       error => {
         console.error('Error al obtener marcas', error);
@@ -210,6 +205,18 @@ export class BandejaPrincipalComponent {
   logout(): void {
     localStorage.removeItem('access_token');
     this.isLoggedIn = false;
+  }
+
+  toggleWishlist(item: any) {
+    item.isInWishlist = !item.isInWishlist;
+
+    if (item.isInWishlist) {
+      this.wishList.push(item);
+    } else {
+      this.wishList = this.wishList.filter((wish) => wish.id_celular !== item.id_celular);
+    }
+
+    console.log('Lista de Deseados:', this.wishList);
   }
 }
 

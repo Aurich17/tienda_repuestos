@@ -61,7 +61,7 @@ export class AuthService {
       // Si el token está presente, asumimos que sigue logueado
       this.apiService.getProfile().subscribe(
         (profile) => {
-          console.log(profile)
+
           let rol = profile.is_admin == true ? 'admin' : 'user';
           this.setUserRole(rol,profile.username); // Define el rol según el perfil
           this.loggedIn.next(true); // Actualizar el observable a logueado

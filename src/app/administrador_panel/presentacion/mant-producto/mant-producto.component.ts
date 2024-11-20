@@ -60,16 +60,11 @@ export class MantProductoComponent {
       (data: CelularResponse[]) => {
         this.celulares = data;
         this.dataTable = this.celulares
-        console.log(this.celulares)
       },
       error => {
         console.error('Error al obtener marcas', error);
       }
     );
-  }
-
-  buscaPhone(){
-    console.log('')
   }
 
   openDialog(enterAnimationDuration: string, exitAnimationDuration: string, row:any): void {
