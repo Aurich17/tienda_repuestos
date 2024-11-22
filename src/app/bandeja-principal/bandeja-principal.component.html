@@ -4,17 +4,35 @@
       <h2 class="marca">{{marca.key}}</h2>
       <p-divider></p-divider>
       <div class="divider_card">
-        <p-carousel [value]="marca.value" [numVisible]="imageVisible" [numScroll]="1" [circular]="true" [autoplayInterval]="3000" styleClass="carrusel">
+        <p-carousel
+        [showIndicators]="false"
+        [value]="marca.value"
+        [numVisible]="imageVisible"
+        [numScroll]="1"
+        [circular]="true"
+        [autoplayInterval]="3000"
+        styleClass="carrusel">
           <ng-template pTemplate="item" let-item>
-            <div class="border-1 surface-border border-round m-2 text-center py-5 px-3" style="width: 250px; height: 350px">
-              <i class="pi pi-heart heart-icon"></i>
+            <div class="border-1 surface-border border-round m-2 text-center py-5 px-3" style="width: 250px; height: 370px;">
+              <i
+              class="pi heart-icon"
+              [ngClass]="{'pi-heart-fill': item.isInWishlist, 'pi-heart': !item.isInWishlist}"
+              (click)="toggleWishlist(item)"
+              [style.color]="item.isInWishlist ? 'red' : 'black'"
+              style="cursor: pointer;"
+              *ngIf="isLoggedIn"
+            ></i>
               <div class="mb-3" style="width: 200px; height: 200px; margin: 0 auto;">
                 <img [src]="'data:image/jpeg;base64,' + item.imagen" [alt]="item.marca + ' ' + item.modelo" style="width: 200px; height: 200px;" />
               </div>
               <div style="display: flex; flex-direction: column; align-items: center;">
                 <h4 class="card_name mb-1" style="text-align: center;">{{ item.modelo }}</h4>
                 <h6 class="card_price mt-0 mb-3" style="text-align: center;">S/{{ item.precio_completo}}</h6>
-                <p-button label="Detalles" styleClass="p-button-outlined" [routerLink]="['/details-phone', item.id_celular]"></p-button>
+                <p-button
+                label="Detalles"
+                styleClass="p-button-outlined"
+                (onClick)="goToDetails(item.id_celular)">
+              </p-button>
               </div>
             </div>
           </ng-template>
@@ -40,6 +58,6 @@
         <a href="#telegram"><i class="fa-brands fa-telegram"></i></a>
       </div>
     </div>
-    <img src="../../assets/footer.svg" alt="Wave Background" class="footer-wave" />
+    <!-- <img src="../../assets/footer.svg" alt="Wave Background" class="footer-wave" /> -->
   </footer>
 </div>

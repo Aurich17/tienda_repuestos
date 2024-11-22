@@ -3,6 +3,7 @@
 }
 
 .header {
+  /* position: fixed; */
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -149,4 +150,32 @@
 
 .logout-button:hover {
   background-color: #4A628A; /* Color verde más oscuro en hover */
+}
+
+@media (max-width: 768px) {
+  .header {
+    flex-direction: column;
+    padding: 10px;
+  }
+
+  .title {
+    font-size: 20px;
+    margin-bottom: 10px;
+    text-align: center;
+  }
+
+  .nav-links {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+  }
+
+  .nav-links p-button {
+    width: 40px; /* Ajusta el tamaño de los botones */
+    height: 40px;
+  }
+
+  .nav-links p-button i {
+    font-size: 20px; /* Reduce el tamaño del icono */
+  }
 }

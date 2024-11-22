@@ -1,22 +1,33 @@
 .container_general {
-  width: 80%;
-  height: 450px;
+  margin-top: 40px;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   align-items: center;
-  justify-content: space-around;
-  /* background-color: #39C37D; */
-  margin: 0 auto;
+  gap: 20px;
+  height: 450px;
+  /* background-color: gray; */
+}
+
+.layout {
+  display: flex;
+  align-items: flex-start; /* Alinea los elementos al inicio verticalmente */
+  justify-content: center; /* Centra horizontalmente */
+  gap: 20px; /* Espacio entre imagen y tabla */
+  width: 100%;
+  max-width: 1200px;
 }
 
 .container_image {
-  width: 45%;
-  height: 90%;
-  /* background-color: green; */
+  flex: 1; /* La imagen ocupa el espacio disponible */
   display: flex;
-  justify-content: space-around;
   flex-direction: column;
+  align-items: center
   /* position: relative; Esto es necesario para el posicionamiento absoluto del nombre */
+}
+
+.table_container {
+  flex: 2; /* La tabla ocupa el doble del espacio de la imagen */
+  max-width: 650px;
 }
 
 .container_details {

@@ -43,6 +43,7 @@ import { AuthInterceptor } from './services/auth_interceptor';
 import { WishListComponent } from './bandeja-principal/components/wish-list/wish-list.component';
 import { UserProfileComponent } from './bandeja-principal/components/user-profile/user-profile.component';
 import { HistoryBuyComponent } from './bandeja-principal/components/history-buy/history-buy.component';
+import { NewTipoComponent } from './administrador_panel/presentacion/new-tipo/new-tipo.component';
 //PRIME
 import { CardModule } from 'primeng/card';
 import { ButtonModule } from 'primeng/button';
@@ -60,7 +61,8 @@ import { BadgeModule } from 'primeng/badge';
 import { DropdownModule } from 'primeng/dropdown';
 import { PanelModule } from 'primeng/panel';
 import { AvatarModule } from 'primeng/avatar';
-import { NewTipoComponent } from './administrador_panel/presentacion/new-tipo/new-tipo.component';
+import { TableModule } from 'primeng/table';
+import { MenuModule } from 'primeng/menu';
 
 
 @NgModule({
@@ -125,7 +127,9 @@ import { NewTipoComponent } from './administrador_panel/presentacion/new-tipo/ne
     BadgeModule,
     DropdownModule,
     PanelModule,
-    AvatarModule
+    AvatarModule,
+    TableModule,
+    MenuModule
   ],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },MessageService],
   bootstrap: [AppComponent]

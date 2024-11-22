@@ -62,8 +62,6 @@ export class ShoppingCartComponent {
   }
 
   checkout() {
-    // Aquí puedes implementar la lógica de pago con PayPal o tu pasarela de pagos
-    console.log('Proceeding to checkout');
   }
 
   async onPay() {

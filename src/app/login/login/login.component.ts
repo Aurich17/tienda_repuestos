@@ -75,6 +75,19 @@ export class LoginComponent implements OnInit {
     registerUser(): void {
       const values = this.group.value;
       const request:RegisterRequest =<RegisterRequest>{}
+      request.p_username = values.user_name
+      request.p_password = values.user_password
+      request.p_email = values.user_email
+      request.p_doi_cod = values.documentoTipo.cod_tipo
+      request.p_doi_number = values.numDocumento
+
+      this.apiService.userRegister(request).subscribe(
+        (response) => {
+          if(response.status == 200){
+            this.show('success', 'Registro Exitoso');
+            this.closeDialog()
+          }
+        })
     }
 
 
@@ -94,19 +107,19 @@ export class LoginComponent implements OnInit {
           localStorage.setItem('access_token', response.access_token);
           this.apiService.getProfile().subscribe(
             (profile) => {
-              console.log('Este es el profile')
-              console.log(profile)
               // this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Logueo Exitoso' });
               this.show('success', 'Logueo Exitoso');
               let rol = profile.is_admin == true ? 'admin' : 'user'
               if (profile.is_admin) {
                 this.router.navigate(['/admin']);
-                this.authService.setUserRole(rol,profile.username);
+                this.authService.setUserRole(rol,profile.username,profile.id);
+                console.log('ESTE ES EL ID DEL USUARIO', profile.id)
                 this.closeDialog();
               } else {
                 this.dialogRef.close();
                 this.authService.login();
-                this.authService.setUserRole(rol,profile.username);
+                this.authService.setUserRole(rol,profile.username,profile.id);
+                window.location.reload();
               }
             },
             (error) => {
@@ -134,7 +147,6 @@ export class LoginComponent implements OnInit {
         })
       ).subscribe(
         (response) => {
-          console.log('Resultado de la segunda API:', response);
           this.documentos = response
         }
       );

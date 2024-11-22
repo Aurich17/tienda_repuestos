@@ -15,11 +15,7 @@ export class CustomSliderComponent implements OnInit, OnDestroy {
   slideIntervalId: any;
 
   ngOnInit() {
-    console.log('ESTAS SON LAS IMAGENES')
-    console.log(this.images)
     this.currentImages = [...this.images];  // Inicializa las imágenes visibles
-    console.log('INGRESA A ESTO')
-    console.log(this.currentImages)
     if (this.autoSlide) {
       this.startAutoSlide();
     }

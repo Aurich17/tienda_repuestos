@@ -1,12 +1,36 @@
 <div class="container_general">
   <div class="cabecera_lista">
-    <p-avatar label={{first_letter}} styleClass="mr-2" size="xlarge" shape="circle" [style]="{ 'background-color': '#52f538', color: '#ffffff' }"></p-avatar>
-    <div style="width: 20px;"></div>
-    <label>LISTA DE DESEADOS DE {{name_user}}</label>
+    <p-avatar label="{{ first_letter }}" styleClass="mr-2" size="xlarge" shape="circle"
+      [style]="{ 'background-color': '#4CAF50', color: '#ffffff' }">
+    </p-avatar>
+    <div class="user-info">
+      <label>LISTA DE DESEADOS DE {{ name_user }}</label>
+    </div>
   </div>
+
   <div class="separador"></div>
+
   <div class="p-inputgroup buscador">
     <input type="text" pInputText placeholder="Buscar por nombre..." />
     <p-button icon="pi pi-search"></p-button>
+  </div>
+
+  <div class="separador"></div>
+
+  <div class="productos-container">
+    <ng-container *ngFor="let producto of listaDeseos">
+      <div class="producto-card" *ngIf="producto.en_lista_deseos === 1">
+        <div class="producto-info">
+          <img [src]="'data:image/jpeg;base64,' + producto.imagen" alt="Imagen del producto" class="producto-img" />
+          <h3>{{ producto.modelo }}</h3>
+        </div>
+        <div class="producto-actions">
+          <button pButton icon="pi pi-trash" label="Eliminar"
+            class="p-button-danger"
+            (click)="eliminarDeLista(producto)">
+          </button>
+        </div>
+      </div>
+    </ng-container>
   </div>
 </div>

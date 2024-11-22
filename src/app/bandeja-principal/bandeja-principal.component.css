@@ -1,3 +1,8 @@
+.heart-icon {
+  font-size: 24px;
+  transition: color 0.3s ease;
+}
+
 .container_cards {
   display: flex;
   flex-wrap: wrap;
@@ -22,7 +27,7 @@
   /* background-color: green; */
   display: flex;
   flex-wrap: wrap;
-  gap: 20px;
+  /* gap: 20px; */
   justify-content: flex-start;
 }
 
@@ -54,6 +59,7 @@ img {
   padding: 20px 0; /* Espaciado arriba y abajo */
   text-align: center; /* Centra el contenido */
   z-index: 1; /* Asegúrate de que el footer esté por encima de otros elementos */
+  background-color: #005ea8;
 }
 
 .footer-content {
@@ -113,6 +119,16 @@ img {
  /* background-color: red; */
  width: 96vw;
  margin: auto 0;
+}
+
+p-button {
+  position: relative;
+  z-index: 10;
+}
+
+.border-1.surface-border {
+  position: relative;
+  overflow: visible; /* Permite que los hijos no queden restringidos */
 }
 
 @media (max-width: 768px) {

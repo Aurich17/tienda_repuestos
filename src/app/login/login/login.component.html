@@ -71,7 +71,7 @@
           [(ngModel)]="selectedDocument"
           placeholder="Seleccione un Documento"
           optionLabel="des_tipo"
-          formControlName="numDocumento"
+          formControlName="documentoTipo"
           [style]="{ 'width': '100%' }">
         </p-dropdown>
       </div>
@@ -80,7 +80,7 @@
         <span class="p-inputgroup-addon">
             <i class="pi pi-hashtag"></i>
         </span>
-        <input pInputText type="password" placeholder="Numero Documento" formControlName="numDocumento"/>
+        <input pInputText type="number" placeholder="Numero Documento" formControlName="numDocumento"/>
       </div>
       <div style="height: 10px;"></div>
       <button (click)="registerUser()" style="width: 100%" class="prime-button">Register</button>
