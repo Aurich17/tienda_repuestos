@@ -40,6 +40,7 @@ export class HeaderComponent implements OnInit{
   logout() {
     this.authService.logout(); // Llamar al servicio para cerrar sesión
     localStorage.removeItem('access_token');
+    window.location.reload();
   }
 
   openCartShopping(){

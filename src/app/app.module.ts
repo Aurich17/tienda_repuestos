@@ -62,6 +62,7 @@ import { DropdownModule } from 'primeng/dropdown';
 import { PanelModule } from 'primeng/panel';
 import { AvatarModule } from 'primeng/avatar';
 import { TableModule } from 'primeng/table';
+import { MenuModule } from 'primeng/menu';
 
 
 @NgModule({
@@ -127,7 +128,8 @@ import { TableModule } from 'primeng/table';
     DropdownModule,
     PanelModule,
     AvatarModule,
-    TableModule
+    TableModule,
+    MenuModule
   ],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },MessageService],
   bootstrap: [AppComponent]

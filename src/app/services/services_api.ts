@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { BehaviorSubject, catchError, Observable, of, shareReplay, tap, throwError } from 'rxjs';
-import { LoginRequest } from '../login/domain/request/login_request';
-import {CelularResponse,Tipos, UserResponse } from '../administrador_panel/domain/response/administrador_response';
-import { GestionaCelularRequest, InsertaCelularRequest, InsertTiposRequest, paypalRequest, PhoneListaRequest, TipoListaRequest, UserListaRequest, UserRequest } from '../administrador_panel/domain/request/administrador_request';
+import { LoginRequest, RegisterRequest } from '../login/domain/request/login_request';
+import {CelularResponse,Tipos, UserResponse, WishListResponse } from '../administrador_panel/domain/response/administrador_response';
+import { GestionaCelularRequest, InsertaCelularRequest, InsertTiposRequest, insertWishListRequest, listaWishListRequest, paypalRequest, PhoneListaRequest, TipoListaRequest, UserListaRequest, UserRequest } from '../administrador_panel/domain/request/administrador_request';
 import { PayPalResponse } from '../bandeja-principal/components/shopping-cart/response/response_shopping';
 
 @Injectable({
@@ -57,16 +57,12 @@ export class ApiService {
     return this.http.get(`${this.apiUrl}/api/users/profile`, { headers });
   }
 
-  // getCelulares(phone_request:PhoneListaRequest): Observable<CelularResponse[]> {
-  //   return this.http.post<CelularResponse[]>(`${this.apiUrl}/api/celulares`,phone_request);
-  // }
+
   getCelulares(phone_request: PhoneListaRequest, forceReload: boolean = false): Observable<CelularResponse[]> {
     if (!forceReload && this.celularesCache$.value) {
-      // Si ya tenemos los datos en caché y no se necesita recargar, devolvemos los datos del caché
       return of(this.celularesCache$.value);
     }
 
-    // Si se requiere recargar o no hay datos en caché, hacemos la llamada a la API
     return this.http.post<CelularResponse[]>(`${this.apiUrl}/api/celulares`, phone_request).pipe(
       tap((data) => this.celularesCache$.next(data)), // Guardar los datos en caché
       shareReplay(1)  // Compartir la respuesta entre suscriptores
@@ -102,9 +98,21 @@ export class ApiService {
 
   apiUserManage(requestUser: UserRequest): Observable<any> {
     return this.http.post<any>(`${this.apiUrl}/api/user_manage`, requestUser);
- }
+  }
 
- insertTipos(requestTipos:InsertTiposRequest):Observable<any>{
-  return this.http.post<any>(`${this.apiUrl}/api/insertTipos`, requestTipos);
- }
+  insertTipos(requestTipos:InsertTiposRequest):Observable<any>{
+    return this.http.post<any>(`${this.apiUrl}/api/insertTipos`, requestTipos);
+  }
+
+  insertWishList(requesWishList:insertWishListRequest):Observable<any>{
+    return this.http.post<any>(`${this.apiUrl}/api/gestionaWishList`, requesWishList);
+  }
+
+  listaWishList(request:listaWishListRequest):Observable<WishListResponse[]>{
+    return this.http.post<WishListResponse[]>(`${this.apiUrl}/api/listaWishList`, request);
+  }
+
+  userRegister(request:RegisterRequest):Observable<any>{
+    return this.http.post<any>(`${this.apiUrl}/api/usuario/newUser`, request);
+  }
 }

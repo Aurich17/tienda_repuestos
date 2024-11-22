@@ -64,7 +64,7 @@ export class DetailsPhoneComponent {
     if(localStorage.getItem('access_token') != null){
       this.cartService.addToCart(item,row);
     }else{
-      this.show('error', 'Inicio de sesion neceario')
+      this.show('error', 'Inicio de sesion necesario')
     }
   }
 

@@ -64,3 +64,14 @@ export interface InsertTiposRequest{
   p_des_tipo:string,
   p_cod_tipo:string
 }
+
+export interface insertWishListRequest{
+  p_id_usuario?:number;
+  p_id_celular:number;
+  p_deseado:boolean;
+}
+
+export interface listaWishListRequest{
+  p_id_usuario?:number
+}
+

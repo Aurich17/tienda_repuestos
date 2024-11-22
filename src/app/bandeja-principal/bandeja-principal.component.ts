@@ -9,7 +9,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { CelularResponse } from '../administrador_panel/domain/response/administrador_response';
 import { ShoppingCartComponent } from './components/shopping-cart/shopping-cart.component';
 import { AuthService } from '../services/auth_service';
-import { PhoneListaRequest } from '../administrador_panel/domain/request/administrador_request';
+import { insertWishListRequest, listaWishListRequest, PhoneListaRequest } from '../administrador_panel/domain/request/administrador_request';
+import { MessageService } from 'primeng/api';
 // import { faSignInAlt, faShoppingCart, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
@@ -28,15 +29,22 @@ export class BandejaPrincipalComponent {
   imageObject:any = [];
   celularesPorMarca: { [key: string]: CelularResponse[] } = {};
 
-  constructor(public dialog: MatDialog,private snackBar: MatSnackBar,private apiService: ApiService,private router: Router, private route: ActivatedRoute,private authService: AuthService) {}
+  constructor(private messageService: MessageService,public dialog: MatDialog,private snackBar: MatSnackBar,private apiService: ApiService,private router: Router, private route: ActivatedRoute,private authService: AuthService) {}
 
   screenWidth!: number;
+
+  show(type: string, message: string) {
+    this.messageService.add({ severity: type, detail: message});
+  }
 
   ngOnInit(){
     this.muestraPhone()
     this.onResize();
     // this.isLoggedIn = !!localStorage.getItem('access_token');
     this.authService.checkLoginStatus()
+    if(localStorage.getItem('access_token') != null){
+      this.isLoggedIn = true
+    }
   }
   // OPEN MODAL
   openDetails(item:any) {
@@ -175,29 +183,50 @@ export class BandejaPrincipalComponent {
     const user_request: PhoneListaRequest = <PhoneListaRequest>{};
     user_request.name_phone = '%';
 
+    // Obtén la lista de celulares
     this.apiService.getCelulares(user_request).subscribe(
       (data: CelularResponse[]) => {
         this.celulares = data;
 
-        // Agrupar celulares por marca de manera eficiente usando un Map
-        const celularesPorMarca = new Map<string, CelularResponse[]>();
+        // Obtén la lista de deseos del usuario
+        const reques_wishList:listaWishListRequest = <listaWishListRequest>{}
+        reques_wishList.p_id_usuario = localStorage.getItem('user_id') !== null? Number(localStorage.getItem('user_id')) : undefined;
+        this.apiService.listaWishList(reques_wishList).subscribe(
+          (listaDeseos: { id_celular: number; en_lista_deseos: number }[]) => {
+            // Mapea la lista de deseos a un Set para acceso rápido
+            const deseosSet = new Set(
+              listaDeseos
+                .filter(d => d.en_lista_deseos === 1) // Solo los deseados
+                .map(d => d.id_celular)
+            );
 
-        this.celulares.forEach(celular => {
-          const marca = celular.marca; // Asegúrate de que `marca` esté en tu objeto
-          if (!celularesPorMarca.has(marca)) {
-            celularesPorMarca.set(marca, []);
+            // Marca los celulares que están en la lista de deseos
+            this.celulares.forEach(celular => {
+              celular.isInWishlist = deseosSet.has(celular.id_celular); // `true` si está en la lista
+            });
+
+            // Agrupa celulares por marca
+            const celularesPorMarca = new Map<string, CelularResponse[]>();
+            this.celulares.forEach(celular => {
+              const marca = celular.marca;
+              if (!celularesPorMarca.has(marca)) {
+                celularesPorMarca.set(marca, []);
+              }
+              celularesPorMarca.get(marca)?.push(celular);
+            });
+
+            this.celularesPorMarca = Array.from(celularesPorMarca.entries()).reduce<{ [key: string]: CelularResponse[] }>((acc, [marca, celulares]) => {
+              acc[marca] = celulares;
+              return acc;
+            }, {});
+          },
+          error => {
+            console.error('Error al obtener lista de deseos', error);
           }
-          celularesPorMarca.get(marca)?.push(celular);
-        });
-
-        // Usar un tipo explícito para `acc` en el `reduce`
-        this.celularesPorMarca = Array.from(celularesPorMarca.entries()).reduce<{ [key: string]: CelularResponse[] }>((acc, [marca, celulares]) => {
-          acc[marca] = celulares;
-          return acc;
-        }, {});
+        );
       },
       error => {
-        console.error('Error al obtener marcas', error);
+        console.error('Error al obtener celulares', error);
       }
     );
   }
@@ -208,15 +237,29 @@ export class BandejaPrincipalComponent {
   }
 
   toggleWishlist(item: any) {
+    const wishList_request: insertWishListRequest = <insertWishListRequest>{};
+    wishList_request.p_id_usuario = localStorage.getItem('user_id') !== null? Number(localStorage.getItem('user_id')) : undefined;
+    wishList_request.p_id_celular = item.id_celular;
     item.isInWishlist = !item.isInWishlist;
-
     if (item.isInWishlist) {
-      this.wishList.push(item);
+      wishList_request.p_deseado = true
+      this.apiService.insertWishList(wishList_request).subscribe(response => {
+        this.show('success', 'AGREGADO A LISTA DE DESEADOS');
+      });
     } else {
-      this.wishList = this.wishList.filter((wish) => wish.id_celular !== item.id_celular);
+      wishList_request.p_deseado = false
+      this.apiService.insertWishList(wishList_request).subscribe(response => {});
     }
 
     console.log('Lista de Deseados:', this.wishList);
+  }
+
+  botonDetalles(){
+    console.log('SI DA CLICK')
+  }
+
+  goToDetails(id: number): void {
+    this.router.navigate(['/details-phone', id]);
   }
 }
 

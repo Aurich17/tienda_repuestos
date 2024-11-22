@@ -21,6 +21,7 @@ export interface CelularResponse {
     descripcion?: string;  // Este campo es opcional
     fecha_agregado: string;
     imagen?: string;  // Esto es opcional, dependerá de si envías la imagen o no
+    isInWishlist?: boolean; // Esta propiedad es opcional
     partes: ParteResponse[];  // Lista de partes
 }
 
@@ -39,4 +40,9 @@ export interface UserResponse {
   nacionalidad_tag: string
 }
 
-
+export interface WishListResponse{
+  id_celular: number,
+  modelo: string,
+  en_lista_deseos: number,
+  imagen:string
+}
