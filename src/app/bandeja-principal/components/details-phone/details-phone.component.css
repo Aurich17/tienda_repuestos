@@ -152,15 +152,32 @@ img:hover {
   margin: 0 auto;
 }
 
+.image_carrusel{
+  width: 250px;
+  height: 350px;
+}
+
 @media (max-width: 768px) {
+  .layout{
+    /* background-color: orange; */
+    flex-direction: column;
+    align-items: center;
+  }
   .separador{
     /* background-color: #39C37D; */
     height: 145px;
   }
 
-  .carrusel{
-    width: 90vw;
+  ::ng-deep .p-carousel {
+    width: 80%;
     margin: 0 auto;
+    /* background-color: red; */
+    height: 450px;
+  }
+
+  .image_carrusel{
+    /* background-color: green; */
+    height: 400px;
   }
 
   .container_general{

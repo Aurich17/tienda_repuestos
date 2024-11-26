@@ -5,7 +5,7 @@ import { detail_phone_response } from './response/detail-phone.response';
 import { CelularResponse, ParteResponse} from 'src/app/administrador_panel/domain/response/administrador_response';
 import { CartService } from 'src/app/services/shoppin_cart_service';
 import { ApiService } from 'src/app/services/services_api';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { PhoneListaRequest } from 'src/app/administrador_panel/domain/request/administrador_request';
 import { MessageService } from 'primeng/api';
 
@@ -21,12 +21,14 @@ export class DetailsPhoneComponent {
     private route: ActivatedRoute,
     private cartService: CartService,
     private apiService: ApiService,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private router: Router
   ) {}
   ngOnInit() {
     const phoneId = this.route.snapshot.paramMap.get('id'); // Obtiene el parámetro de la URL
     this.muestraPhone(phoneId);
     this.onResize();
+    // window.location.reload();
   }
   //ESTO TRAE LOS DATOS DEL CELULAR
   imageVisible:number = 4
@@ -89,5 +91,9 @@ export class DetailsPhoneComponent {
         console.error('Error al obtener el celular', error);
       }
     );
+  }
+
+  goToDetails(id: number): void {
+    this.router.navigate(['/details-phone', id]);
   }
 }

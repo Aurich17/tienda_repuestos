@@ -25,7 +25,9 @@
           <input pInputText type="password" placeholder="Password" formControlName="login_password"/>
         </div>
       </div>
-      <button (click)="login()" style="width: 100%" class="prime-button">Log In</button>
+      <!-- <button (click)="login()" style="width: 100%" class="prime-button">Log In</button> -->
+      <div class="g-recaptcha" data-sitekey="6Lf_zIoqAAAAAB-qa3DXmT2iv76QtQfuGS80RMB7"></div>
+      <button (click)="login(); $event.preventDefault()" style="width: 100%" class="prime-button">Log In</button>
     </form>
     <div class="register-link">
       <p style="text-align: center;">Don't have an account?</p>
@@ -83,6 +85,7 @@
         <input pInputText type="number" placeholder="Numero Documento" formControlName="numDocumento"/>
       </div>
       <div style="height: 10px;"></div>
+      <div class="g-recaptcha" data-sitekey="6Lf_zIoqAAAAAB-qa3DXmT2iv76QtQfuGS80RMB7"></div>
       <button (click)="registerUser()" style="width: 100%" class="prime-button">Register</button>
       <!-- <button type="submit" class="register-btn" (click)="registerUser()">Register</button> -->
     </form>

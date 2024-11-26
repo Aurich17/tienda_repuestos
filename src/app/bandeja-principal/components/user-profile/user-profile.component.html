@@ -1,4 +1,4 @@
-<div class="container_general">
+<form class="container_general" [formGroup]="group">
   <div class="profile_principal">
     <div class="profile">{{first_letter}}</div>
     <label>{{name_user}}</label>
@@ -9,13 +9,48 @@
       <span class="p-inputgroup-addon">
           <i class="pi pi-user"></i>
       </span>
-      <input pInputText placeholder="Nombre Completo" />
+      <input pInputText placeholder="Nombre Completo" readonly="true" formControlName="nombre_completo"/>
     </div>
     <div class="p-inputgroup">
       <span class="p-inputgroup-addon">
           <i class="pi pi-envelope"></i>
       </span>
-      <input pInputText placeholder="Email" />
+      <input pInputText placeholder="Email" readonly={{soloLectura}} formControlName="email"/>
+    </div>
+    <div class="container_document">
+      <div class="p-inputgroup document">
+        <span class="p-inputgroup-addon">
+          <i class="pi pi-id-card"></i>
+        </span>
+        <p-dropdown
+          [options]="documentos"
+          [(ngModel)]="selectedDocument"
+          placeholder="Seleccione un Documento"
+          optionLabel="des_tipo"
+          formControlName="documentoTipo"
+          [style]="{ 'width': '100%' }">
+        </p-dropdown>
+      </div>
+      <div class="p-inputgroup document">
+        <span class="p-inputgroup-addon">
+            <i class="pi pi-hashtag"></i>
+        </span>
+        <input pInputText type="number" placeholder="Numero Documento" formControlName="numDocumento" readonly={{soloLectura}}/>
+      </div>
+    </div>
+    <div class="container_buttons">
+      <p-button
+        *ngIf="true"
+        icon="pi pi-pencil"
+        label="EDITAR"
+        styleClass="p-button-raised">
+      </p-button>
+      <p-button
+        *ngIf="false"
+        icon="pi pi-save"
+        label="GUARDAR"
+        styleClass="p-button-raised">
+      </p-button>
     </div>
   </div>
-</div>
+</form>

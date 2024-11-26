@@ -57,6 +57,7 @@ export class LoginComponent implements OnInit {
     ngOnInit():void{
       this.initializeForm()
       this.loadTipos()
+      this.loadRecaptchaScript()
     }
     // Variable para alternar entre el formulario de login y registro
     showLogin: boolean = true;
@@ -95,37 +96,69 @@ export class LoginComponent implements OnInit {
       this.dialogRef.close();  // Aquí puedes pasar un valor si es necesario
     }
 
+    grecaptcha: any;
+    private loadRecaptchaScript(): Promise<void> {
+      return new Promise((resolve, reject) => {
+        const scriptId = 'recaptcha-script';
+
+        // Evita cargar el script varias veces
+        if (document.getElementById(scriptId)) {
+          resolve();
+          return;
+        }
+
+        const script = document.createElement('script');
+        script.id = scriptId;
+        script.src = 'https://www.google.com/recaptcha/api.js'; // Cambiado a la API estándar
+        script.async = true;
+        script.defer = true;
+
+        script.onload = () => {
+          console.log('Script de reCAPTCHA cargado');
+          resolve();
+        };
+
+        script.onerror = (error) => {
+          console.error('Error cargando el script de reCAPTCHA', error);
+          reject(error);
+        };
+
+        document.body.appendChild(script);
+      });
+    }
     login(): void {
+      const recaptchaResponse = (window as any).grecaptcha.getResponse();
+
+      if (!recaptchaResponse) {
+        this.show('error', 'Por favor, verifica que no eres un robot.');
+        return;
+      }
+
       const values = this.group_login.value;
+
       const loginRequest: LoginRequest = {
         username: values.login_user,
-        password: values.login_password
+        password: values.login_password,
+        recaptcha_token: recaptchaResponse, // Agregar el token de reCAPTCHA
       };
 
       this.apiService.loginUsuario(loginRequest).subscribe(
         (response) => {
           localStorage.setItem('access_token', response.access_token);
-          this.apiService.getProfile().subscribe(
-            (profile) => {
-              // this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Logueo Exitoso' });
-              this.show('success', 'Logueo Exitoso');
-              let rol = profile.is_admin == true ? 'admin' : 'user'
-              if (profile.is_admin) {
-                this.router.navigate(['/admin']);
-                this.authService.setUserRole(rol,profile.username,profile.id);
-                console.log('ESTE ES EL ID DEL USUARIO', profile.id)
-                this.closeDialog();
-              } else {
-                this.dialogRef.close();
-                this.authService.login();
-                this.authService.setUserRole(rol,profile.username,profile.id);
-                window.location.reload();
-              }
-            },
-            (error) => {
-              console.error('Error al obtener el perfil:', error);
+          this.apiService.getProfile().subscribe((profile) => {
+            this.show('success', 'Logueo Exitoso');
+            const rol = profile.is_admin ? 'admin' : 'user';
+            this.authService.setUserRole(rol, profile.username, profile.id, profile.nombre_completo, profile.email);
+
+            if (profile.is_admin) {
+              this.router.navigate(['/admin']);
+            } else {
+              this.authService.login();
+              window.location.reload();
             }
-          );
+
+            this.closeDialog();
+          });
         },
         (error) => {
           this.show('error', 'Credenciales Incorrectas');

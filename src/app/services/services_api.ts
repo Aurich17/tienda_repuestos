@@ -97,7 +97,7 @@ export class ApiService {
   }
 
   apiUserManage(requestUser: UserRequest): Observable<any> {
-    return this.http.post<any>(`${this.apiUrl}/api/user_manage`, requestUser);
+    return this.http.post<any>(`${this.apiUrl}/api/usuario/manage`, requestUser);
   }
 
   insertTipos(requestTipos:InsertTiposRequest):Observable<any>{
