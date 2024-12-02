@@ -130,6 +130,15 @@ h2 {
   background-color: #005bb5; /* Color al pasar el mouse */
 }
 
+.g-recaptcha {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+  height: 80px;
+  width: 100%;
+}
+
 @media (max-width: 768px) {
   .header {
     flex-direction: column;

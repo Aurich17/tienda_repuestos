@@ -29,6 +29,8 @@ export class LoginComponent implements OnInit {
     group_login!:FormGroup
     documentos: Tipos[] = []
     nacionalidades: Tipos[] = [];
+    token:string = '6LfHMYsqAAAAAIAq9tyPIBjWUC6ldQrq4cc0GCHN' //LOCAL
+    // token:string = '6LcAQYsqAAAAAEIRBAV1KFJV0xFvfTrycJcjNPfx' //PRODUCCION
     constructor(public dialog: MatDialog,private apiService: ApiService,private snackBar: MatSnackBar,
       private router: Router,public dialogRef: MatDialogRef<LoginComponent>,private authService: AuthService,
       private messageService: MessageService,private ngZone: NgZone) {}
@@ -57,21 +59,24 @@ export class LoginComponent implements OnInit {
     ngOnInit():void{
       this.initializeForm()
       this.loadTipos()
-      this.loadRecaptchaScript()
+      this.loadRecaptchaScript().then(() => {
+        this.renderRecaptcha(); // Renderiza el captcha al inicializar el componente
+      });
     }
     // Variable para alternar entre el formulario de login y registro
     showLogin: boolean = true;
 
     // Función para mostrar el formulario de registro
     openRegister() {
-      this.showLogin = false;  // Oculta el formulario de login
+      this.showLogin = false; // Oculta el formulario de login
+      setTimeout(() => this.renderRecaptcha(), 0); // Renderiza el reCAPTCHA
     }
 
     // Función para mostrar el formulario de login
     openLogin() {
-      this.showLogin = true;  // Oculta el formulario de registro
+      this.showLogin = true; // Oculta el formulario de registro
+      setTimeout(() => this.renderRecaptcha(), 0); // Renderiza el reCAPTCHA
     }
-
 
     registerUser(): void {
       const values = this.group.value;
@@ -114,7 +119,6 @@ export class LoginComponent implements OnInit {
         script.defer = true;
 
         script.onload = () => {
-          console.log('Script de reCAPTCHA cargado');
           resolve();
         };
 
@@ -128,7 +132,6 @@ export class LoginComponent implements OnInit {
     }
     login(): void {
       const recaptchaResponse = (window as any).grecaptcha.getResponse();
-
       if (!recaptchaResponse) {
         this.show('error', 'Por favor, verifica que no eres un robot.');
         return;
@@ -139,7 +142,7 @@ export class LoginComponent implements OnInit {
       const loginRequest: LoginRequest = {
         username: values.login_user,
         password: values.login_password,
-        recaptcha_token: recaptchaResponse, // Agregar el token de reCAPTCHA
+        token: recaptchaResponse, // Agregar el token de reCAPTCHA
       };
 
       this.apiService.loginUsuario(loginRequest).subscribe(
@@ -185,5 +188,21 @@ export class LoginComponent implements OnInit {
       );
     }
 
+    private renderRecaptcha(): void {
+      if ((window as any).grecaptcha) {
+        const captchaContainer = document.getElementById('recaptcha-container');
+
+        if (captchaContainer) {
+          // Limpia el contenedor del captcha si ya tiene contenido
+          captchaContainer.innerHTML = '';
+        }
+
+        // Renderiza el captcha en el contenedor especificado
+        (window as any).grecaptcha.render('recaptcha-container', {
+          //sitekey: '6LfHMYsqAAAAAIAq9tyPIBjWUC6ldQrq4cc0GCHN', //LOCAL
+          sitekey: this.token
+        });
+      }
+    }
     //PARA VALIDAR QUE EL TOKEN SIGUE
 }

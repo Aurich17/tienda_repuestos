@@ -31,6 +31,7 @@ export class ApiService {
     const body = new URLSearchParams();
     body.set('username', loginRequest.username);
     body.set('password', loginRequest.password);
+    body.set('token', loginRequest.token);
 
     return this.http.post(`${this.apiUrl}/api/login`, body.toString(), { headers }).pipe(
       tap((response: any) => {

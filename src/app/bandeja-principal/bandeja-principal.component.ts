@@ -251,11 +251,9 @@ export class BandejaPrincipalComponent {
       this.apiService.insertWishList(wishList_request).subscribe(response => {});
     }
 
-    console.log('Lista de Deseados:', this.wishList);
   }
 
   botonDetalles(){
-    console.log('SI DA CLICK')
   }
 
   goToDetails(id: number): void {

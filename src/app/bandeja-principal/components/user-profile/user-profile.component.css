@@ -60,3 +60,43 @@ label {
 .document{
   width: 48%;
 }
+
+
+/* Ajustes para móviles */
+@media (max-width: 768px) {
+  .container_general {
+    flex-direction: column;
+    align-items: center;
+    /* justify-content: space-around; */
+    height: 70vh;
+    /* background-color: orange; */
+  }
+
+  .profile_principal, .profile_details {
+    width: 100%; /* Usar todo el ancho */
+    /* background-color: red; */
+  }
+
+  .profile_principal{
+    /* background-color: green; */
+    height: 260px;
+  }
+  .profile {
+    width: 120px; /* Tamaño más pequeño para móviles */
+    height: 120px;
+    font-size: 80px;
+  }
+
+  label {
+    font-size: 20px;
+  }
+
+  .container_document {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .document {
+    width: 100%; /* Ajustar documentos al ancho completo */
+  }
+}
