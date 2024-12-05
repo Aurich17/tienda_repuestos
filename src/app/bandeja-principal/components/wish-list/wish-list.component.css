@@ -86,6 +86,9 @@
 .producto-actions {
   display: flex;
   align-items: center;
+  justify-content: space-around;
+  /* background-color: green; */
+  width: 300px;
 }
 
 .producto-actions button {
@@ -150,6 +153,7 @@
     width: 100%; /* Hacer que el botón ocupe todo el ancho */
     display: flex;
     justify-content: center; /* Centrar el botón */
+    justify-content: space-around;
   }
 
   .producto-actions button {

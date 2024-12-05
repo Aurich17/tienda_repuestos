@@ -29,7 +29,15 @@ export class BandejaPrincipalComponent {
   imageObject:any = [];
   celularesPorMarca: { [key: string]: CelularResponse[] } = {};
 
-  constructor(private messageService: MessageService,public dialog: MatDialog,private snackBar: MatSnackBar,private apiService: ApiService,private router: Router, private route: ActivatedRoute,private authService: AuthService) {}
+  constructor(
+    private messageService: MessageService,
+    public dialog: MatDialog,
+    private snackBar: MatSnackBar,
+    private apiService: ApiService,
+    private router: Router,
+    private route: ActivatedRoute,
+    private authService: AuthService
+  ) {}
 
   screenWidth!: number;
 

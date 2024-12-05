@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { insertWishListRequest, listaWishListRequest } from 'src/app/administrador_panel/domain/request/administrador_request';
 import { WishListResponse } from 'src/app/administrador_panel/domain/response/administrador_response';
 import { ApiService } from 'src/app/services/services_api';
@@ -14,7 +15,10 @@ export class WishListComponent {
   name_user = localStorage.getItem('user_name')?.toString().toUpperCase()
   first_letter = this.name_user != null ? this.name_user[0].toUpperCase() : ''
 
-  constructor(private apiService: ApiService){}
+  constructor(
+    private apiService: ApiService,
+    private router: Router
+  ){}
 
   ngOnInit(){
     this.listaWishList()
@@ -47,5 +51,9 @@ export class WishListComponent {
         console.error('Error al eliminar el producto de la lista de deseos', error);
       }
     );
+  }
+
+  goToDetails(phone:any): void {
+    this.router.navigate(['/details-phone', phone.id_celular]);
   }
 }
