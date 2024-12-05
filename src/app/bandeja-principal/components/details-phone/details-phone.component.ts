@@ -1,4 +1,4 @@
-import { Component,Inject, Input,HostListener} from '@angular/core';
+import { Component,Inject, Input,HostListener, ChangeDetectorRef} from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MetadataTable } from 'src/app/interfaces/metada-table.interface';
 import { detail_phone_response } from './response/detail-phone.response';
@@ -22,13 +22,17 @@ export class DetailsPhoneComponent {
     private cartService: CartService,
     private apiService: ApiService,
     private messageService: MessageService,
-    private router: Router
+    private router: Router,
+    private cdr: ChangeDetectorRef
   ) {}
+
   ngOnInit() {
-    const phoneId = this.route.snapshot.paramMap.get('id'); // Obtiene el parámetro de la URL
-    this.muestraPhone(phoneId);
+    // Escucha cambios en los parámetros de la ruta
+    this.route.params.subscribe(params => {
+      const phoneId = params['id']; // Obtiene el nuevo ID del celular
+      this.muestraPhone(phoneId); // Llama al método para actualizar los datos del celular
+    });
     this.onResize();
-    // window.location.reload();
   }
   //ESTO TRAE LOS DATOS DEL CELULAR
   imageVisible:number = 4
@@ -51,7 +55,6 @@ export class DetailsPhoneComponent {
       this.imageVisible = 1
 
     }
-    // Puedes usar `this.screenWidth` para aplicar lógica condicional aquí
   }
 
   show(type: string, message: string) {
@@ -71,21 +74,24 @@ export class DetailsPhoneComponent {
   }
 
   celulares!:CelularResponse[]
+  carrusel_celulares_detaller !:CelularResponse[]
 
   muestraPhone(id: string | null) {
-    // phone_request
-    const user_request:PhoneListaRequest  = <PhoneListaRequest >{}
-    user_request.name_phone = '%',
-    this.apiService.getCelulares(user_request).subscribe(
+    this.carrusel_celulares_detaller = [];
+    const user_request: PhoneListaRequest = <PhoneListaRequest>{};
+    user_request.name_phone = '%';
+
+    this.apiService.getCelulares(user_request, true).subscribe(
       (data: CelularResponse[]) => {
-        this.celulares = data;
-        this.item = this.celulares.find(celular => celular.id_celular.toString() === id); // Filtra el celular correcto
+        this.item = data.find(celular => celular.id_celular.toString() === id);
         if (this.item) {
-          this.dataTable = this.item.partes
+          this.dataTable = this.item.partes;
+        } else {
+          this.show('error', 'Celular no encontrado');
         }
-        for(let i =0; i<this.celulares.length;i++){
-          this.imageObject.push(this.celulares[i].imagen);
-        }
+        this.carrusel_celulares_detaller = data.filter(celular => celular.id_celular.toString() !== id);
+        this.imageObject = this.carrusel_celulares_detaller.map(celular => celular.imagen);
+        this.cdr.detectChanges();
       },
       (error) => {
         console.error('Error al obtener el celular', error);

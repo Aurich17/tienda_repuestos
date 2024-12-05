@@ -155,7 +155,14 @@ img:hover {
 .image_carrusel{
   width: 250px;
   height: 350px;
+  /* background-color: orange; */
 }
+
+::ng-deep .carrusel{
+  width: 80%;
+  margin: 0 auto;
+}
+
 
 @media (max-width: 768px) {
   .layout{

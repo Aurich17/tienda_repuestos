@@ -53,24 +53,24 @@
 </p-panel>
 <div style="height: 20px;"></div>
 <p-carousel
-[value]="celulares"
-[numVisible]="imageVisible"
-[numScroll]="1"
-[circular]="true"
-[autoplayInterval]="3000"
-styleClass="carrusel"
-[showIndicators]="false">
-  <ng-template pTemplate="item" let-item>
-    <div class="border-1 surface-border border-round m-2 text-center py-5 px-3" class="image_carrusel">
-      <div class="mb-3" style="width: 150px; height: 200px; margin: 0 auto;">
-        <img [src]="'data:image/jpeg;base64,' + item.imagen" [alt]="item.marca + ' ' + item.modelo" style="width: 150px; height: 200px;" />
+  [value]="carrusel_celulares_detaller"
+  [numVisible]="imageVisible"
+  [numScroll]="1"
+  [circular]="true"
+  [autoplayInterval]="3000"
+  styleClass="carrusel"
+  [showIndicators]="false">
+    <ng-template pTemplate="item" let-item>
+      <div class="border-1 surface-border border-round m-2 text-center py-5 px-3" class="image_carrusel">
+        <div class="mb-3" style="width: 150px; height: 170px; margin: 0 auto;">
+          <img [src]="'data:image/jpeg;base64,' + item.imagen" [alt]="item.marca + ' ' + item.modelo" style="width: 150px; height: 180px;" />
+        </div>
+        <div style="display: flex; flex-direction: column; align-items: center;">
+          <h4 class="card_name mb-1" style="text-align: center;">{{ item.modelo }}</h4>
+          <h6 class="card_price mt-0 mb-3" style="text-align: center;">{{ item.precio_completo | currency }}</h6>
+          <p-button label="Detalles" styleClass="p-button-outlined" (onClick)="goToDetails(item.id_celular)"></p-button>
+        </div>
       </div>
-      <div style="display: flex; flex-direction: column; align-items: center;">
-        <h4 class="card_name mb-1" style="text-align: center;">{{ item.modelo }}</h4>
-        <h6 class="card_price mt-0 mb-3" style="text-align: center;">{{ item.precio_completo | currency }}</h6>
-        <p-button label="Detalles" styleClass="p-button-outlined" (onClick)="goToDetails(item.id_celular)"></p-button>
-      </div>
-    </div>
-  </ng-template>
+    </ng-template>
 </p-carousel>
 <div style="height: 20px;"></div>

@@ -83,29 +83,35 @@ export class ShoppingCartComponent {
         }
     );
 }
-  renderPayPalButton() {
-    paypal.Buttons({
-      style: {
-        layout: 'horizontal'
-      },
-      createOrder: (data: any, actions: any) => {
-        // Aquí llamas a tu API en FastAPI para crear el pago
-        return this.apiService.createPayment(this.totalPrecio, 'USD').toPromise().then((response: any) => {
-          // Buscar la URL de aprobación que devuelve tu API
-          const approvalUrl = response.links.find((link: any) => link.rel === 'approval_url')?.href;
+renderPayPalButton() {
+  paypal.Buttons({
+    style: {
+      layout: 'horizontal'
+    },
+    createOrder: (data: any, actions: any) => {
+      // Llama a tu API para crear la orden
+      return this.apiService.createPayment(this.totalPrecio, 'USD').toPromise().then((response: any) => {
+        return response.id; // Devuelve el ID de la orden generada por PayPal
+      }).catch((error: any) => {
+        console.error('Error creando el pago', error);
+        throw new Error('No se pudo crear el pago');
+      });
+    },
+    onApprove: (data: any, actions: any) => {
+      // Captura el pago cuando el usuario lo apruebe
+      return actions.order.capture().then((details: any) => {
+        alert(`Pago completado por ${details.payer.name.given_name}`);
+        console.log('Detalles del pago:', details);
+        // Aquí puedes enviar los detalles del pago a tu backend para procesarlos
+      });
+    },
+    onError: (err: any) => {
+      console.error('Error en el pago', err);
+      alert('Ocurrió un error al procesar el pago');
+    }
+  }).render('#paypal-button-container');
+}
 
-          if (approvalUrl) {
-            // Redirigir al usuario a la URL de PayPal
-            window.location.href = approvalUrl;
-          } else {
-            console.error('No se encontró la URL de aprobación');
-          }
-        }).catch((error: any) => {
-          console.error('Error creando el pago', error);
-        });
-      }
-    }).render('#paypal-button-container'); // Renderizar el botón de PayPal
-  }
 
   loadPayPalScript(clientId: string) {
     const script = document.createElement('script');

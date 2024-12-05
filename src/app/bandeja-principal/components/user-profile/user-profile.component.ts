@@ -27,28 +27,30 @@ export class UserProfileComponent {
   first_letter = this.name_user != null ? this.name_user[0].toUpperCase() : ''
 
   initializeForm(){
+    console.log(localStorage.getItem('doi_cod'))
     this.group = new FormGroup({
       nombre_completo : new FormControl (localStorage.getItem('nombre_completo'),null),
       email: new FormControl(localStorage.getItem('email'),null),
-      documentoTipo: new FormControl(null,null),
-      numDocumento: new FormControl(null,null)
+      documentoTipo: new FormControl(localStorage.getItem('doi_cod'),null),
+      numDocumento: new FormControl(localStorage.getItem('doi_number'),null)
     });
    }
 
   loadTipos(): void {
     const tipo_request:TipoListaRequest = <TipoListaRequest>{}
-    tipo_request.tabla_tab = 'NAC'
+    tipo_request.tabla_tab = 'DOI'
     tipo_request.desc_tipos = '%'
     this.apiService.getTipos(tipo_request).pipe(
       switchMap((data: Tipos[]) => {
-        this.nacionalidades = data;
+        this.documentos = data;
+        console.log(this.documentos)
         // Aquí haces la segunda llamada API
-        tipo_request.tabla_tab = 'DOI'
+        tipo_request.tabla_tab = 'NAC'
         return this.apiService.getTipos(tipo_request);
       })
     ).subscribe(
       (response) => {
-        this.documentos = response
+        this.nacionalidades = response
       }
     );
   }

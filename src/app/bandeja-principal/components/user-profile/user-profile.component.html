@@ -24,9 +24,10 @@
         </span>
         <p-dropdown
           [options]="documentos"
-          [(ngModel)]="selectedDocument"
           placeholder="Seleccione un Documento"
           optionLabel="des_tipo"
+          optionValue="cod_tipo"
+          [readonly]="soloLectura"
           formControlName="documentoTipo"
           [style]="{ 'width': '100%' }">
         </p-dropdown>

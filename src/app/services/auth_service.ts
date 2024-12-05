@@ -40,12 +40,14 @@ export class AuthService {
     return localStorage.getItem('user_role') === 'admin';
   }
 
-  setUserRole(role: string,name:string,id:number,n_completo:string,email:string) {
+  setUserRole(role: string,name:string,id:number,n_completo:string,email:string,doi_number:string,doi_cod:string) {
     localStorage.setItem('user_role', role); // Almacenar el rol
     localStorage.setItem('user_name', name);
     localStorage.setItem('user_id', id.toString());
     localStorage.setItem('nombre_completo', n_completo);
-    localStorage.setItem('email',email)
+    localStorage.setItem('email',email);
+    localStorage.setItem('doi_number', doi_number);
+    localStorage.setItem('doi_cod', doi_cod)
   }
 
   getUserRole(): string {
@@ -66,7 +68,7 @@ export class AuthService {
         (profile) => {
 
           let rol = profile.is_admin == true ? 'admin' : 'user';
-          this.setUserRole(rol,profile.username,profile.id,profile.nombre_completo,profile.email); // Define el rol según el perfil
+          this.setUserRole(rol,profile.username,profile.id,profile.nombre_completo,profile.email,profile.doi_number,profile.doi_cod); // Define el rol según el perfil
           this.loggedIn.next(true); // Actualizar el observable a logueado
         },
         (error) => {

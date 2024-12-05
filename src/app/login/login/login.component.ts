@@ -151,7 +151,7 @@ export class LoginComponent implements OnInit {
           this.apiService.getProfile().subscribe((profile) => {
             this.show('success', 'Logueo Exitoso');
             const rol = profile.is_admin ? 'admin' : 'user';
-            this.authService.setUserRole(rol, profile.username, profile.id, profile.nombre_completo, profile.email);
+            this.authService.setUserRole(rol, profile.username, profile.id, profile.nombre_completo, profile.email,profile.doi_number,profile.doi_cod);
 
             if (profile.is_admin) {
               this.router.navigate(['/admin']);
