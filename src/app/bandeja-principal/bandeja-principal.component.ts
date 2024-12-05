@@ -21,6 +21,8 @@ import { MessageService } from 'primeng/api';
   // encapsulation: ViewEncapsulation.None
 })
 export class BandejaPrincipalComponent {
+  searchTerm: string = ''; // Campo para almacenar el término de búsqueda
+  filteredCelularesPorMarca: { [key: string]: CelularResponse[] } = {};
   //CARRUSEL
   imageVisible:number = 4
   isLoggedIn: boolean = false;
@@ -45,13 +47,12 @@ export class BandejaPrincipalComponent {
     this.messageService.add({ severity: type, detail: message});
   }
 
-  ngOnInit(){
-    this.muestraPhone()
+  ngOnInit() {
+    this.muestraPhone();
     this.onResize();
-    // this.isLoggedIn = !!localStorage.getItem('access_token');
-    this.authService.checkLoginStatus()
-    if(localStorage.getItem('access_token') != null){
-      this.isLoggedIn = true
+    this.authService.checkLoginStatus();
+    if (localStorage.getItem('access_token') != null) {
+      this.isLoggedIn = true;
     }
   }
   // OPEN MODAL
@@ -81,80 +82,6 @@ export class BandejaPrincipalComponent {
       height: '500px',        // Clase personalizada para el fondo
     });
   }
-
-  list = [
-    {
-      nombre: "Motorola",
-      precio: "S/540",
-      imagen: "https://claroperupoc.vtexassets.com/arquivos/ids/1736549/moto-g24-1.png?v=638446704396930000",
-      favorite: false
-    },
-    {
-      nombre: "Samsung",
-      precio: "S/600",
-      imagen: "https://images.samsung.com/is/image/samsung/p6pim/pe/sm-s921blbmltp/gallery/pe-galaxy-s24-488992-sm-s921blbmltp-thumb-542940252", // Aquí deberías poner el enlace real de la imagen del Samsung
-      favorite: false
-    },
-    {
-      nombre: "iPhone",
-      precio: "S/1200",
-      imagen: "https://laptronic.pe/catalogo/wp-content/uploads/iPhone-13-128GB.png" // Aquí deberías poner el enlace real de la imagen del iPhone
-    ,favorite: false
-    },
-    {
-      nombre: "Motorola",
-      precio: "S/540",
-      imagen: "https://claroperupoc.vtexassets.com/arquivos/ids/1736549/moto-g24-1.png?v=638446704396930000"
-    ,favorite: false},
-    {
-      nombre: "Samsung",
-      precio: "S/600",
-      imagen: "https://images.samsung.com/is/image/samsung/p6pim/pe/sm-s921blbmltp/gallery/pe-galaxy-s24-488992-sm-s921blbmltp-thumb-542940252" // Aquí deberías poner el enlace real de la imagen del Samsung
-    ,favorite: false
-    },
-    {
-      nombre: "iPhone",
-      precio: "S/1200",
-      imagen: "https://laptronic.pe/catalogo/wp-content/uploads/iPhone-13-128GB.png" // Aquí deberías poner el enlace real de la imagen del iPhone
-    ,favorite: false
-    },
-    {
-      nombre: "Motorola",
-      precio: "S/540",
-      imagen: "https://claroperupoc.vtexassets.com/arquivos/ids/1736549/moto-g24-1.png?v=638446704396930000"
-    ,favorite: false
-    },
-    {
-      nombre: "Samsung",
-      precio: "S/600",
-      imagen: "https://images.samsung.com/is/image/samsung/p6pim/pe/sm-s921blbmltp/gallery/pe-galaxy-s24-488992-sm-s921blbmltp-thumb-542940252" // Aquí deberías poner el enlace real de la imagen del Samsung
-    ,favorite: false
-    },
-    {
-      nombre: "iPhone",
-      precio: "S/1200",
-      imagen: "https://laptronic.pe/catalogo/wp-content/uploads/iPhone-13-128GB.png",
-      favorite: false
-    },
-    {
-      nombre: "Samsung",
-      precio: "S/600",
-      imagen: "https://images.samsung.com/is/image/samsung/p6pim/pe/sm-s921blbmltp/gallery/pe-galaxy-s24-488992-sm-s921blbmltp-thumb-542940252",
-      favorite: false
-    },
-    {
-      nombre: "Motorola",
-      precio: "S/540",
-      imagen: "https://claroperupoc.vtexassets.com/arquivos/ids/1736549/moto-g24-1.png?v=638446704396930000"
-    ,favorite: false
-    },
-    {
-      nombre: "iPhone",
-      precio: "S/1200",
-      imagen: "https://laptronic.pe/catalogo/wp-content/uploads/iPhone-13-128GB.png" // Aquí deberías poner el enlace real de la imagen del iPhone
-    ,favorite: false
-    }
-  ];
 
   toggleFavorite(item: any) {
     item.favorite = !item.favorite;
@@ -187,56 +114,58 @@ export class BandejaPrincipalComponent {
     // Puedes usar `this.screenWidth` para aplicar lógica condicional aquí
   }
 
+  filterCelulares() {
+    if (!this.searchTerm) {
+      // Si no hay término, muestra todos los celulares
+      this.filteredCelularesPorMarca = this.celularesPorMarca;
+      return;
+    }
+
+    const searchLower = this.searchTerm.toLowerCase();
+    const filtered = Object.entries(this.celularesPorMarca).reduce((acc, [marca, celulares]) => {
+      const filteredCelulares = celulares.filter(celular =>
+        celular.modelo.toLowerCase().includes(searchLower) ||
+        celular.marca.toLowerCase().includes(searchLower)
+      );
+
+      if (filteredCelulares.length > 0) {
+        acc[marca] = filteredCelulares;
+      }
+      return acc;
+    }, {} as { [key: string]: CelularResponse[] });
+
+    this.filteredCelularesPorMarca = filtered;
+  }
   muestraPhone() {
     const user_request: PhoneListaRequest = <PhoneListaRequest>{};
     user_request.name_phone = '%';
 
-    // Obtén la lista de celulares
     this.apiService.getCelulares(user_request).subscribe(
       (data: CelularResponse[]) => {
         this.celulares = data;
-
-        // Obtén la lista de deseos del usuario
-        const reques_wishList:listaWishListRequest = <listaWishListRequest>{}
-        reques_wishList.p_id_usuario = localStorage.getItem('user_id') !== null? Number(localStorage.getItem('user_id')) : undefined;
-        this.apiService.listaWishList(reques_wishList).subscribe(
-          (listaDeseos: { id_celular: number; en_lista_deseos: number }[]) => {
-            // Mapea la lista de deseos a un Set para acceso rápido
-            const deseosSet = new Set(
-              listaDeseos
-                .filter(d => d.en_lista_deseos === 1) // Solo los deseados
-                .map(d => d.id_celular)
-            );
-
-            // Marca los celulares que están en la lista de deseos
-            this.celulares.forEach(celular => {
-              celular.isInWishlist = deseosSet.has(celular.id_celular); // `true` si está en la lista
-            });
-
-            // Agrupa celulares por marca
-            const celularesPorMarca = new Map<string, CelularResponse[]>();
-            this.celulares.forEach(celular => {
-              const marca = celular.marca;
-              if (!celularesPorMarca.has(marca)) {
-                celularesPorMarca.set(marca, []);
-              }
-              celularesPorMarca.get(marca)?.push(celular);
-            });
-
-            this.celularesPorMarca = Array.from(celularesPorMarca.entries()).reduce<{ [key: string]: CelularResponse[] }>((acc, [marca, celulares]) => {
-              acc[marca] = celulares;
-              return acc;
-            }, {});
-          },
-          error => {
-            console.error('Error al obtener lista de deseos', error);
-          }
-        );
+        this.organizeCelularesByMarca();
+        this.filteredCelularesPorMarca = this.celularesPorMarca;
       },
       error => {
         console.error('Error al obtener celulares', error);
       }
     );
+  }
+
+  organizeCelularesByMarca() {
+    const celularesPorMarca = new Map<string, CelularResponse[]>();
+    this.celulares.forEach(celular => {
+      const marca = celular.marca;
+      if (!celularesPorMarca.has(marca)) {
+        celularesPorMarca.set(marca, []);
+      }
+      celularesPorMarca.get(marca)?.push(celular);
+    });
+
+    this.celularesPorMarca = Array.from(celularesPorMarca.entries()).reduce<{ [key: string]: CelularResponse[] }>((acc, [marca, celulares]) => {
+      acc[marca] = celulares;
+      return acc;
+    }, {});
   }
 
   logout(): void {

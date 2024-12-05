@@ -65,7 +65,7 @@ export class ShoppingCartComponent {
   }
 
   async onPay() {
-    this.apiService.createPayment(this.totalPrecio, 'USD').subscribe(
+    this.apiService.createPayment(this.totalPrecio, 'PEN').subscribe(
         (response: PayPalResponse) => {
             const approvalUrl = response.links.find(link => link.rel === 'approval_url')?.href;
 
@@ -82,7 +82,7 @@ export class ShoppingCartComponent {
             console.error('Error creando el pago', error);
         }
     );
-}
+  }
 renderPayPalButton() {
   paypal.Buttons({
     style: {
@@ -90,8 +90,12 @@ renderPayPalButton() {
     },
     createOrder: (data: any, actions: any) => {
       // Llama a tu API para crear la orden
-      return this.apiService.createPayment(this.totalPrecio, 'USD').toPromise().then((response: any) => {
-        return response.id; // Devuelve el ID de la orden generada por PayPal
+      return this.apiService.createPayment(this.totalPrecio, 'PEN').toPromise().then((response: any) => {
+        if (response && response.id) {
+          return response.id; // Asegúrate de que la respuesta contiene un id válido
+        } else {
+          throw new Error('No se recibió un ID de orden válido');
+        }
       }).catch((error: any) => {
         console.error('Error creando el pago', error);
         throw new Error('No se pudo crear el pago');

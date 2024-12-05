@@ -9,7 +9,7 @@
         <div class="cart-item-details">
           <h4>{{item.modelo}} - {{item.nombre_parte}}</h4> <!-- Mostrar modelo y parte -->
           <p>{{item.marca}}</p>
-          <p>Price: {{item.precio | currency}}</p> <!-- Mostrar precio de la parte -->
+          <p>Price: S/.{{item.precio}}</p> <!-- Mostrar precio de la parte -->
         </div>
 
         <div class="cart-item-quantity">
@@ -26,7 +26,7 @@
   <div *ngIf="cartItems.length >=0" class="cart-summary">
     <div class="summary-row">
       <h3>Total:</h3>
-      <p>{{getCartTotal() | currency}}</p>
+      <p>S/.{{getCartTotal()}}</p>
     </div>
     <div class="cart-buttons">
       <button class="continue-shopping-btn" [routerLink]="['']">Continue Shopping</button>

@@ -11,7 +11,7 @@
     </p-button>
     <p-button [style]="{ 'background-color': 'transparent', border: 'none' }" *ngIf="isLoggedIn" [routerLink]="['/wish-list']"><i class="pi pi-gift text-3xl" [style]="{'font-size': '24px' }"></i></p-button>
     <p-button [style]="{ 'background-color': 'transparent', border: 'none' }" *ngIf="isLoggedIn" [routerLink]="['/user-profile']"><i class="pi pi-user text-3xl" [style]="{'font-size': '24px' }"></i></p-button>
-    <p-button [style]="{ 'background-color': 'transparent', border: 'none' }" *ngIf="isLoggedIn" [routerLink]="['/history']"><i class="pi pi-history text-3xl" [style]="{'font-size': '24px' }"></i></p-button>
+    <!-- <p-button [style]="{ 'background-color': 'transparent', border: 'none' }" *ngIf="isLoggedIn" [routerLink]="['/history']"><i class="pi pi-history text-3xl" [style]="{'font-size': '24px' }"></i></p-button> -->
     <p-button [style]="{ 'background-color': 'transparent', border: 'none' }" *ngIf="isLoggedIn" (click)="openCartShopping()">
        <i class="pi pi-shopping-cart text-3xl" pBadge value={{cartService.getCartItemCount()}} *ngIf="isLoggedIn" [style]="{'font-size': '24px' }"></i>
     </p-button>

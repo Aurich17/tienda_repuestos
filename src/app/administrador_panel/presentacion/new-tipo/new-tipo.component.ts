@@ -41,6 +41,7 @@ export class NewTipoComponent {
     const incrementIndex = (index: string): string => {
       const numericIndex = parseInt(index, 10); // Elimina los ceros iniciales
       const incrementedIndex = numericIndex + 1;
+      this.data.index = incrementedIndex.toString().padStart(index.length, '0');
       return incrementedIndex.toString().padStart(index.length, '0');
     };
     request.accion = this.data.id != null ? 'U' : 'I'

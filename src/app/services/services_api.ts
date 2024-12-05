@@ -74,7 +74,7 @@ export class ApiService {
 
   createPayment(total: number, currency: string): Observable<PayPalResponse> {
     // Suponiendo que haces una solicitud POST a tu API
-    return this.http.post<PayPalResponse>(`${this.apiUrl}/api/create-payment`, { total, currency });
+    return this.http.post<PayPalResponse>(`${this.apiUrl}/api/paypal/create-order`, { total, currency });
   }
 
   executePayment(request:paypalRequest): Observable<any> {
