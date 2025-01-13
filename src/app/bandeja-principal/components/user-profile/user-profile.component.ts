@@ -27,7 +27,6 @@ export class UserProfileComponent {
   first_letter = this.name_user != null ? this.name_user[0].toUpperCase() : ''
 
   initializeForm(){
-    console.log(localStorage.getItem('doi_cod'))
     this.group = new FormGroup({
       nombre_completo : new FormControl (localStorage.getItem('nombre_completo'),null),
       email: new FormControl(localStorage.getItem('email'),null),
@@ -43,8 +42,6 @@ export class UserProfileComponent {
     this.apiService.getTipos(tipo_request).pipe(
       switchMap((data: Tipos[]) => {
         this.documentos = data;
-        console.log(this.documentos)
-        // Aquí haces la segunda llamada API
         tipo_request.tabla_tab = 'NAC'
         return this.apiService.getTipos(tipo_request);
       })

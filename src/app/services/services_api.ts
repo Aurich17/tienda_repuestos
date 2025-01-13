@@ -3,13 +3,24 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { BehaviorSubject, catchError, Observable, of, shareReplay, tap, throwError } from 'rxjs';
 import { LoginRequest, RegisterRequest } from '../login/domain/request/login_request';
 import {CelularResponse,Tipos, UserResponse, WishListResponse } from '../administrador_panel/domain/response/administrador_response';
-import { GestionaCelularRequest, InsertaCelularRequest, InsertTiposRequest, insertWishListRequest, listaWishListRequest, paypalRequest, PhoneListaRequest, TipoListaRequest, UserListaRequest, UserRequest } from '../administrador_panel/domain/request/administrador_request';
+import {
+  GestionaCelularRequest,
+  InsertaCelularRequest,
+  InsertTiposRequest,
+  insertWishListRequest,
+  listaWishListRequest,
+  paypalRequest,
+  PhoneListaRequest,
+  TipoListaRequest,
+  UserListaRequest,
+  UserRequest } from '../administrador_panel/domain/request/administrador_request';
 import { PayPalResponse } from '../bandeja-principal/components/shopping-cart/response/response_shopping';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ApiService {
+  private apiUrlMoney = 'https://economia.awesomeapi.com.br/json/last/USD-PEN';
   private apiUrl = 'http://localhost:8000';
   // private apiUrl = 'https://davfix.com'
 
@@ -73,7 +84,6 @@ export class ApiService {
 
 
   createPayment(total: number, currency: string): Observable<PayPalResponse> {
-    // Suponiendo que haces una solicitud POST a tu API
     return this.http.post<PayPalResponse>(`${this.apiUrl}/api/paypal/create-order`, { total, currency });
   }
 
@@ -115,5 +125,10 @@ export class ApiService {
 
   userRegister(request:RegisterRequest):Observable<any>{
     return this.http.post<any>(`${this.apiUrl}/api/usuario/newUser`, request);
+  }
+
+  //PARA OBTENER EL CAMBIO DE SOLES A DOLARES
+  getExchangeRate(): Observable<any> {
+    return this.http.get(this.apiUrlMoney);
   }
 }

@@ -67,12 +67,10 @@ export class BandejaPrincipalComponent {
   openShoppingCart() {
     if (this.isLoggedIn) {
       this.dialog.open(ShoppingCartComponent, {
-        width: '60vw',  // ancho
-        height: '90vh',  // altura
+        width: '60vw',  
+        height: '90vh',  
         disableClose: true
-      });// Lógica para abrir el carrito de compras
-    } else {
-      alert('Por favor, inicie sesión para acceder al carrito');
+      });
     }
   }
 

@@ -29,8 +29,8 @@ export class LoginComponent implements OnInit {
     group_login!:FormGroup
     documentos: Tipos[] = []
     nacionalidades: Tipos[] = [];
-    token:string = '6LfHMYsqAAAAAIAq9tyPIBjWUC6ldQrq4cc0GCHN' //LOCAL
-    // token:string = '6LcAQYsqAAAAAEIRBAV1KFJV0xFvfTrycJcjNPfx' //PRODUCCION
+    // token:string = '6LfHMYsqAAAAAIAq9tyPIBjWUC6ldQrq4cc0GCHN' //LOCAL
+    token:string = '6LcAQYsqAAAAAEIRBAV1KFJV0xFvfTrycJcjNPfx' //PRODUCCION
     constructor(public dialog: MatDialog,private apiService: ApiService,private snackBar: MatSnackBar,
       private router: Router,public dialogRef: MatDialogRef<LoginComponent>,private authService: AuthService,
       private messageService: MessageService,private ngZone: NgZone) {}
